@@ -1,0 +1,5 @@
+ps.1.1
+
+texcoord t0
+mov r0,	t0
+mov r0.a, r0.b

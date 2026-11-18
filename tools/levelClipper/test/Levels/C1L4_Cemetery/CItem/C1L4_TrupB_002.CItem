@@ -1,0 +1,4 @@
+o.Pos = Vector:New(35.1882,-17.6273,18.811)
+o.BaseObj = "C1L4_TrupB.CItem"
+o.Health = -80
+o.Rot = Quaternion:New(0.0315621,0,-0.999502,0)

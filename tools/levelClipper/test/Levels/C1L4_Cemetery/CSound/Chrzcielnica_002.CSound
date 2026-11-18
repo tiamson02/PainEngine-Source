@@ -1,0 +1,5 @@
+o.Volume = 100
+o.IsObstructed = true
+o.BaseObj = "Chrzcielnica.CSound"
+o.Sound = "c5l3_monastery/chrzcielnica_01;c5l3_monastery/chrzcielnica_02;c5l3_monastery/chrzcielnica_03"
+o.Pos = Vector:New(27.7571,-21.8904,13.0543)

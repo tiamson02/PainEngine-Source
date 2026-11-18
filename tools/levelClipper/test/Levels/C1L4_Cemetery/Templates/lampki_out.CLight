@@ -1,0 +1,6 @@
+o.Range = 6
+o.Intensity = 0.65
+o.StartFalloff = 3.6
+o.BaseObj = "Point_Yellow.CLight"
+o.Color = Color:New(174,147,81,0)
+o.Pos = Vector:New(-75.9359,-21.1459,-16.8974)

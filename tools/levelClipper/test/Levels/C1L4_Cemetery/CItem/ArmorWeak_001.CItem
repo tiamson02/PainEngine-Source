@@ -1,0 +1,2 @@
+o.Pos = Vector:New(-75.005,-19.6387,-54.2328)
+o.BaseObj = "ArmorWeak.CItem"

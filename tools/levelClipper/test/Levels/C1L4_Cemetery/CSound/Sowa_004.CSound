@@ -1,0 +1,4 @@
+o.Falloff.Start = 10
+o.Falloff.End = 60
+o.BaseObj = "Sowa.CSound"
+o.Pos = Vector:New(-39.9496,-23.6252,64.7169)

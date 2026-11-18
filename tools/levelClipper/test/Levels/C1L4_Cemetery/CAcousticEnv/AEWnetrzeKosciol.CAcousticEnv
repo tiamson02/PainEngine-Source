@@ -1,0 +1,6 @@
+o.Room.Type = 5
+o.Room.Intensity = 0.6
+o.Size.Height = 17.9851
+o.Size.Depth = 23.6129
+o.Size.Width = 28.7834
+o.Pos = Vector:New(33.1011,-17.623,18.4092)

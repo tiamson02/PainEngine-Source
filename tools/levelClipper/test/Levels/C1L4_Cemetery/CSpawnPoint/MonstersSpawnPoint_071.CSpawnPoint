@@ -1,0 +1,7 @@
+o.GroupDelay = 1
+o.SpawnFX = ""
+o.SpawnTemplate = "Zombie_WalkOnlyDontBehead.CActor"
+o.BaseObj = "MonstersSpawnPoint.CSpawnPoint"
+o.GroupCount = 1
+o.EachDelay = 0.5
+o.Pos = Vector:New(-14.991,-23.3566,3.33789)

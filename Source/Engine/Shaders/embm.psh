@@ -1,0 +1,8 @@
+ps.1.1
+
+tex t0
+texbem   t1, t0
+tex t2
+
+mov_x4 r0, t1
+add r0, r0, t2

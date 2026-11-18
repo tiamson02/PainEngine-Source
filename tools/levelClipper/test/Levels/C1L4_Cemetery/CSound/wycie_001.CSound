@@ -1,0 +1,5 @@
+o.Volume = 60
+o.Falloff.Start = 3
+o.Falloff.End = 30
+o.BaseObj = "wycie.CSound"
+o.Pos = Vector:New(-44.5516,-24.2473,-68.1581)

@@ -1,0 +1,7 @@
+o.Volume = 100
+o.Falloff.Start = 5
+o.Falloff.End = 40
+o.BaseObj = "ryk_01.CSound"
+o.Sound = "c1l4_cemetery/ryk_01;c1l4_cemetery/ryk_02"
+o.RandomShift = 3
+o.Pos = Vector:New(-74.9674,-28.2062,-35.3196)

@@ -1,0 +1,36 @@
+<!-- This page was created with the RAD auto-doc generator. -->
+<!doctype html public "-//w3c//dtd html 3.2 final//en">
+<html>
+<head>
+<title>ニンテンドー ゲームキューブでの Bink のサンプル</title>
+<meta http-equiv="content-type" content="text/html; charset=shift_jis">
+<meta name="ms.locale" content="en-us">
+<meta name="description" content="">
+<meta name="ms-hkwd" content="ニンテンドー ゲームキューブでの Bink のサンプル">
+<link rel="stylesheet" title="default" href="reference.css" type="text/css" media="screen">
+</head>
+<body topmargin="0">
+<table cellspacing=0 cellpadding=0 class=bar width=100% height=25>
+<tr class=bar>
+<td class=bar>
+<i>&nbsp;<a href="index.html" class=trn>Bink SDK 1.8b</a></i>
+</td>
+</tr>
+</table>
+<h1>ニンテンドー ゲームキューブでの Bink のサンプル</h1>
+<h4>説明</h4>
+<p>Bink SDK には、ニンテンドー ゲームキューブ用のプログラムのサンプルがいくつか用意されています。SN システムや CodeWarrior でこれらのサンプルを作成するには、新規プロジェクトを作成して適切な C のソース ファイル (ExamNbb.C、ExamNTex.C または ExamNAlf.C) をインクルードし、次にニンテンドー ゲームキューブ版 Bink のスタティック ライブラリをプロジェクト (BinkNGC.a) に追加するだけです。<br> </p><p>練習用のサンプル ファイルは次のとおりです。<br> </p><p>Bink を使用して直接ゲームキューブの YUV バック バッファにビデオを表示するサンプルについては、ファイル <b>ExamNbb.C</b> を参照してください。このサンプルは、ビデオのレンダリングに GPU を使わないためきわめてシンプルです。バック バッファに直接ブラストするだけです。また、YUV フォーマットから変換する必要もないため、処理速度も格段に向上します。<br> </p><p>Bink を使用してテクスチャに解凍してからテクスチャを画面上にレンダリングするサンプルについては、ファイル <b>ExamNTex.C</b> を参照してください。このサンプルでは 3D ラッパーを使用するので、必ずファイル <b>NGCRAD3D.C</b> もプロジェクトに追加してください。Bink では、YVR フォーマットからゲームキューブのスウィズルされたフォーマットに <a href="BinkCopyToBuffer.html">BinkCopyToBuffer</a> 関数で直接変換します。そのため、テクスチャを即座にレンダリングできます。</p><p>Bink でアルファ画像を使用してテクスチャを画面にレンダリングするサンプル プログラムについては、ファイル <b>ExamNAlf.C</b> を参照してください。このサンプルでは 3D ラッパーも使用するので、必ずファイル <b>NGCRAD3D.C</b> もプロジェクトに追加してください。テスト用の小さいサイズのアルファ ムービーを当社の FTP サイト &lt;ftp://ftp.radgametools.com/bink&gt; からダウンロードできます。</p><p>これらのサンプルでは、ゲームキューブを設定するために必ず 1 つの簡単なファイルを使用します。サンプルのプロジェクトには、NGCDemo.c も加えてください。</p>
+<p><a href="Handling%20the%20Reset%20Bkw9663.html">前のトピック (ニンテンドーでのりセット ボタンの取り扱い)</a>  </p><p>
+<br>
+<b>グループ:</b> <a href="The%20Nintendo%20GameCubm0rzpb.html">ニンテンドー ゲームキューブ プラットフォーム</a><br>
+<b>関連項目:</b> <a href="Alpha%20Planes.html">アルファ平面</a><br>
+<b>関連する関数:</b> <a href="BinkCopyToBuffer.html">BinkCopyToBuffer</a></p>
+<p align=center>
+<a href="mailto:Bink3@radgametools.com">テクニカル サポート: Bink3@radgametools.com</a>
+<br>
+<a href="http://www.radgametools.com/bnkmain.htm?from=help1.6d">&#169; Copyright 1994-2004 RAD Game Tools, Inc. All Rights Reserved.</a>
+</p>
+<br>
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[querytest.dsp]
+SCC_Aux_Path = "\\213.241.19.251\Vss\"
+SCC_Project_Name = "$/Game/Source/Engine/Net/GameSpy/serverbrowsing/querytest", HBBBAAAA

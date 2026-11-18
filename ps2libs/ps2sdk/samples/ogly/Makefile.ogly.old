@@ -1,0 +1,86 @@
+
+
+all: ogly
+
+OGLY_SRC:=	\
+	main.cpp
+
+# if env_defined (PS2LINUXDEV)
+
+#CFLAGS    =  -g -fno-PIC -DPS2_LINUX 
+#OGLY_SRC += ps2linux/pad.cpp
+#INCLUDES  = -I/usr/local/ps2/mipsEEel-linux/sys-include/GL -I/usr/local/ps2/mipsEEel-linux/sys-include/ \
+#		-Ips2linux
+#LIBINCLUDES = /usr/local/ps2/mipsEEel-linux/lib
+
+#else
+
+CFLAGS    =  -g -fno-PIC
+OGLY_SRC += ps2devkit/pads.cpp
+INCLUDES  = 	\
+		-I${LIB_ROOT}/ps2gl-pro/include \
+		-I${LIB_ROOT}/ps2stuff-pro/include \
+		-I/usr/local/sce/ee/include -Ips2devkit
+
+#		-I${LIB_ROOT}/ps2gl-pro/include/ps2gl \
+#		-I${LIB_ROOT}/ps2gl-pro/include/GL \
+
+LIBINCLUDES = -L/usr/local/sce/ee/lib -L${LIB_ROOT}/devkitlibs
+
+LIBS            = -lgraph
+LIBS            += -ldma
+LIBS            += -ldev
+LIBS            += -lpkt
+LIBS            += -lvu0
+LIBS            += -lpad
+LIBS            += -lcdvd
+LIBS            += -lipu
+LIBS            += -lkernl
+LIBS            += -llout
+LIBS            += -lmc
+LIBS            += -lmpeg
+LIBS            += -lmsin
+LIBS            += -lmtap
+LIBS            += -lpc
+LIBS            += -lsdr
+LIBS            += -lssyn
+
+
+
+LIBRARIES   =  -lps2gl -lps2stuff -lps2vecmat ${LIBS}
+
+LDFLAGS     = -lstdc++ -lm -mno-crt0
+#end
+
+CC        = ee-gcc
+LINK      = ee-gcc
+OGLY_OBJ  = $(patsubst %.cpp,%.o,$(filter %.cpp,$(OGLY_SRC)))
+
+$(OGLY_OBJ:.o=.d): %.d : %.cpp
+	$(CC) -MM $(CFLAGS) ${INCLUDES} $*.cpp | sed -e 's|.*:| $*.d $*.o:|' > $*.d
+
+${OGLY_OBJ}: %.o : %.cpp
+	$(CC) ${CFLAGS} ${INCLUDES} -c $< -o $@ 
+
+SCEDIR          = /usr/local/sce
+vpath %.s       .:$(subst $(space),$(colon),$(SRCDIRS)):$(subst $(space),$(colon),$(SCEDIR)/ee/lib)
+
+%.o : %.s
+	ee-gcc -c -xassembler-with-cpp -Wa,-al $(INCFLAGS) -o $@ $<
+
+#ogly: $(OGLY_OBJ) ${LIB_ROOT}/devkitlibs/libps2gl.a ${LIB_ROOT}/devkitlibs/libps2stuff.a ${LIB_ROOT}/devkitlibs/libps2vecmat.a
+#	$(LINK) $(OGLY_OBJ) ${INCLUDES} ${LIBINCLUDES} -Wl,--no-warn-mismatch -Wl,-static -Wl,-dy -lps2gl -lps2dev -lps2stuff -lps2vecmat -lstdc++ -o ogly
+
+ogly: crt0.o $(OGLY_OBJ) ${LIB_ROOT}/devkitlibs/libps2gl.a ${LIB_ROOT}/devkitlibs/libps2stuff.a ${LIB_ROOT}/devkitlibs/libps2vecmat.a
+	$(LINK) -o ogly.elf -T app.cmd crt0.o  $(OGLY_OBJ) ${LIBINCLUDES} ${LIBRARIES} ${LDFLAGS}
+
+
+-include $(OGLY_OBJ:.o=.d)
+
+
+
+
+
+
+
+

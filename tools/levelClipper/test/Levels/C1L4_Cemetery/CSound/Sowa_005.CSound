@@ -1,0 +1,7 @@
+o.Volume = 40
+o.Falloff.Start = 15
+o.Falloff.End = 80
+o.Interval = 6
+o.BaseObj = "Sowa.CSound"
+o.RandomShift = 2
+o.Pos = Vector:New(-54.0051,-18.8574,0.0997342)

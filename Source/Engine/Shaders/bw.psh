@@ -1,0 +1,9 @@
+ps.1.1
+
+tex t0	; tex0			
+
+mul r0.rgb, t0,v0
++ mov r0.a, t0.a
+add r0.rgb, r0,v1
+dp3 r0.rgb, r0,c0
+

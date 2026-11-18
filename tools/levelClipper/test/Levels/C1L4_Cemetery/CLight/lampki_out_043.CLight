@@ -1,0 +1,4 @@
+o.Intensity = 0.3
+o.Pos = Vector:New(15.3859,-8.18609,18.5534)
+o.BaseObj = "lampki_out.CLight"
+o.Direction = Vector:New(-6.84857e-005,-0.999959,-0.00906867)

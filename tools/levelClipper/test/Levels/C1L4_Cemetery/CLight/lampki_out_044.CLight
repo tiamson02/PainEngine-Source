@@ -1,0 +1,5 @@
+o.Range = 5.5
+o.Intensity = 1
+o.StartFalloff = 3.5
+o.Pos = Vector:New(20.2057,-16.2509,18.954)
+o.BaseObj = "lampki_out.CLight"

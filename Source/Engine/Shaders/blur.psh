@@ -1,0 +1,17 @@
+ps.1.1
+
+tex t0	; tex0			
+tex t1	; tex1
+tex t2	; tex2
+tex t3	; tex3
+
+;mul r0, t0, c2
+;mad r0, t1, c1, r0
+;mad r0, t2, c2, r0
+;mad r0, t3, c3, r0
+
+mul r0.rgb, t2, c2
++ mul r0.a, t0.b, c0
+mad r0.rgb, t3, c3, r0
++ mad r0.a, t1.b, c1, r0.a
+add r0, r0, r0.a

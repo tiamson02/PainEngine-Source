@@ -1,0 +1,6 @@
+o.Volume = 50
+o.Falloff.Start = 5
+o.Falloff.End = 20
+o.BaseObj = "ziemia.CSound"
+o.Sound = "c1l4_cemetery/ziemia_01;c1l4_cemetery/ziemia_02;c1l4_cemetery/ziemia_03"
+o.Pos = Vector:New(-65.2893,-23.1227,38.5229)

@@ -1,0 +1,4 @@
+o.Rot = Quaternion:New(0.999475,0.00200107,-0.0316983,0.0063751)
+o.ObjOwner = "PlayerTmp307823"
+o.BaseObj = "Katafalk.CItem"
+o.Pos = Vector:New(-0.464967,-23.6439,27.7017)

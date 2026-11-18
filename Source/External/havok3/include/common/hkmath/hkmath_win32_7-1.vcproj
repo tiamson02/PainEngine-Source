@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	ProjectGUID="{3F81A385-9A8B-4A74-9A0F-9351BAF23420}"
+	Name="hkmath"
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration	Name="Release Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="TRUE"
+			CharacterSet="2">
+			<Tool	Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"				
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool	Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool	Name="VCMIDLTool"/>
+			<Tool	Name="VCPostBuildEventTool"/>
+			<Tool	Name="VCPreBuildEventTool"/>
+			<Tool	Name="VCPreLinkEventTool"/>
+			<Tool	Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool	Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded_dll\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Hybrid Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\hybrid_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\hybrid_multithreaded_dll\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Release|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="4"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="4"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="5"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="1"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded_dll\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"				
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Release Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded_dll\hkmath"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkmath/hkMath.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkmath.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"				
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkmath.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkmath.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+
+	</Configurations>
+	<Files>
+			<Filter Name="basetypes" Filter="">
+	<File RelativePath=".\basetypes\hkAabb.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkAabb.h">
+</File>
+	<File RelativePath=".\basetypes\hkAabb.inl">
+</File>
+	<File RelativePath=".\basetypes\hkAabbClass.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkContactPoint.h">
+</File>
+	<File RelativePath=".\basetypes\hkContactPoint.inl">
+</File>
+	<File RelativePath=".\basetypes\hkContactPointClass.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkContactPointMaterial.h">
+</File>
+	<File RelativePath=".\basetypes\hkContactPointMaterial.inl">
+</File>
+	<File RelativePath=".\basetypes\hkContactPointMaterialClass.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkGeometry.h">
+</File>
+	<File RelativePath=".\basetypes\hkMotionState.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkMotionState.h">
+</File>
+	<File RelativePath=".\basetypes\hkMotionState.inl">
+</File>
+	<File RelativePath=".\basetypes\hkMotionStateClass.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkSphere.h">
+</File>
+	<File RelativePath=".\basetypes\hkSphere.inl">
+</File>
+	<File RelativePath=".\basetypes\hkSphereClass.cpp">
+</File>
+	<File RelativePath=".\basetypes\hkStepInfo.h">
+</File>
+	<File RelativePath=".\basetypes\hkStridedVertices.h">
+</File>
+	</Filter>
+	<Filter Name="classes" Filter="">
+	<File RelativePath=".\classes\hkMathClasses.h">
+</File>
+	</Filter>
+	<File RelativePath=".\hkMath.cpp">
+	<FileConfiguration Name="debug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="hybrid multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+</File>
+	<File RelativePath=".\hkMath.h">
+</File>
+	<Filter Name="impl" Filter="">
+	<File RelativePath=".\impl\hkFpuMathFuncs.inl">
+</File>
+	<File RelativePath=".\impl\hkFpuMathTypes.inl">
+</File>
+	<File RelativePath=".\impl\hkMathTypes.cpp">
+</File>
+	<File RelativePath=".\impl\hkSseMathTypes.inl">
+</File>
+	</Filter>
+	<Filter Name="linear" Filter="">
+	<File RelativePath=".\linear\hkMathStream.cpp">
+</File>
+	<File RelativePath=".\linear\hkMathStream.h">
+</File>
+	<File RelativePath=".\linear\hkMathUtil.cpp">
+</File>
+	<File RelativePath=".\linear\hkMathUtil.h">
+</File>
+	<File RelativePath=".\linear\hkMatrix3.cpp">
+</File>
+	<File RelativePath=".\linear\hkMatrix3.h">
+</File>
+	<File RelativePath=".\linear\hkMatrix3.inl">
+</File>
+	<File RelativePath=".\linear\hkMatrix4.cpp">
+</File>
+	<File RelativePath=".\linear\hkMatrix4.h">
+</File>
+	<File RelativePath=".\linear\hkMatrix4.inl">
+</File>
+	<File RelativePath=".\linear\hkMatrix6.cpp">
+</File>
+	<File RelativePath=".\linear\hkMatrix6.h">
+</File>
+	<File RelativePath=".\linear\hkQsTransform.cpp">
+</File>
+	<File RelativePath=".\linear\hkQsTransform.h">
+</File>
+	<File RelativePath=".\linear\hkQsTransform.inl">
+</File>
+	<File RelativePath=".\linear\hkQuaternion.cpp">
+</File>
+	<File RelativePath=".\linear\hkQuaternion.h">
+</File>
+	<File RelativePath=".\linear\hkQuaternion.inl">
+</File>
+	<File RelativePath=".\linear\hkRotation.cpp">
+</File>
+	<File RelativePath=".\linear\hkRotation.h">
+</File>
+	<File RelativePath=".\linear\hkSweptTransform.cpp">
+</File>
+	<File RelativePath=".\linear\hkSweptTransform.h">
+</File>
+	<File RelativePath=".\linear\hkSweptTransform.inl">
+</File>
+	<File RelativePath=".\linear\hkSweptTransformClass.cpp">
+</File>
+	<File RelativePath=".\linear\hkSweptTransformUtil.cpp">
+</File>
+	<File RelativePath=".\linear\hkSweptTransformUtil.h">
+</File>
+	<File RelativePath=".\linear\hkSweptTransformUtil.inl">
+</File>
+	<File RelativePath=".\linear\hkTransform.cpp">
+</File>
+	<File RelativePath=".\linear\hkTransform.h">
+</File>
+	<File RelativePath=".\linear\hkTransform.inl">
+</File>
+	<File RelativePath=".\linear\hkVector4.cpp">
+</File>
+	<File RelativePath=".\linear\hkVector4.h">
+</File>
+	<File RelativePath=".\linear\hkVector4.inl">
+</File>
+	<File RelativePath=".\linear\hkVector4Util.cpp">
+</File>
+	<File RelativePath=".\linear\hkVector4Util.h">
+</File>
+	<File RelativePath=".\linear\hkVector4Util.inl">
+</File>
+	<Filter Name="impl" Filter="">
+	<File RelativePath=".\linear\impl\hkFpuVector4.inl">
+</File>
+	<File RelativePath=".\linear\impl\hkSseVector4.inl">
+</File>
+	<File RelativePath=".\linear\impl\hkSseVector4Util.inl">
+</File>
+	</Filter>
+	</Filter>
+
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

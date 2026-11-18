@@ -1,0 +1,4 @@
+#Wed Oct 26 13:39:44 EDT 2005
+content-types/enabled=true
+content-types/org.eclipse.cdt.core.asmSource/file-extensions=dsm,vsm
+eclipse.preferences.version=1

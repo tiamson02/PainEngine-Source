@@ -1,0 +1,97 @@
+                                                .globl       _BgmRaw2Spu      
+                             _BgmRaw2Spu                                      
+0x00000000: e0ffbd27                            subu         sp, (8*4)        
+0x00000004: 0000b0af                            sw           s0, 0*4(sp)      
+0x00000008: 0400b1af                            sw           s1, 1*4(sp)      
+0x0000000c: 0800b2af                            sw           s2, 2*4(sp)      
+0x00000010: 0c00b3af                            sw           s3, 3*4(sp)      
+0x00000014: 1000b4af                            sw           s4, 4*4(sp)      
+0x00000018: 1400b5af                            sw           s5, 5*4(sp)      
+0x0000001c: 1800b6af                            sw           s6, 6*4(sp)      
+0x00000020: 1c00b7af                            sw           s7, 7*4(sp)      
+0x00000024: 25100000                            move         v0, zero         
+0x00000028: 25180000                            move         v1, zero         
+0x0000002c: 00010720                            addi         a3,zero, 256     
+                                                .set         noreorder        
+
+                             pcm_separate_loop                                
+0x00000030: 0000888c                            lw           t0, 0*4(a0)      
+0x00000034: 0400898c                            lw           t1, 1*4(a0)      
+
+0x00000038: ffff1031                            and          s0, t0, 0xffff   
+0x0000003c: 028c0800                            srl          s1, t0, 16       
+0x00000040: 00440900                            sll          t0, t1, 16       
+0x00000044: 25800802                            or           s0, t0           
+0x00000048: 024c0900                            srl          t1, t1, 16       
+0x0000004c: 004c0900                            sll          t1, t1, 16       
+0x00000050: 25882902                            or           s1, t1           
+
+0x00000054: 08008a8c                            lw           t2, 2*4(a0)      
+0x00000058: 0c008b8c                            lw           t3, 3*4(a0)      
+
+0x0000005c: 10008c8c                            lw           t4, 4*4(a0)      
+
+0x00000060: ffff5231                            and          s2, t2, 0xffff   
+0x00000064: 029c0a00                            srl          s3, t2, 16       
+0x00000068: 00540b00                            sll          t2, t3, 16       
+0x0000006c: 25904a02                            or           s2, t2           
+0x00000070: 025c0b00                            srl          t3, t3, 16       
+0x00000074: 005c0b00                            sll          t3, t3, 16       
+0x00000078: 25986b02                            or           s3, t3           
+
+0x0000007c: 14008d8c                            lw           t5, 5*4(a0)      
+0x00000080: 18008e8c                            lw           t6, 6*4(a0)      
+0x00000084: 1c008f8c                            lw           t7, 7*4(a0)      
+0x00000088: 20008420                            add          a0, 8*4          
+
+0x0000008c: ffff9431                            and          s4, t4, 0xffff   
+0x00000090: 02ac0c00                            srl          s5, t4, 16       
+0x00000094: 00640d00                            sll          t4, t5, 16       
+0x00000098: 25a08c02                            or           s4, t4           
+0x0000009c: 026c0d00                            srl          t5, t5, 16       
+0x000000a0: 006c0d00                            sll          t5, t5, 16       
+0x000000a4: 25a8ad02                            or           s5, t5           
+
+
+0x000000a8: 0000b0ac                            sw           s0, 0*4(a1)      
+0x000000ac: 0400b2ac                            sw           s2, 1*4(a1)      
+0x000000b0: 0002b1ac                            sw           s1, (0*4+512)(a1) 
+0x000000b4: 0402b3ac                            sw           s3, (1*4+512)(a1) 
+
+
+0x000000b8: ffffd631                            and          s6, t6, 0xffff   
+0x000000bc: 02bc0e00                            srl          s7, t6, 16       
+0x000000c0: 00740f00                            sll          t6, t7, 16       
+0x000000c4: 25b0ce02                            or           s6, t6           
+0x000000c8: 027c0f00                            srl          t7, t7, 16       
+0x000000cc: 007c0f00                            sll          t7, t7, 16       
+0x000000d0: 25b8ef02                            or           s7, t7           
+
+
+0x000000d4: 0800b4ac                            sw           s4, 2*4(a1)      
+0x000000d8: 0c00b6ac                            sw           s6, 3*4(a1)      
+0x000000dc: 0802b5ac                            sw           s5, (2*4+512)(a1) 
+0x000000e0: 0c02b7ac                            sw           s7, (3*4+512)(a1) 
+
+0x000000e4: 1000a520                            add          a1, 4*4          
+
+                                                .set         reorder          
+0x000000e8: 08004220                            add          v0, 8            
+0x000000ec: 2a084700cfff2014                    blt          v0, a3, pcm_separate_loop 
+            00000000        
+0x000000f8: 0002a520                            add          a1, 512          
+0x000000fc: 25100000                            move         v0, zero         
+0x00000100: 01006320                            add          v1, 1            
+0x00000104: 2a086600c9ff2014                    blt          v1, a2, pcm_separate_loop 
+            00000000        
+0x00000110: 0000b08f                            lw           s0, 0*4(sp)      
+0x00000114: 0400b18f                            lw           s1, 1*4(sp)      
+0x00000118: 0800b28f                            lw           s2, 2*4(sp)      
+0x0000011c: 0c00b38f                            lw           s3, 3*4(sp)      
+0x00000120: 1000b48f                            lw           s4, 4*4(sp)      
+0x00000124: 1400b58f                            lw           s5, 5*4(sp)      
+0x00000128: 1800b68f                            lw           s6, 6*4(sp)      
+0x0000012c: 1c00b78f                            lw           s7, 7*4(sp)      
+0x00000130: 2000bd27                            addu         sp, (8*4)        
+0x00000134: 0800e00300000000                    j            ra               
+                                                .end         _BgmRaw2Spu      

@@ -1,0 +1,5 @@
+o.StartPos = Vector:New(-29.017,-18.9908,19.406)
+o.IsAntiPortal = true
+o.Pos = Vector:New(-29.017,-18.9908,19.406)
+o.BaseObj = "Slab.CItem"
+o.Rot = Quaternion:New(0.701777,0,-0.712397,0)

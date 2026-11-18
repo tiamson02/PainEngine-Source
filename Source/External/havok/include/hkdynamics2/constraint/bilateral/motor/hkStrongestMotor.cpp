@@ -1,0 +1,46 @@
+/* 
+ * 
+ * Confidential Information of Telekinesys Research Limited (t/a Havok).  This software contains code, techniques and know-how
+ * which is confidential and proprietary to Havok.  Not for disclosure or distribution without prior written consent.
+ * Havok Game Dynamics SDK (C) Copyright 1999/2003 Telekinesys Research Limited. All Rights Reserved. Use of this software is subject to the terms of an end user license agreement.
+ * 
+ */
+
+#include <hkdynamics2/hkDynamics2.h>
+#include <hkdynamics2/constraint/bilateral/motor/hkStrongestMotor.h>
+
+
+hkStrongestMotor::hkStrongestMotor() :
+	m_targetPosition( 0 ), m_maxForce( 0 )
+
+{
+}
+
+
+	/// just let the solver try to achieve the velocity to achieve the desired set position in 
+	/// one simlulation frame
+void hkStrongestMotor::motor( const hkMotorControllerInput& input, hkMotorControllerOutput& output )
+{
+
+	const hkReal x0 = input.m_x - m_targetPosition;
+
+	output.m_velocityTargetOut = -x0*input.m_dtInv;
+	output.m_forceCapOut = m_maxForce;
+
+}
+
+
+/*
+* Havok Game Dynamics SDK - PUBLIC RELEASE, BUILD(#20030622)
+*
+* (C) Copyright 1999/2003 Telekinesys Research Limited. All Rights Reserved. The Telekinesys
+* Logo, Havok and the Havok buzzsaw logo are trademarks of Telekinesys
+* Research Limited.  Title, ownership
+* rights, and intellectual property rights in the Software remain in
+* Telekinesys Research Limited and/or its suppliers.
+*
+* Use of this software is subject to and indicates acceptance of the End User licence
+* Agreement for this product. A copy of the license is included with this software and
+* is also available from info@havok.com.
+*
+*/ 

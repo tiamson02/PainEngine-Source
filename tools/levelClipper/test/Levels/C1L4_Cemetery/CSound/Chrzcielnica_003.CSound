@@ -1,0 +1,5 @@
+o.Volume = 100
+o.IsObstructed = true
+o.Falloff.End = 30
+o.BaseObj = "Chrzcielnica.CSound"
+o.Pos = Vector:New(26.4374,-22.994,24.0346)

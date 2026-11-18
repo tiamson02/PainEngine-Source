@@ -1,0 +1,13 @@
+// CURRENTLY NOT USED
+ps.1.1
+
+// detecting black color using atest
+
+def c0, 1,1,1,0
+
+tex t0	; tex0			
+
+mul r0, t0, v0
+mul r0.rgb, r0, r0.a
+dp3 r1.rgba, r0, c0
+mov r0.a, r1.a

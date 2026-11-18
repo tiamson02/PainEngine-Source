@@ -1,0 +1,8 @@
+o.BaseObj = "PlayerLight.CLight"
+o.StartFalloff = 0 -- originally 4
+o.Range = 18 -- originally 12
+o.Intensity = 1
+o.Color = Color:New(250,250,200,0)
+o.Offset = Vector:New(0.3,1.6,0) -- position offset, originally (0,1.5,2.5) 
+o.ConeAngle = 30
+o.Projector = "special/flashlight"

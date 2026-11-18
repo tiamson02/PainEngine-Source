@@ -1,0 +1,375 @@
+; flowMon::Emit() vcl 1.28 produced this code:
+                .vu
+                .align 4
+                .global vsmSCEI_CodeStart
+                .global vsmSCEI_CodeEnd
+vsmSCEI_CodeStart:
+__vcl__MMobjs_optimized_scei2_vcl_3:
+; [0,16) size=16 nU=0 nL=16 ic=16 [lin=16 lp=0]
+              nop ilw.x VI01,(0)(VI00)
+              nop iaddiu VI02,VI00,((0) + 1)
+              nop ilw.x VI03,0(VI02)
+              nop move.xyz VF11,VF00
+              nop move.xyz VF10,VF00
+              nop move.xyz VF09,VF00
+              nop move.xyz VF08,VF00
+              nop move.xyz VF07,VF00
+              nop move.xyz VF06,VF00
+              nop lq.xyz VF05,(((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1)(VI00)
+              nop lq VF04,(((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1)+3(VI00)
+              nop lq VF03,(((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1)+2(VI00)
+              nop lq VF02,(((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1)+1(VI00)
+              nop lq VF01,(((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1)+0(VI00)
+              nop ibeq VI01,VI00,finish_init
+              nop lq.xyz VF12,((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1)(VI00)
+; [0,11) size=11 nU=6 nL=9 ic=15 [lin=9 lp=0]
+              nop lq.xyz VF09,0(VI03)
+              nop lq.xyz VF06,3(VI03)
+              nop lq.xyz VF14,(((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1)+0(VI00)
+              nop lq.xyz VF15,(((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1)+1(VI00)
+              mul.xyz VF17,VF12,VF09 lq.xyz VF09,1(VI03)
+              nop lq.xyz VF16,(((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1)+2(VI00)
+              mulax.xyz ACC,VF14,VF06x lq.xyz VF13,(((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1)(VI00)
+              madday.xyz ACC,VF15,VF06y isubiu VI04,VI01,1
+              add.xyz VF05,VF05,VF17 nop
+              maddz.xyz VF06,VF16,VF06z ibeq VI04,VI00,finish_init
+              mul.xyz VF09,VF09,VF13 nop
+; [0,15) size=15 nU=6 nL=7 ic=13 [lin=14 lp=0]
+              nop iaddiu VI01,VI02,1
+              nop ilw.x VI02,0(VI01)
+              nop nop
+              nop nop
+              nop nop
+              nop lq.xyz VF07,3(VI02)
+              nop lq.xyz VF17,0(VI02)
+              nop nop
+              nop nop
+              mulax.xyz ACC,VF14,VF07x lq.xyz VF10,1(VI02)
+              mul.xyz VF17,VF12,VF17 nop
+              madday.xyz ACC,VF15,VF07y isubiu VI04,VI04,1
+              maddz.xyz VF07,VF16,VF07z nop
+              mul.xyz VF10,VF10,VF13 ibeq VI04,VI00,finish_init
+              add.xyz VF05,VF05,VF17 nop
+; [0,15) size=15 nU=6 nL=5 ic=11 [lin=14 lp=0]
+              nop iaddiu VI01,VI01,1
+              nop ilw.x VI01,0(VI01)
+              nop nop
+              nop nop
+              nop nop
+              nop lq.xyz VF08,3(VI01)
+              nop lq.xyz VF17,0(VI01)
+              nop nop
+              nop nop
+              mulax.xyz ACC,VF14,VF08x lq.xyz VF11,1(VI01)
+              mul.xyz VF14,VF12,VF17 nop
+              madday.xyz ACC,VF15,VF08y nop
+              maddz.xyz VF08,VF16,VF08z nop
+              mul.xyz VF11,VF11,VF13 nop
+              add.xyz VF05,VF05,VF14 nop
+finish_init:
+; [0,21) size=21 nU=19 nL=17 ic=36 [lin=19 lp=0]
+              nop lq.w VF09,(((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1)(VI00)
+              nop lq.xyz VF13,((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6)(VI00)
+              addz.x VF15,VF00,VF06z nop
+              addy.x VF14,VF00,VF06y loi 128.0
+              muli.w VF09,VF09,I mr32.x VF16,VF08
+              mul.xyz VF12,VF12,VF13 fcset 0x000
+              addx.z VF06,VF00,VF08x mr32.y VF08,VF07
+              add.x VF08,VF00,VF15 loi 255.0
+              minii.w VF09,VF09,I loi 2048.0
+              add.xyz VF05,VF05,VF12 mr32.w VF10,VF16
+              addi.w VF06,VF00,I loi 2.45E-4
+              addi.z VF16,VF00,I loi 12.19047619
+              addi.y VF16,VF00,I loi 4.266666667
+              addi.x VF16,VF00,I loi 12583167.0
+              maxi.w VF05,VF00,I loi 8388607.5
+              addi.z VF15,VF00,I loi 2047.5
+              addi.xy VF15,VF00,I loi 12582912.0
+              addi.w VF14,VF09,I mr32.z VF07,VF10
+              addi.xyz VF13,VF05,I nop
+              addx.y VF06,VF00,VF07x nop
+              add.x VF07,VF00,VF14 nop
+              nop[E] nop
+              nop nop
+main_loop_lid:
+; [0,14) size=14 nU=0 nL=12 ic=12 [lin=14 lp=0]
+              nop lq VF12,(((((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1) + 4) + 4)(VI00)
+              nop xtop VI02
+              nop ilw.x VI05,0(VI02)
+              nop nop
+              nop mtir VI04,VF12x
+              nop iaddiu VI03,VI02,((0 + 1) + 4)
+              nop iadd VI01,VI03,VI05
+              nop iadd VI01,VI01,VI05
+              nop ior VI04,VI04,VI05
+              nop mfir.x VF12,VI04
+              nop iadd VI05,VI01,VI05
+              nop nop
+              nop iaddiu VI04,VI02,(0 + (((1024 - ((((((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1) + 4) + 4) + 1))/2)/2))+1
+              nop sq VF12,-1(VI04)
+; [0,19) size=19 nU=11 nL=5 ic=16 [lin=17 lp=0]
+              nop lq.xyz VF20,1(VI03)
+              nop nop
+              nop iaddiu VI04,VI04,3
+              nop lq.xyz VF19,0(VI03)
+              mulax.xyz ACC,VF06,VF20x nop
+              madday.xyz ACC,VF07,VF20y nop
+              maddz.xyz VF17,VF08,VF20z nop
+              mulax ACC,VF01,VF19x nop
+              madday ACC,VF02,VF19y nop
+              maddaz ACC,VF03,VF19z nop
+              max.xyz VF17,VF17,VF00 nop
+              nop nop
+              nop nop
+              maddw VF12,VF04,VF00w nop
+              mulax.xyz ACC,VF09,VF17x iaddiu VI03,VI03,3
+              madday.xyz ACC,VF10,VF17y nop
+              maddz.xyz VF14,VF11,VF17z nop
+              nop ibeq VI03,VI05,EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EPI2
+              nop nop
+; [0,19) size=19 nU=15 nL=8 ic=23 [lin=17 lp=0]
+              nop lq.xyz VF20,1(VI03)
+              nop nop
+              nop iaddiu VI04,VI04,3
+              add.xyz VF14,VF14,VF13 lq.xyz VF19,0(VI03)
+              mulax.xyz ACC,VF06,VF20x div Q,VF00w,VF12w
+              madday.xyz ACC,VF07,VF20y nop
+              maddz.xyz VF17,VF08,VF20z nop
+              mulax ACC,VF01,VF19x nop
+              madday ACC,VF02,VF19y nop
+              maddaz ACC,VF03,VF19z nop
+              max.xyz VF17,VF17,VF00 nop
+              mulq.xyz VF19,VF12,Q lq.xyz VF18,(2)-(1*(3))(VI03)
+              miniw.xyz VF14,VF14,VF05w nop
+              maddw VF12,VF04,VF00w nop
+              mulax.xyz ACC,VF09,VF17x iaddiu VI03,VI03,3
+              madday.xyz ACC,VF10,VF17y nop
+              maddz.xyz VF14,VF11,VF17z sq VF14,(1)-(2*(3))(VI04)
+              mul.xyz VF21,VF19,VF16 ibeq VI03,VI05,EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EPI1
+              nop nop
+; [0,19) size=19 nU=19 nL=13 ic=32 [lin=19 lp=0]
+              add.xyz VF05,VF19,VF15 lq.xyz VF20,1(VI03)
+              mulq.xyz VF18,VF18,Q nop
+              clipw.xyz VF21xyz,VF06w iaddiu VI04,VI04,3
+              add.xyz VF14,VF14,VF13 lq.xyz VF19,0(VI03)
+              mulax.xyz ACC,VF06,VF20x div Q,VF00w,VF12w
+              madday.xyz ACC,VF07,VF20y nop
+              maddz.xyz VF17,VF08,VF20z fcand VI01,0x003ffff
+              mulax ACC,VF01,VF19x iaddiu VI01,VI01,0x7fff
+              madday ACC,VF02,VF19y ior VI01,VI01,VI00
+              maddaz ACC,VF03,VF19z sq.xyz VF18,(0)-(3*(3))(VI04)
+              max.xyz VF17,VF17,VF00 nop
+              mulq.xyz VF19,VF12,Q lq.xyz VF18,(2)-(1*(3))(VI03)
+              miniw.xyz VF14,VF14,VF05w nop
+              maddw VF12,VF04,VF00w nop
+              mulax.xyz ACC,VF09,VF17x iaddiu VI03,VI03,3
+              madday.xyz ACC,VF10,VF17y mfir.w VF17,VI01
+              maddz.xyz VF14,VF11,VF17z sq VF14,(1)-(2*(3))(VI04)
+              mul.xyz VF21,VF19,VF16 ibeq VI03,VI05,EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EPI0
+              ftoi4.xyz VF17,VF05 nop
+EXPL_objs_optimized_scei2_vcl_xform_loop_lid__MAIN_LOOP:
+; [0,19) size=19 nU=19 nL=14 ic=33 [lin=19 lp=19]
+              add.xyz VF05,VF19,VF15 lq.xyz VF20,1(VI03)
+              mulq.xyz VF18,VF18,Q nop
+              clipw.xyz VF21xyz,VF06w iaddiu VI04,VI04,3
+              add.xyz VF14,VF14,VF13 lq.xyz VF19,0(VI03)
+              mulax.xyz ACC,VF06,VF20x div Q,VF00w,VF12w
+              madday.xyz ACC,VF07,VF20y sq VF17,(2)-(4*(3))(VI04)
+              maddz.xyz VF17,VF08,VF20z fcand VI01,0x003ffff
+              mulax ACC,VF01,VF19x iaddiu VI01,VI01,0x7fff
+              madday ACC,VF02,VF19y ior VI01,VI01,VI00
+              maddaz ACC,VF03,VF19z sq.xyz VF18,(0)-(3*(3))(VI04)
+              max.xyz VF17,VF17,VF00 nop
+              mulq.xyz VF19,VF12,Q lq.xyz VF18,(2)-(1*(3))(VI03)
+              miniw.xyz VF14,VF14,VF05w nop
+              maddw VF12,VF04,VF00w nop
+              mulax.xyz ACC,VF09,VF17x iaddiu VI03,VI03,3
+              madday.xyz ACC,VF10,VF17y mfir.w VF17,VI01
+              maddz.xyz VF14,VF11,VF17z sq VF14,(1)-(2*(3))(VI04)
+              mul.xyz VF21,VF19,VF16 ibne VI03,VI05,EXPL_objs_optimized_scei2_vcl_xform_loop_lid__MAIN_LOOP
+              ftoi4.xyz VF17,VF05 nop
+; n>=1 .. t = 84 + 19*(n-3) cycles, so .. t=27+(19*n) :
+EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EPI0:
+; [0,27) size=27 nU=12 nL=17 ic=29 [lin=27 lp=0]
+              add.xyz VF05,VF19,VF15 div Q,VF00w,VF12w
+              mulq.xyz VF18,VF18,Q nop
+              clipw.xyz VF21xyz,VF06w nop
+              add.xyz VF14,VF14,VF13 sq VF17,(2)-(3*(3))(VI04)
+              ftoi4.xyz VF17,VF05 nop
+              nop sq.xyz VF18,(0)-(2*(3))(VI04)
+              nop fcand VI01,0x003ffff
+              mulq.xyz VF19,VF12,Q iaddiu VI01,VI01,0x7fff
+              miniw.xyz VF14,VF14,VF05w ior VI01,VI01,VI00
+              nop lq.xyz VF18,(2)-(1*(3))(VI03)
+              nop mfir.w VF17,VI01
+              mul.xyz VF21,VF19,VF16 nop
+              add.xyz VF05,VF19,VF15 sq VF14,(1)-(1*(3))(VI04)
+              mulq.xyz VF18,VF18,Q nop
+              nop sq VF17,(2)-(2*(3))(VI04)
+              clipw.xyz VF21xyz,VF06w nop
+              ftoi4.xyz VF17,VF05 nop
+              nop sq.xyz VF18,(0)-(1*(3))(VI04)
+              nop nop
+              nop fcand VI01,0x003ffff
+              nop iaddiu VI01,VI01,0x7fff
+              nop ior VI01,VI01,VI00
+              nop mfir.w VF17,VI01
+              nop nop
+              nop nop
+              nop b EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EXIT_POINT
+              nop sq VF17,(2)-(1*(3))(VI04)
+; n==2 .. t = 65 cycles = 32.50 per vertex
+EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EPI1:
+; [0,27) size=27 nU=12 nL=16 ic=28 [lin=27 lp=0]
+              add.xyz VF05,VF19,VF15 div Q,VF00w,VF12w
+              mulq.xyz VF18,VF18,Q nop
+              clipw.xyz VF21xyz,VF06w nop
+              add.xyz VF14,VF14,VF13 nop
+              ftoi4.xyz VF17,VF05 nop
+              nop sq.xyz VF18,(0)-(2*(3))(VI04)
+              nop fcand VI01,0x003ffff
+              mulq.xyz VF19,VF12,Q iaddiu VI01,VI01,0x7fff
+              miniw.xyz VF14,VF14,VF05w ior VI01,VI01,VI00
+              nop lq.xyz VF18,(2)-(1*(3))(VI03)
+              nop mfir.w VF17,VI01
+              mul.xyz VF21,VF19,VF16 nop
+              add.xyz VF05,VF19,VF15 sq VF14,(1)-(1*(3))(VI04)
+              mulq.xyz VF18,VF18,Q nop
+              nop sq VF17,(2)-(2*(3))(VI04)
+              clipw.xyz VF21xyz,VF06w nop
+              ftoi4.xyz VF17,VF05 nop
+              nop sq.xyz VF18,(0)-(1*(3))(VI04)
+              nop nop
+              nop fcand VI01,0x003ffff
+              nop iaddiu VI01,VI01,0x7fff
+              nop ior VI01,VI01,VI00
+              nop mfir.w VF17,VI01
+              nop nop
+              nop nop
+              nop b EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EXIT_POINT
+              nop sq VF17,(2)-(1*(3))(VI04)
+; n==1 .. t = 46 cycles = 46.00 per vertex
+EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EPI2:
+; [0,27) size=27 nU=8 nL=9 ic=17 [lin=27 lp=0]
+              nop div Q,VF00w,VF12w
+              add.xyz VF14,VF14,VF13 lq.xyz VF18,(2)-(1*(3))(VI03)
+              nop nop
+              nop nop
+              nop nop
+              miniw.xyz VF14,VF14,VF05w nop
+              nop nop
+              mulq.xyz VF19,VF12,Q nop
+              mulq.xyz VF18,VF18,Q nop
+              nop sq VF14,(1)-(1*(3))(VI04)
+              nop nop
+              mul.xyz VF21,VF19,VF16 nop
+              add.xyz VF05,VF19,VF15 sq.xyz VF18,(0)-(1*(3))(VI04)
+              nop nop
+              nop nop
+              clipw.xyz VF21xyz,VF06w nop
+              ftoi4.xyz VF17,VF05 nop
+              nop nop
+              nop nop
+              nop fcand VI01,0x003ffff
+              nop iaddiu VI01,VI01,0x7fff
+              nop ior VI01,VI01,VI00
+              nop mfir.w VF17,VI01
+              nop nop
+              nop nop
+              nop nop
+              nop sq VF17,(2)-(1*(3))(VI04)
+EXPL_objs_optimized_scei2_vcl_xform_loop_lid__EXIT_POINT:
+; [0,7) size=7 nU=0 nL=7 ic=7 [lin=7 lp=0]
+              nop iaddiu VI04,VI00,0x7000
+              nop iaddiu VI05,VI02,(0 + 1)
+              nop iaddiu VI06,VI05,4
+              nop iaddiu VI04,VI04,0x7000
+              nop iaddiu VI03,VI00,0x1fff
+              nop iaddiu VI01,VI02,(0 + (((1024 - ((((((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1) + 4) + 4) + 1))/2)/2))+3
+              nop iaddiu VI07,VI00,0x4000
+adcLoop_lid:
+; [0,16) size=16 nU=0 nL=13 ic=13 [lin=13 lp=0]
+              nop ilw.x VI09,0(VI05)
+              nop nop
+              nop nop
+              nop nop
+              nop iand VI08,VI09,VI03
+              nop iadd VI08,VI08,VI01
+              nop iand VI10,VI09,VI04
+              nop ilw.w VI13,0(VI08)
+              nop ilw.w VI09,3(VI08)
+              nop iadd VI12,VI10,VI10
+              nop iand VI11,VI07,VI12
+              nop ior VI10,VI13,VI10
+              nop isw.w VI10,0(VI08)
+              nop ior VI09,VI09,VI12
+              nop ibeq VI11,VI07,adcLoop_done_lid
+              nop isw.w VI09,3(VI08)
+; [0,16) size=16 nU=0 nL=13 ic=13 [lin=13 lp=0]
+              nop ilw.y VI09,0(VI05)
+              nop nop
+              nop nop
+              nop nop
+              nop iand VI08,VI09,VI03
+              nop iadd VI08,VI08,VI01
+              nop iand VI10,VI09,VI04
+              nop ilw.w VI13,0(VI08)
+              nop ilw.w VI09,3(VI08)
+              nop iadd VI12,VI10,VI10
+              nop iand VI11,VI07,VI12
+              nop ior VI10,VI13,VI10
+              nop isw.w VI10,0(VI08)
+              nop ior VI09,VI09,VI12
+              nop ibeq VI11,VI07,adcLoop_done_lid
+              nop isw.w VI09,3(VI08)
+; [0,16) size=16 nU=0 nL=13 ic=13 [lin=13 lp=0]
+              nop ilw.z VI09,0(VI05)
+              nop nop
+              nop nop
+              nop nop
+              nop iand VI08,VI09,VI03
+              nop iadd VI08,VI08,VI01
+              nop iand VI10,VI09,VI04
+              nop ilw.w VI13,0(VI08)
+              nop ilw.w VI09,3(VI08)
+              nop iadd VI12,VI10,VI10
+              nop iand VI11,VI07,VI12
+              nop ior VI10,VI13,VI10
+              nop isw.w VI10,0(VI08)
+              nop ior VI09,VI09,VI12
+              nop ibeq VI11,VI07,adcLoop_done_lid
+              nop isw.w VI09,3(VI08)
+; [0,16) size=16 nU=0 nL=13 ic=13 [lin=13 lp=0]
+              nop ilw.w VI09,0(VI05)
+              nop nop
+              nop nop
+              nop nop
+              nop iand VI08,VI09,VI03
+              nop iadd VI08,VI08,VI01
+              nop iand VI10,VI09,VI04
+              nop ilw.w VI13,0(VI08)
+              nop ilw.w VI09,3(VI08)
+              nop iadd VI12,VI10,VI10
+              nop iand VI11,VI07,VI12
+              nop ior VI10,VI13,VI10
+              nop isw.w VI10,0(VI08)
+              nop ior VI09,VI09,VI12
+              nop ibeq VI11,VI07,adcLoop_done_lid
+              nop isw.w VI09,3(VI08)
+; [0,4) size=4 nU=0 nL=2 ic=2 [lin=4 lp=0]
+              nop iaddiu VI05,VI05,1
+              nop nop
+              nop ibne VI05,VI06,adcLoop_lid
+              nop nop
+adcLoop_done_lid:
+; [0,2) size=2 nU=0 nL=2 ic=2 [lin=2 lp=0]
+              nop iaddiu VI01,VI02,(0 + (((1024 - ((((((((((((((((((((((((((((0) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 1) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 6) + 1) + 1) + 1) + 1) + 1) + 4) + 1) + 4) + 4) + 1))/2)/2))
+              nop xgkick VI01
+              nop[E] nop
+              nop nop
+; [0,2) size=2 nU=0 nL=1 ic=1 [lin=3 lp=0]
+              nop b main_loop_lid
+              nop nop
+                .align 4
+vsmSCEI_CodeEnd:
+; iCount=328

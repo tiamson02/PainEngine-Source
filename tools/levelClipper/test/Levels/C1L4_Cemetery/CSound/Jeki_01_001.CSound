@@ -1,0 +1,5 @@
+o.Volume = 40
+o.Interval = 10
+o.BaseObj = "Jeki_01.CSound"
+o.RandomShift = 2
+o.Pos = Vector:New(-38.2637,-24.9558,-28.94)

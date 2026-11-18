@@ -1,0 +1,7 @@
+o.Room.Type = 3
+o.Room.Intensity = 0.6
+o.Size.Height = 5.59989
+o.Size.Depth = 12.4349
+o.Size.Width = 13.3375
+o.Player.Ground = 1
+o.Pos = Vector:New(-24.6363,-21.5576,-63.8438)

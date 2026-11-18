@@ -1,0 +1,4 @@
+o.IsObstructed = true
+o.Falloff.End = 30
+o.BaseObj = "ryk_03.CSound"
+o.Pos = Vector:New(53.1072,-22.9571,23.2977)

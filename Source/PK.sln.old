@@ -1,0 +1,120 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D3Dev", "D3Dev\D3Dev.vcproj", "{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcproj", "{88551966-62BD-45EE-AEA4-8FD0E15E176B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PainKiller", "PainKiller\PainKiller.vcproj", "{A9FD59E2-0030-460D-ACFA-E343202BFD8E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcproj", "{242A1B40-F9EF-4C21-939C-222FDD4C3E72}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PainEditor", "PainEditor\PainEditor.vcproj", "{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PCFWorldExport", "Plugins\PCFWorldExport\PCFWorldExport.vcproj", "{EA12D18B-406E-4398-B823-FAD3779C4805}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshMender", "Tools\MeshMender\MeshMender.vcproj", "{27282973-4F76-4FA0-BE7B-6685A5E25626}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PCFCharacterExporter", "..\..\Tools\PCFCharacterExporter\PCFCharacterExporter.vcproj", "{C2523375-1C5E-4DFA-BD32-1718CC1B8350}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PCFMeshPlug", "Plugins\PCFMeshPlug\MeshPlug.vcproj", "{0747F7E4-2121-4A0A-8B69-C41FE251F054}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 10
+		SccLocalPath0 = .
+		CanCheckoutShared = true
+		SolutionUniqueID = {2BCF9C6F-56EC-4E00-AE7D-0A0A9FB27CDA}
+		SccProjectUniqueName1 = Base\\Base.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection1 = Base\\
+		SccProjectUniqueName2 = D3Dev\\D3Dev.vcproj
+		SccLocalPath2 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection2 = D3Dev\\
+		SccProjectUniqueName3 = Engine\\Engine.vcproj
+		SccLocalPath3 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection3 = Engine\\
+		SccProjectUniqueName4 = PainKiller\\PainKiller.vcproj
+		SccLocalPath4 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection4 = PainKiller\\
+		SccProjectUniqueName5 = PainEditor\\PainEditor.vcproj
+		SccLocalPath5 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection5 = PainEditor\\
+		SccProjectUniqueName6 = Plugins\\PCFWorldExport\\PCFWorldExport.vcproj
+		SccLocalPath6 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection6 = Plugins\\PCFWorldExport\\
+		SccProjectUniqueName7 = Tools\\MeshMender\\MeshMender.vcproj
+		SccLocalPath7 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection7 = Tools\\MeshMender\\
+		SccProjectUniqueName8 = ..\\..\\Tools\\PCFCharacterExporter\\PCFCharacterExporter.vcproj
+		SccProjectName8 = \u0022$/Tools/PCFCharacterExporter\u0022,\u0020NWAAAAAA
+		SccLocalPath8 = ..\\..\\Tools\\PCFCharacterExporter
+		CanCheckoutShared = true
+		SccProjectUniqueName9 = Plugins\\PCFMeshPlug\\MeshPlug.vcproj
+		SccLocalPath9 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection9 = Plugins\\PCFMeshPlug\\
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.0 = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.1 = {242A1B40-F9EF-4C21-939C-222FDD4C3E72}
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.0 = {242A1B40-F9EF-4C21-939C-222FDD4C3E72}
+		{A9FD59E2-0030-460D-ACFA-E343202BFD8E}.0 = {242A1B40-F9EF-4C21-939C-222FDD4C3E72}
+		{A9FD59E2-0030-460D-ACFA-E343202BFD8E}.1 = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.0 = {242A1B40-F9EF-4C21-939C-222FDD4C3E72}
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.1 = {6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.2 = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.0 = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.1 = {242A1B40-F9EF-4C21-939C-222FDD4C3E72}
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.0 = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.1 = {242A1B40-F9EF-4C21-939C-222FDD4C3E72}
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Debug.ActiveCfg = Debug|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Debug.Build.0 = Debug|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Release.ActiveCfg = Release|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Release.Build.0 = Release|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Debug.ActiveCfg = Debug|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Debug.Build.0 = Debug|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Release.ActiveCfg = Release|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Release.Build.0 = Release|Win32
+		{A9FD59E2-0030-460D-ACFA-E343202BFD8E}.Debug.ActiveCfg = Debug|Win32
+		{A9FD59E2-0030-460D-ACFA-E343202BFD8E}.Debug.Build.0 = Debug|Win32
+		{A9FD59E2-0030-460D-ACFA-E343202BFD8E}.Release.ActiveCfg = Release|Win32
+		{A9FD59E2-0030-460D-ACFA-E343202BFD8E}.Release.Build.0 = Release|Win32
+		{242A1B40-F9EF-4C21-939C-222FDD4C3E72}.Debug.ActiveCfg = Debug|Win32
+		{242A1B40-F9EF-4C21-939C-222FDD4C3E72}.Debug.Build.0 = Debug|Win32
+		{242A1B40-F9EF-4C21-939C-222FDD4C3E72}.Release.ActiveCfg = Release|Win32
+		{242A1B40-F9EF-4C21-939C-222FDD4C3E72}.Release.Build.0 = Release|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Debug.ActiveCfg = Debug|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Debug.Build.0 = Debug|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Release.ActiveCfg = Release|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Release.Build.0 = Release|Win32
+		{EA12D18B-406E-4398-B823-FAD3779C4805}.Debug.ActiveCfg = Release|Win32
+		{EA12D18B-406E-4398-B823-FAD3779C4805}.Release.ActiveCfg = Release|Win32
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.Debug.ActiveCfg = Debug|Win32
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.Release.ActiveCfg = Release|Win32
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.Debug.ActiveCfg = Debug|Win32
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.Release.ActiveCfg = Release|Win32
+		{0747F7E4-2121-4A0A-8B69-C41FE251F054}.Debug.ActiveCfg = Release|Win32
+		{0747F7E4-2121-4A0A-8B69-C41FE251F054}.Release.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		Item:1 = Klaudiusz.txt
+		Item:2 = Sokol.txt
+		Item:3 = System.txt
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

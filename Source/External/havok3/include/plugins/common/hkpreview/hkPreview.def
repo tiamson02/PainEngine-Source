@@ -1,0 +1,26 @@
+EXPORTS
+	runHavok2					@1
+	setupCamera					@2
+	getDllVersion				@3
+	convertHkeToXml				@4
+	convertHkeToXmlSelected		@5
+	beginXmlExtraction			@6
+	extractXmlFromObjects		@7
+	endXmlExtraction			@8
+	previewHavok2				@9
+	setGlobalProperty			@10
+	getGlobalProperty			@11
+	convertHke					@12
+	convertHkeSelected			@13
+	getNumTypeInfoLists			@14
+	getTypeInfoList				@15
+	setBaseSystemPointers		@16
+	getBaseSystemPointers		@17
+	setBaseSystemPointers_v32	@18
+	getBaseSystemPointers_v32	@19
+	initThreadData				@20
+	
+SECTIONS
+	.data READ WRITE
+
+

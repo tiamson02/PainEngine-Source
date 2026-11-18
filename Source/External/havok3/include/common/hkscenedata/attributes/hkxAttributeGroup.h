@@ -1,0 +1,128 @@
+/* 
+ * 
+ * Confidential Information of Telekinesys Research Limited (t/a Havok).  Not for disclosure or distribution without Havok's
+ * prior written consent.This software contains code, techniques and know-how which is confidential and proprietary to Havok.
+ * Level 2 and Level 3 source code contains trade secrets of Havok. Havok Software (C) Copyright 1999-2006 Telekinesys Research Limited t/a Havok. All Rights Reserved. Use of this software is subject to the terms of an end user license agreement.
+ * 
+ */
+
+#ifndef HK_SCENEDATA_HKX_ATTRIBUTE_GROUP_H
+#define HK_SCENEDATA_HKX_ATTRIBUTE_GROUP_H
+
+#include <hkscenedata/attributes/hkxAttribute.h>
+
+#include <hkscenedata/attributes/hkxSparselyAnimatedBool.h>
+#include <hkscenedata/attributes/hkxSparselyAnimatedEnum.h>
+#include <hkscenedata/attributes/hkxSparselyAnimatedInt.h>
+#include <hkscenedata/attributes/hkxSparselyAnimatedString.h>
+#include <hkscenedata/attributes/hkxAnimatedFloat.h>
+#include <hkscenedata/attributes/hkxAnimatedVector.h>
+#include <hkscenedata/attributes/hkxAnimatedQuaternion.h>
+#include <hkscenedata/attributes/hkxAnimatedMatrix.h>
+
+
+// Attribute groups are associated to hkxNodes and contain an array of hkxAttributes under a common heading.
+// They usually represent a set of data associated with a node as a unit. For example, rigid body data.
+struct hkxAttributeGroup
+{
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkxAttributeGroup );
+	HK_DECLARE_REFLECTION();
+
+
+		/// Group type signifies the type of grouped attributes
+		/// For instance in Havok RigidBodies attribs such as mass have a group
+	char* m_groupType;
+	struct hkxAttribute* m_attributes;
+	int m_numAttributes;
+
+	/*
+	** Get attribute value. Assumes non-animated attributes (takes first value)
+	** Use find...() methods to get full access to attribute animation
+	*/
+
+		/// Retrieve the bool value of an attribute. Returns HK_FAILURE if not found (supports Bool, Int).
+	hkResult getBoolValue (const char* name, bool warnIfNotFound, hkBool& boolOut) const;
+
+		/// Retrieve the int value of an attribute. Returns HK_FAILURE if not found (supports Int, Enum, Bool).
+	hkResult getIntValue (const char* name, bool warnIfNotFound, int& intOut) const;
+
+		/// Retrieve the (unsigned) int value of an attribute. Returns HK_FAILURE if not found (supports Int, Enum, Bool).
+	hkResult getIntValue (const char* name, bool warnIfNotFound, hkUint32& intOut) const;
+
+		/// Retrieve the string value an attribute. Returns HK_FAILURE if not found (supports String, Enum).
+	hkResult getStringValue (const char* name, bool warnIfNotFound, const char*& stringOut) const;
+
+		/// Retrieve the value of a float attribute. Returns HK_FAILURE if not found (or not the right type)
+	hkResult getFloatValue (const char* name, bool warnIfNotFound, float& floatOut) const;
+
+		/// Retrieve the value of a vector attribute. Returns HK_FAILURE if not found (or not the right type).
+	hkResult getVectorValue (const char* name, bool warnIfNotFound, hkVector4& vectorOut) const;
+
+		/// Retrieve the value of a quaternion attribute. Returns HK_FAILURE if not found (or not the right type).
+	hkResult getQuaternionValue (const char* name, bool warnIfNotFound, hkQuaternion& quaternionOut) const;
+
+		/// Retrieve the value of a matrix attribute. Returns HK_FAILURE if not found (or not the right type).
+	hkResult getMatrixValue (const char* name, bool warnIfNotFound, hkMatrix4& matrixOut) const;
+
+	/*
+	** Search for attribute by name and type
+	*/
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxSparselyAnimatedBool* findBoolAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxSparselyAnimatedInt* findIntAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxSparselyAnimatedEnum* findEnumAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxSparselyAnimatedString* findStringAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxAnimatedFloat* findFloatAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxAnimatedVector* findVectorAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxAnimatedQuaternion* findQuaternionAttributeByName (const char* name) const;
+
+		/// Utility method, return NULL if attribute wasn't found or it's the wrong type
+	hkxAnimatedMatrix* findMatrixAttributeByName (const char* name) const;
+
+	/*
+	** Generic attribute search
+	*/
+
+		/// Finds an attribute by name, returns index
+	int findAttributeIndexByName ( const char* name ) const;
+
+		/// Finds an attribute by name, returns variant
+	const hkVariant* findAttributeVariantByName ( const char* name ) const;
+
+		/// Finds an attribute by name, returns object (value). Can (optionally) check the type.
+	void* findAttributeObjectByName( const char* name, const hkClass* type = HK_NULL ) const;
+
+};
+
+
+#endif //HK_SCENEDATA_HKX_ATTRIBUTE_GROUP_H
+
+
+
+/*
+* Havok SDK - PUBLIC RELEASE, BUILD(#20060114)
+*
+* Confidential Information of Havok.  (C) Copyright 1999-2006 
+* Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok
+* Logo, and the Havok buzzsaw logo are trademarks of Havok.  Title, ownership
+* rights, and intellectual property rights in the Havok software remain in
+* Havok and/or its suppliers.
+*
+* Use of this software for evaluation purposes is subject to and indicates 
+* acceptance of the End User licence Agreement for this product. A copy of 
+* the license is included with this software and is also available from salesteam@havok.com.
+*
+*/

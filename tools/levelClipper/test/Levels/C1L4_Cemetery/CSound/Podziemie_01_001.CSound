@@ -1,0 +1,5 @@
+o.Volume = 50
+o.Falloff.Start = 5
+o.Falloff.End = 40
+o.BaseObj = "Podziemie_01.CSound"
+o.Pos = Vector:New(-26.0355,-25.7452,-29.8886)

@@ -1,0 +1,12 @@
+LIBRARY hkFilterScene
+EXPORTS
+	GetFilterVersion	@1
+	GetNumFilters		@2
+	GetFilterDesc		@3
+	InitSystem			@4
+	QuitSystem			@5
+	InitThread			@6
+	GetAndReplaceMemoryManager		@7
+	
+SECTIONS
+	.data READ WRITE

@@ -1,0 +1,4 @@
+o.Scale = 0.04
+o.Rot = Quaternion:New(0.661575,0,-0.749879,0)
+o.BaseObj = "Flame_nowy2.CParticleFX"
+o.Pos = Vector:New(-42.8716,-22.3802,-66.356)

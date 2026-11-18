@@ -1,0 +1,47 @@
+/* 
+ * 
+ * Confidential Information of Telekinesys Research Limited (t/a Havok).  This software contains code, techniques and know-how
+ * which is confidential and proprietary to Havok.  Not for disclosure or distribution without prior written consent.
+ * Havok Game Dynamics SDK (C) Copyright 1999/2003 Telekinesys Research Limited. All Rights Reserved. Use of this software is subject to the terms of an end user license agreement.
+ * 
+ */
+
+#include <hkgraphicsdx8/hkgraphicsdx8.h> // precompiled
+#include <hkgraphics/hkgWindow.h>
+#include <hkgraphicsdx8/hkgViewportDX8.h>
+#include <hkgraphicsdx8/hkgDisplayContextDX8.h>
+
+void hkgViewportDX8::setAsCurrent(hkgDisplayContext* context)
+{
+	int vw = m_winUR[0] - m_winLL[0];
+	int vh = m_winUR[1] - m_winLL[1];
+
+	LPDIRECT3DDEVICE8 dev = static_cast<hkgDisplayContextDX8*>( context )->getDevice();
+
+
+	D3DVIEWPORT8 vp;
+	vp.X = m_winLL[0];
+    vp.Y = m_owner->getHeight() - m_winUR[1]; // the screen coords are the oposite in y than our convention in HKG
+    vp.Width = vw;
+    vp.Height = vh;
+    vp.MinZ = 0.0f;
+    vp.MaxZ = 1.0f;
+
+	dev->SetViewport(&vp);
+
+	hkgViewport::setAsCurrent(context);
+}
+/*
+* Havok Game Dynamics SDK - PUBLIC RELEASE, BUILD(#20030622)
+*
+* (C) Copyright 1999/2003 Telekinesys Research Limited. All Rights Reserved. The Telekinesys
+* Logo, Havok and the Havok buzzsaw logo are trademarks of Telekinesys
+* Research Limited.  Title, ownership
+* rights, and intellectual property rights in the Software remain in
+* Telekinesys Research Limited and/or its suppliers.
+*
+* Use of this software is subject to and indicates acceptance of the End User licence
+* Agreement for this product. A copy of the license is included with this software and
+* is also available from info@havok.com.
+*
+*/ 

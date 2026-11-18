@@ -1,0 +1,1992 @@
+
+#include "Engine.h"
+
+#include "Core/FileSystem/LogBuffer.h"
+extern ENGINE_API LogBuffer GLog;
+
+#include "Scripting/Scripting.h"
+extern ENGINE_API Script	GScript;
+
+#include "Physics/Havok/POHavokPart.h"
+#include "Net/UdpMessage.h"
+#include "Engine/Mesh.h"
+#include "Physics/Ragdoll.h"
+#include "Physics/PhysicsEngine.h"
+#include "Net/NetworkClient.h"
+#include "Net/ObjectSynchronizer.h"
+#include "Net/NetworkDevice.h"
+#include "Engine/ModelAnimation.h"
+#include "Physics/PhysicsObject.h"
+#include "Render/Video.h"
+#include "Engine/Model.h"
+#include "Engine/World.h"
+
+UniqueNumberReuser::UniqueNumberReuser( void ) : mNextNumber(0), mStart(0), mEnd(0)
+{
+	::memset( (void*)mQuarantined, 0, UNIQUE_NUMBER_QUARANTINE_SIZE*sizeof(unsigned long) );
+}
+
+/*
+void UniqueNumberReuser::TakeNumber( unsigned long uniqueNumber )
+{
+	if( GEngine->Net->IsServer() )
+	{
+		GLog.Print( "!!!!!!!!!!!!!UniqueNumberReuser::TakeNumber() called on Server!!!!!!!!!!!!!\n" );
+		return;
+	}
+
+	while( mNextNumber < uniqueNumber )
+		mFree.Add( mNextNumber++ );
+
+	if( mNextNumber == uniqueNumber )
+	{
+		mNextNumber++;
+		return;
+	}
+
+	// Don't use quarantine table at all on client - what's the use?
+
+//	for( int i = mStart; i != mEnd; ++i, i &= (UNIQUE_NUMBER_QUARANTINE_SIZE-1) )
+//		if( mQuarantined[i] == uniqueNumber )
+//		{
+//			int k = (i+1)&(UNIQUE_NUMBER_QUARANTINE_SIZE-1);
+//			for( int j = k; j != mEnd; k = j, ++j, j &= (UNIQUE_NUMBER_QUARANTINE_SIZE-1) )
+//				mQuarantined[k] = mQuarantined[j];
+//			mEnd = mEnd?mEnd-1:UNIQUE_NUMBER_QUARANTINE_SIZE-1;
+//			return;
+//		}
+
+	for( int i = 0; i < mFree.Size(); ++i )
+		if( mFree[i] == uniqueNumber )
+		{
+			mFree.FastRemove(i);
+			return;
+		}
+
+	GLog.Print( "SERIOUS ERROR: Server told client to create entity with an already existing identifier!!! Identifier: %d\n", uniqueNumber );
+	Assert( mStart == UNIQUE_NUMBER_QUARANTINE_SIZE+1 );	// This will fire!
+}
+*/
+unsigned long UniqueNumberReuser::GetNext( void )
+{
+	if( !GEngine->Net->IsServer() )
+	{
+		GLog.Print( "!!!!!!!!!!!!!UniqueNumberReuser::GetNext() called on Client!!!!!!!!!!!!!\n" );
+		return mNextNumber++;
+	}
+
+	if( mFree.Size() )
+	{
+		unsigned long next = mFree[mFree.Size()-1];
+		mFree.RemoveLast();
+		return next;
+	}
+	else
+		return mNextNumber++;
+}
+
+void UniqueNumberReuser::Free( unsigned long uniqueNumber )
+{
+	if( GEngine->Net->IsServer() )
+	{
+		mQuarantined[mEnd] = uniqueNumber;
+		if( mStart == ((mEnd+1)&(UNIQUE_NUMBER_QUARANTINE_SIZE-1)) )	// mQuarantined is full
+		{
+			mFree.Add( mQuarantined[mStart] );
+			mEnd++;
+			mEnd &= (UNIQUE_NUMBER_QUARANTINE_SIZE-1);
+			mStart++;
+			mStart &= (UNIQUE_NUMBER_QUARANTINE_SIZE-1);
+		}
+		else	// it is not full
+		{
+			mEnd++;
+			mEnd &= (UNIQUE_NUMBER_QUARANTINE_SIZE-1);
+		}
+	}
+	else	// we don't use quarantined on clients - what's the use?
+		mFree.Add( uniqueNumber );
+}
+
+void UniqueNumberReuser::Clear()
+{
+    mFree.Clear();
+    mNextNumber = 0;
+    mStart = 0;
+    mEnd = 0;
+    ::memset( (void*)mQuarantined, 0, UNIQUE_NUMBER_QUARANTINE_SIZE*sizeof(unsigned long) );
+}
+
+bool UniqueNumberReuser::Empty()
+{
+    return (mNextNumber == 0);
+}
+
+static UniqueNumberReuser GUniqueNumberManager;
+
+ObjectSynchronizer::ObjectSynchronizer( unsigned long uniqueNumber, NetworkClient* client ) : IsZombie( false )
+,	UpdateClass(0), LastUpdateTime(0.0f), mClient(client)
+{
+	Assert( client );
+
+	Assert( uniqueNumber != (unsigned long)-1 );
+	UniqueNumber = uniqueNumber;
+
+	client->mObjectSynchronizers.Add( this );
+
+#ifdef _DEBUG
+	ObjectSynchronizer* t = client->mObjectSynchronizersHash.Lookup( UniqueNumber );
+	Assert( !t );
+#endif
+
+	client->mObjectSynchronizersHash.Insert( UniqueNumber, this );
+
+//    GLog.Print( "CREATE OBJ SYCHRO %d\n", UniqueNumber );
+}
+
+ObjectSynchronizer::~ObjectSynchronizer()
+{
+//    GLog.Print( "DELETE OBJ SYCHRO %d\n", UniqueNumber );
+	Assert( mClient );
+	mClient->mObjectSynchronizersHash.Remove( UniqueNumber );
+	for( int i = 0; i < mClient->mObjectSynchronizers.Size(); ++i )
+		if( mClient->mObjectSynchronizers[i] == this )
+		{
+			mClient->mObjectSynchronizers.FastRemove( i );
+			break;
+		}
+}
+
+void ObjectSynchronizer::PostCreateMessage( void )
+{
+	if( !GEngine->Net->IsServer() ) return;
+	mClient->mObjectSynchronizersToCreate.AddUnique( this );
+}
+
+void ObjectSynchronizer::PostDeleteMessage( void )
+{
+	mClient->mObjectSynchronizersToDelete.AddUnique( this );
+}
+
+void ObjectSynchronizer::SetZombie( void )
+{
+	if( !IsZombie )
+		mClient->mObjectSynchronizersToDelete.AddUnique( this );
+	IsZombie = true;
+}
+
+inline void ObjectSynchronizer::WriteSynchronizer( UdpMessage* message, unsigned long uniqueNumber, unsigned char type )
+{
+	Assert( ( uniqueNumber == -1 ) || ( uniqueNumber < 0x3fffffff ) );
+	char c = message->WriteULongOptimized( (((unsigned long)type)&0x3)|((uniqueNumber + 1)<<2) ); NPROF2(NPSynchronizerNumber,c);
+}
+
+void ObjectSynchronizer::RemoveConnectionWithEntity( Entity* entity )
+{
+	GEngine->Net->mObjectSynchronizersHashByEntity.Remove( entity, entity->GIndex );
+}
+
+void ObjectSynchronizer::MakeConnectionWithEntity( Entity* entity )
+{
+	GEngine->Net->mObjectSynchronizersHashByEntity.Insert( entity, entity->GIndex,  UniqueNumber );
+}
+// ***************************************************************************************
+
+EntitySynchronizer::EntitySynchronizer( unsigned long uniqueNumber, NetworkClient* client ) :
+	ObjectSynchronizer( uniqueNumber, client ), mObject( 0 ), mPO( 0 ) {};
+Entity* EntitySynchronizer::GetEntity( void ) { return mObject; };
+
+// ***************************************************************************************
+
+MeshSynchronizer::MeshSynchronizer( unsigned long uniqueNumber, NetworkClient* client, WorldMesh* meshToSynchronize ) 
+:	EntitySynchronizer( uniqueNumber, client ), PositionSynchroIndex( 0 )
+,	OrientationSynchroIndex( 0 ), Position( 0, 0, 0 ), Orientation()
+{
+	ActiveMeshIndex = -1;
+	mObject = (Entity*)meshToSynchronize;
+	PostCreateMessage();
+}
+
+void MeshSynchronizer::Maintain( void )
+{
+	if( !IsZombie && mObject && mObject->PO && !mPO )	// that means PO was added to model in last tick
+	{
+		unsigned long ui = GEngine->Net->SureGetPtrIndex( mObject->PO, mObject->GIndex );
+		mPO = new POSynchronizer( ui, mClient, mObject->PO, this );
+		mPO->UpdateClass = UpdateClass;
+	}
+}
+
+void MeshSynchronizer::AddUpdateObjMessage( UdpMessage* message )
+{
+	if( IsZombie || !mObject || mObject->PO )
+		return;
+
+	float curTime = 0.0f;
+	UpdateClassParams* updateParams = mClient->ConnectionParams.Find(UpdateClass);
+	if( updateParams && ( updateParams->MinSynchroDelay > 0.0f ) )
+	{
+		curTime = GEngine->SysDriver.GetCurrentTime();
+		if( curTime - LastUpdateTime < updateParams->MinSynchroDelay )
+			return;
+	}
+
+	int startMesgPos = message->GetPos();
+	unsigned long cnt = GEngine->Net->Profiler.Remember( NPSynchronizerNumber );
+
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeMesh );
+
+	int mesgPos = message->GetPos();
+	message->WriteUChar( 0 );
+
+	unsigned char sendState = 0;
+
+	// Try to send new position
+	{
+		Vector pos = mObject->GetPosition();
+
+		if( pos == Position )
+			PositionSynchroIndex++;
+		else
+		{
+			PositionSynchroIndex = 0;
+			Position = pos;
+		}
+
+		if( PositionSynchroIndex < mClient->mHowManyUnreliableAssumedToPass )
+		{
+			sendState |= (1<<0);
+			message->WritePositionOptimized( pos ); NPROF( NPEntityPosition );
+		}
+
+		if( PositionSynchroIndex == 255 ) PositionSynchroIndex = 254;	// no overflow needed
+	}
+
+	// Try to send new orientation
+	{
+		Quaternion q = mObject->GetRotation();
+
+		if( q == Orientation )
+			OrientationSynchroIndex++;
+		else
+		{
+			OrientationSynchroIndex = 0;
+			Orientation = q;
+		}
+
+		if( OrientationSynchroIndex < mClient->mHowManyUnreliableAssumedToPass )
+		{
+			sendState |= (1<<1);
+			message->WriteQuaternionOptimized( q ); NPROF( NPEntityRotation );
+		}
+
+		if( OrientationSynchroIndex == 255 ) OrientationSynchroIndex = 254;	// no overflow needed
+	}
+
+	if( sendState == 0 )	// There was nothing to synchronize - message will not be sent this way
+	{
+		GEngine->Net->Profiler.Remind( NPSynchronizerNumber, cnt );
+		message->Seek(startMesgPos);
+		return;
+	}
+
+	int mesgPos2 = message->GetPos();
+	message->Seek(mesgPos);
+	message->WriteUChar(sendState); NPROF(NPPOUpdateSynchroMarker);
+	message->Seek(mesgPos2);
+
+	LastUpdateTime = curTime;
+}
+
+void MeshSynchronizer::AddCreateObjMessage( UdpMessage* message, NetworkClient* client )
+{
+	Assert( mObject && !IsZombie );
+
+	if( mObject->PO )
+		ActiveMeshIndex = mObject->PO->GetActiveMeshIndex();
+	else
+		ActiveMeshIndex = -1;
+
+//	GLog.Print( "Mesh::CREATEOBJ %d sent\n", UniqueNumber );
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeMesh );
+	message->WriteUChar( UpdateClass ); NPROF( NPUpdateClass );
+	message->WriteShort( ActiveMeshIndex ); NPROF(NPActiveMeshIndex);
+
+	client->StringTransport.WriteString( message, mObject->FileName );
+	client->StringTransport.WriteString( message, mObject->Name );
+	message->WriteFloat( mObject->GetScale() ); NPROF(NPEntityScale);
+	message->WriteULong( (unsigned long)mObject->Flags ); NPROF(NPEntityFlags);
+
+	Position = mObject->GetPosition();
+	message->WritePositionOptimized( Position ); NPROF( NPEntityPosition );
+	PositionSynchroIndex = 0;
+	Orientation = mObject->GetRotation();
+	message->WriteQuaternionOptimized( Orientation ); NPROF( NPEntityRotation );
+	OrientationSynchroIndex = 0;
+
+	char* synStr = mObject->GetSynchroString();
+	if( synStr )
+	{
+		String s( synStr );
+		message->WriteBool( true );
+		client->StringTransport.WriteString( message, s );
+	}
+	else
+		message->WriteBool( false );
+}
+
+void MeshSynchronizer::AddDeleteObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "Mesh::DELETEOBJ %d sent\n", UniqueNumber );
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeMesh );
+	message->WriteBool( IsZombie ); NPROF(NPIsZombie);
+}
+
+bool MeshSynchronizer::MeshEqual( String& filename, String& name, float scale )
+{
+	String meshFileName = mObject->FileName.Len()?mObject->FileName:"";
+	String meshName = mObject->Name.Len()?mObject->Name:"";
+	return( (meshFileName == filename) && (meshName == name) && (mObject->GetScale() == scale) );
+}
+
+bool MeshSynchronizer::InterpretMessage( UdpMessage* message, unsigned char command, NetworkClient* client )
+{
+	switch( command )
+	{
+	case NetworkClient::CREATEOBJ:
+		{
+			UpdateClass = message->ReadUChar();
+			short activeMeshIndex = message->ReadShort();
+			String filename = client->StringTransport.ReadString( message );
+			String entityName = client->StringTransport.ReadString( message );
+			float scale = message->ReadFloat();
+			DWORD flags = (DWORD)message->ReadULong();
+			Vector t = message->ReadPositionOptimized();
+			Quaternion q = message->ReadQuaternionOptimized();
+
+            String synStr = "";
+			if( message->ReadBool() )
+				synStr = client->StringTransport.ReadString( message );
+
+//			GLog.Print( "Mesh::CREATEOBJ %d: file = %s, name = %s, scale = %f\n",
+//				UniqueNumber, filename.AsChar(), entityName.AsChar(), scale );
+
+			// Check if we have to remove old model
+			if( mObject && !MeshEqual( filename, entityName, scale ) )
+			{
+				Assert( !mPO );
+				RemoveConnectionWithEntity( mObject );
+				GEngine->World->DeleteEntityDelayed( mObject );
+				mObject = 0;
+			}
+
+			if( !mObject && ( activeMeshIndex != -1 ) )
+				mObject = GEngine->World->Physics->GetEntityByActiveMeshIndex( activeMeshIndex );
+
+			if( mObject ) MakeConnectionWithEntity( mObject );
+
+			// Check if we have to make a new one
+			if( !mObject )
+			{
+//				GLog.Print( "Remote create mesh!\n" );
+
+				// Create new entity with those contents
+
+                mObject = (WorldMesh*)GEngine->World->CreateEntity( Entity::ETypeMesh, filename.AsChar(), entityName.AsChar(), scale, (flags & Entity::EEntCenteredGeometry)!=0 );
+				if( !mObject )
+				{
+					GLog.Print( "Was unable to create mesh! filename = %s, entityName = %s, scale = %f, unique = %d\n",
+						filename.AsChar(), entityName.AsChar(), scale, UniqueNumber );
+					message->DumpToLogfile( "Unable to create mesh" );
+					return true;
+				}
+
+				GEngine->World->AddEntity( mObject );
+			}
+
+			mObject->Flags = flags;
+			mObject->SetPositionAndRotation( t, q );
+
+			if( synStr.Len() )
+			{
+				mObject->SetSynchroString(synStr.AsChar());
+				GScript.QueueMessage("ENTITY_CREATE","%p,%s",mObject,synStr.AsChar());
+			}
+		}
+		return true;
+	case NetworkClient::DELETEOBJ:
+//		GLog.Print( "Mesh::DELETEOBJ %d\n", UniqueNumber );
+		if( mObject )
+		{
+			char* str = mObject->GetSynchroString();
+			if( str && ::strlen(str) )
+   				GScript.QueueMessage( "ENTITY_DELETE","%p,%s", mObject, str );
+
+			RemoveConnectionWithEntity( mObject );
+			GEngine->World->DeleteEntityDelayed( mObject );
+			mObject = 0;
+		}
+		IsZombie = message->ReadBool();
+		return true;
+	case NetworkClient::UPDATE:
+		{
+			unsigned char sendState = message->ReadUChar();
+
+			if( sendState & (1<<0) )
+				Position = message->ReadPositionOptimized();
+
+			if( sendState & (1<<1) )
+				Orientation = message->ReadQuaternionOptimized();
+
+			if( mObject )
+			{
+				switch( sendState )
+				{
+				case 0:	// none
+				default:
+					break;
+				case 1:	// only position
+					mObject->SetPosition( Position );
+					break;
+				case 2:	// only orientation
+					mObject->SetRotation( Orientation );
+					break;
+				case 3:	// both
+					mObject->SetPositionAndRotation( Position, Orientation );
+					break;
+				}
+			}
+			LastUpdateTime = GEngine->SysDriver.GetCurrentTime();
+		}
+		return true;
+	case NetworkClient::OTHEROBJ:
+	default:
+		return false;
+	}
+}
+
+void MeshSynchronizer::SetZombie( void )
+{
+	if( mPO )
+		mPO->SetZombie();
+	ObjectSynchronizer::SetZombie();
+}
+
+MeshSynchronizer::~MeshSynchronizer()
+{
+	if( mPO )
+	{
+		mPO->SetZombie();
+		mPO->mEntity = 0;
+	}
+}
+
+// ***************************************************************************************
+
+ModelSynchronizer::ModelSynchronizer( unsigned long uniqueNumber, NetworkClient* client, Model* modelToSynchronize ) 
+:	EntitySynchronizer( uniqueNumber, client ), mRagdoll( 0 ), PositionSynchroIndex( 0 )
+,	OrientationSynchroIndex( 0 ), Position( 0, 0, 0 ), Orientation()
+{
+	mObject = (Entity*)modelToSynchronize;
+	if( mObject )
+	{
+		mSynchroAnimation = (( mObject->SynchroState() & Entity::ESynchroAnimation ) != 0);
+		PostCreateMessage();
+	}
+}
+
+void ModelSynchronizer::Maintain( void )
+{
+	if( IsZombie || !mObject )
+		return;
+
+	if( mObject->PO && !mPO )
+	{
+		unsigned long ui = GEngine->Net->SureGetPtrIndex( mObject->PO, mObject->GIndex );
+		mPO = new POSynchronizer( ui, mClient, mObject->PO, this );
+		mPO->UpdateClass = UpdateClass;
+	}
+
+	if( ((Model*)mObject)->RagDoll )
+	{
+		if( !mRagdoll )
+		{
+			if( mObject->SynchroState() & Entity::ESynchroRagdollCreation )
+			{
+				unsigned long ui = GEngine->Net->SureGetPtrIndex( ((Model*)mObject)->RagdollPtr, mObject->GIndex );
+				mRagdoll = new RagdollSynchronizer( ui, mClient, ((Model*)mObject)->RagdollPtr, this );
+				mRagdoll->UpdateClass = UpdateClass;
+			}
+		}
+		else if( ( GEngine->GameState == PCFSystem::PCFSystemStates::DedicatedServer ) &&
+			!( mObject->SynchroState() & Entity::ESynchroRagdoll ) )
+		{
+			((Model*)mObject)->RagdollPtr->EternalFreeze();
+		}
+	}
+
+	if( mObject->SynchroState() & Entity::ESynchroAnimation )
+	{
+		if( !mSynchroAnimation )
+		{
+			// Add animation synchro other message
+			SendStruct ss;
+			ss.OtherMessageType = OMT_AnimSynchro;
+			ss.Data = 0;
+			mToSend.AddUnique(ss);
+			mSynchroAnimation = true;
+		}
+	}
+	else
+		mSynchroAnimation = false;
+}
+
+void ModelSynchronizer::AddUpdateObjMessage( UdpMessage* message )
+{
+	if( IsZombie || !mObject || mObject->PO  || ((Model*)mObject)->RagDoll )
+		return;
+
+	float curTime = 0.0f;
+	UpdateClassParams* updateParams = mClient->ConnectionParams.Find(UpdateClass);
+	if( updateParams && ( updateParams->MinSynchroDelay > 0.0f ) )
+	{
+		curTime = GEngine->SysDriver.GetCurrentTime();
+		if( curTime - LastUpdateTime < updateParams->MinSynchroDelay )
+			return;
+	}
+
+	int startMesgPos = message->GetPos();
+	unsigned long cnt = GEngine->Net->Profiler.Remember( NPSynchronizerNumber );
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeModel );
+
+	int mesgPos = message->GetPos();
+	message->WriteUChar( 0 );
+
+	unsigned char sendState = 0;
+
+	// Try to send new position
+	{
+		Vector pos = mObject->GetPosition();
+
+		if( pos == Position )
+			PositionSynchroIndex++;
+		else
+		{
+			PositionSynchroIndex = 0;
+			Position = pos;
+		}
+
+		if( PositionSynchroIndex < mClient->mHowManyUnreliableAssumedToPass )
+		{
+			sendState |= (1<<0);
+			message->WritePositionOptimized( pos ); NPROF( NPEntityPosition );
+		}
+
+		if( PositionSynchroIndex == 255 ) PositionSynchroIndex = 254;	// no overflow needed
+	}
+
+	// Try to send new orientation
+	{
+		Quaternion q = mObject->GetRotation();
+
+		if( q == Orientation )
+			OrientationSynchroIndex++;
+		else
+		{
+			OrientationSynchroIndex = 0;
+			Orientation = q;
+		}
+
+		if( OrientationSynchroIndex < mClient->mHowManyUnreliableAssumedToPass )
+		{
+			sendState |= (1<<1);
+			message->WriteQuaternionOptimized( q ); NPROF( NPEntityRotation );
+		}
+
+		if( OrientationSynchroIndex == 255 ) OrientationSynchroIndex = 254;	// no overflow needed
+	}
+
+	if( sendState == 0 )	// There was nothing to synchronize - message will not be sent this way
+	{
+		GEngine->Net->Profiler.Remind( NPSynchronizerNumber, cnt );
+		message->Seek(startMesgPos);
+		return;
+	}
+
+	int mesgPos2 = message->GetPos();
+	message->Seek(mesgPos);
+	message->WriteUChar(sendState); NPROF(NPPOUpdateSynchroMarker);
+	message->Seek(mesgPos2);
+
+	LastUpdateTime = curTime;
+}
+
+void ModelSynchronizer::AddCreateObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "Model::CREATEOBJ %d sent\n", UniqueNumber );
+	Assert( mObject );
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeModel );
+	message->WriteUChar( UpdateClass ); NPROF( NPUpdateClass );
+	client->StringTransport.WriteString( message, mObject->FileName );
+	client->StringTransport.WriteString( message, mObject->Name );
+	message->WriteFloat( ((Model*)mObject)->Mesh->Scale ); NPROF(NPEntityScale);
+	message->WriteULong( (unsigned long)mObject->Flags ); NPROF(NPEntityFlags);
+	Vector vec = mObject->GetPosition();
+	message->WritePositionOptimized( vec ); NPROF( NPEntityPosition );
+	Quaternion q = mObject->GetRotation();
+	message->WriteQuaternionOptimized( q ); NPROF( NPEntityRotation );
+
+	if( mObject->SynchroState() & Entity::ESynchroAnimation )
+	{
+		message->WriteBool( true ); NPROF( NPModelHasAnim );
+		SendAnimationInfo( message, client );
+	}
+	else
+		message->WriteBool( false ); NPROF( NPModelHasAnim );
+
+	char* synStr = mObject->GetSynchroString();
+	if( synStr )
+	{
+		String s( synStr );
+		message->WriteBool( true );
+		client->StringTransport.WriteString( message, s );
+	}
+	else
+		message->WriteBool( false );
+}
+
+void ModelSynchronizer::AddDeleteObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "Model::DELETEOBJ %d sent\n", UniqueNumber );
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeModel );
+	message->WriteBool( IsZombie ); NPROF(NPIsZombie);
+}
+
+int ModelSynchronizer::HowManyOtherMessages( void )
+{
+    if( !mObject || IsZombie ) { ClearOtherMessages(); return 0; }
+	return mToSend.Size();
+}
+
+void ModelSynchronizer::AddOtherObjMessage( UdpMessage* message, NetworkClient* client, int index )
+{
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeModel );
+	message->WriteUChar( mToSend[index].OtherMessageType ); NPROF(NPOtherTypeMarker);
+
+	switch( mToSend[index].OtherMessageType )
+	{
+	case OMT_Activation:
+		{
+			AnimActivation* aa = (AnimActivation*)mToSend[index].Data;
+
+			message->WriteFloat( aa->BlendTime ); NPROF( NPAnimBlendTime );
+			message->WriteFloat( aa->TimeScale ); NPROF( NPAnimTimeScale );
+			message->WriteBool( aa->Looped ); NPROF(NPAnimLooped);
+			message->WriteChar( aa->AnimNumber ); NPROF(NPAnimNumber);
+			message->WriteBool( aa->HasMovementCurve ); NPROF(NPAnimHasMoveCurve);
+		}
+		break;
+	case OMT_Load:
+		{
+			AnimLoad* al = (AnimLoad*)mToSend[index].Data;
+
+			client->StringTransport.WriteString( message, al->Name ); NPROF2(NPAnimName,al->Name.Size());
+			message->WriteBool( al->Looped ); NPROF(NPAnimLooped);
+			message->WriteChar( al->AnimNumber ); NPROF(NPAnimNumber);
+		}
+		break;
+	case OMT_AnimSynchro:	// ANIMATION SYNCHRONIZATION - VERY UNOPTIMIZED
+		SendAnimationInfo( message, client );
+		break;
+	default:
+		break;
+	}
+}
+
+void ModelSynchronizer::SendAnimationInfo( UdpMessage* message, NetworkClient* client )
+{
+	Model* mModel = (Model*)mObject;
+	Assert( mModel );
+
+	// Write animations state for entity
+	message->WriteUChar( (unsigned char)mModel->Mesh->Animations.Size() ); NPROF(NPAnimsCount);
+	for( int i = 1; i < mModel->Mesh->Animations.Size(); ++i )
+	{
+		if( mModel->Mesh->Animations[i] )
+		{
+			client->StringTransport.WriteString( message, mModel->Mesh->Animations[i]->Name );
+			message->WriteBool( mModel->Mesh->Animations[i]->Looped ); NPROF(NPAnimLooped);
+			message->WriteBool( ((SkeletalAnimation*)(mModel->Mesh->Animations[i]))->HasMovementCurve() ); NPROF(NPAnimHasMoveCurve);
+		}
+		else
+		{
+			String empty = "";
+			client->StringTransport.WriteString( message, empty );
+		}
+	}
+
+	// Synchronize animation controller
+	message->WriteUChar( (unsigned char)mModel->AnimController.Animations.Size() ); NPROF(NPActiveAnimsCount);
+	for( int i = 0; i < mModel->AnimController.Animations.Size(); ++i )
+	{
+		int index = -1;
+		for( int j = 0; j < mModel->Mesh->Animations.Size(); ++j )
+		{
+			if( mModel->Mesh->Animations[j] == mModel->AnimController.Animations[i].Animation )
+			{
+				index = j;
+				break;
+			}
+		}
+		Assert( index != -1 );
+		message->WriteUChar( (unsigned char)index ); NPROF(NPActiveAnimIndex);
+		message->WriteFloat( mModel->AnimController.Animations[i].Weight ); NPROF(NPActiveAnimWeight);
+		message->WriteFloat( mModel->AnimController.Animations[i].TimeScale ); NPROF(NPActiveAnimTimeScale);
+		message->WriteBool( mModel->AnimController.Animations[i].Looped ); NPROF(NPAnimLooped);
+		message->WriteFloat( mModel->AnimController.Animations[i].FrameBlendTime ); NPROF(NPActiveAnimFrameBlendTime);
+		message->WriteFloat( mModel->AnimController.Animations[i].BlendTime ); NPROF(NPActiveAnimBlendTime);
+	}
+}
+
+void ModelSynchronizer::ApplyAnimationInfo( UdpMessage* message, NetworkClient* client )
+{
+	// Read animations state for entity and load animations
+	Model* mModel = (Model*)mObject;
+	Assert( mModel );
+	unsigned char animSize = message->ReadUChar();
+	for( int i = 1; i < animSize; ++i )
+	{
+		String animName = client->StringTransport.ReadString( message );
+		if( !(animName == "" ) )
+		{
+			bool looped = message->ReadBool();
+			bool setMovementCurve = message->ReadBool();
+			int index = mModel->LoadAnimation( animName.AsChar(), looped , i );
+			if( setMovementCurve )
+				mModel->SetAnimationMovementCurve( index, "ROOOT", ModelAnimation::ETransZ );
+		}
+	}
+
+	// Synchronize animation controller
+	mModel->AnimController.Animations.Clear();
+	int activeAnimSize = message->ReadUChar();
+	for( int i = 0; i < activeAnimSize; ++i )
+	{
+		mModel->AnimController.Animations.Grow();
+		mModel->AnimController.Animations[i].Animation = mModel->Mesh->Animations[ message->ReadUChar() ];
+		mModel->AnimController.Animations[i].Weight = message->ReadFloat();
+		mModel->AnimController.Animations[i].TimeScale = message->ReadFloat();
+		mModel->AnimController.Animations[i].Looped = message->ReadBool();
+		mModel->AnimController.Animations[i].FrameBlendTime = message->ReadFloat();
+		mModel->AnimController.Animations[i].BlendTime = message->ReadFloat();
+	}
+}
+
+void ModelSynchronizer::DumpAnimationInfo( UdpMessage* message, NetworkClient* client )
+{
+	// Read animations state for entity and load animations
+	unsigned char animSize = message->ReadUChar();
+	for( int i = 1; i < animSize; ++i )
+	{
+		String animName = client->StringTransport.ReadString( message );
+		if( !(animName == "" ) ) { message->ReadBool(); message->ReadBool(); }
+	}
+
+	int activeAnimSize = message->ReadUChar();
+	for( int i = 0; i < activeAnimSize; ++i ) { message->ReadUChar(); message->ReadFloat(); message->ReadFloat(); message->ReadBool(); message->ReadFloat(); message->ReadFloat(); }
+}
+
+void ModelSynchronizer::ClearOtherMessages( void )
+{
+	for( int i = 0; i < mToSend.Size(); ++i )
+		switch( mToSend[i].OtherMessageType )
+		{
+		case OMT_Activation:
+			delete (AnimActivation*)mToSend[i].Data;
+			break;
+		case OMT_Load:
+			delete (AnimLoad*)mToSend[i].Data;
+			break;
+		default:
+			break;
+		}
+	mToSend.Clear();
+}
+
+bool ModelSynchronizer::ModelEqual( String& filename, String& name, float scale )
+{
+	String modelFileName = mObject->FileName.Len()?mObject->FileName:"";
+	String modelName = mObject->Name.Len()?mObject->Name:"";
+	return( (modelFileName == filename) && (modelName == name) && (((Model*)mObject)->Mesh->Scale == scale) );
+}
+
+bool ModelSynchronizer::InterpretMessage( UdpMessage* message, unsigned char command, NetworkClient* client )
+{
+	switch( command )
+	{
+	case NetworkClient::CREATEOBJ:
+		{
+//			GLog.Print( "Model::CREATEOBJ %d received\n", UniqueNumber );
+			UpdateClass = message->ReadUChar();
+			String filename = client->StringTransport.ReadString( message );
+			String entityName = client->StringTransport.ReadString( message );
+			float scale = message->ReadFloat();
+			DWORD flags = (DWORD)message->ReadULong();
+			Vector t = message->ReadPositionOptimized();
+			Quaternion q = message->ReadQuaternionOptimized();
+			bool animationsFollow = message->ReadBool();
+
+			// Check if we have to remove old model
+			if( mObject && !ModelEqual( filename, entityName, scale ) )
+			{
+				Assert( !mRagdoll );
+				Assert( !mPO );
+				RemoveConnectionWithEntity( mObject );
+				GEngine->World->DeleteEntityDelayed( mObject );
+				mObject = 0;
+			}
+
+			// Check if we have to make a new one
+			if( !mObject )
+			{
+//				GLog.Print( "Remote create entity!\n" );
+
+				// Create new entity with those contents
+				mObject = (Model*)GEngine->World->CreateEntity( Entity::ETypeModel, filename.AsChar(), entityName.AsChar(), scale );
+				if( !mObject )
+				{
+					GLog.Print( "Was unable to create model! filename = %s, entityName = %s, scale = %f, unique = %d\n",
+						filename.AsChar(), entityName.AsChar(), scale, UniqueNumber );
+					message->DumpToLogfile( "Unable to create model" );
+
+					// Dump rest of model data
+					if( animationsFollow )
+						DumpAnimationInfo( message, client );
+		            String synStr = "";
+					if( message->ReadBool() )
+						synStr = client->StringTransport.ReadString( message );
+
+					return true;
+				}
+				GEngine->World->AddEntity( mObject );
+			}
+
+			MakeConnectionWithEntity( mObject );
+
+			mObject->Flags = flags;
+			mObject->SetPositionAndRotation( t, q );
+
+			if( animationsFollow )
+				ApplyAnimationInfo( message, client );
+
+            String synStr = "";
+			if( message->ReadBool() )
+				synStr = client->StringTransport.ReadString( message );
+
+			if( synStr.Len() )
+			{
+				mObject->SetSynchroString(synStr.AsChar());
+				GScript.QueueMessage("ENTITY_CREATE","%p,%s",mObject,synStr.AsChar());
+			}
+		}
+		return true;
+	case NetworkClient::DELETEOBJ:
+//		GLog.Print( "Model::DELETEOBJ %d received\n", UniqueNumber );
+		if( mObject )
+		{
+			char* str = mObject->GetSynchroString();
+			if( str && ::strlen(str) )
+   				GScript.QueueMessage( "ENTITY_DELETE","%p,%s", mObject, str );
+
+			RemoveConnectionWithEntity( mObject );
+			GEngine->World->DeleteEntityDelayed( mObject );
+			mObject = 0;
+		}
+		IsZombie = message->ReadBool();
+		return true;
+	case NetworkClient::UPDATE:
+		{
+			unsigned char sendState = message->ReadUChar();
+
+			if( sendState & (1<<0) )
+				Position = message->ReadPositionOptimized();
+
+			if( sendState & (1<<1) )
+				Orientation = message->ReadQuaternionOptimized();
+
+			if( mObject )
+			{
+				switch( sendState )
+				{
+				case 0:	// none
+				default:
+					break;
+				case 1:	// only position
+					mObject->SetPosition( Position );
+					break;
+				case 2:	// only orientation
+					mObject->SetRotation( Orientation );
+					break;
+				case 3:	// both
+					mObject->SetPositionAndRotation( Position, Orientation );
+					break;
+				}
+			}
+			LastUpdateTime = GEngine->SysDriver.GetCurrentTime();
+		}
+		return true;
+	case NetworkClient::OTHEROBJ:
+		{
+			int type = message->ReadUChar();
+			switch( type )
+			{
+			case OMT_Activation:
+				{
+					float blendTime = message->ReadFloat();
+					float timeScale = message->ReadFloat();
+					bool looped = message->ReadBool();
+					int animation = (int)message->ReadChar();
+					bool setMovementCurve = message->ReadBool();
+					Assert( animation != -1 );
+
+					if( setMovementCurve && !((SkeletalAnimation*)(((Model*)mObject)->Mesh->Animations[animation]))->HasMovementCurve() )
+						((Model*)mObject)->SetAnimationMovementCurve( animation, "ROOOT", ModelAnimation::ETransZ );
+					if( animation == 0 )
+						((Model*)mObject)->SetRagdoll( true, HCGInsideItems );
+					else
+						((Model*)mObject)->SetRagdoll( false, HCGInsideItems );
+					((Model*)mObject)->ActivateAnimation( animation, looped, timeScale, blendTime );
+				}
+				return true;
+			case OMT_Load:
+				{
+					String name = client->StringTransport.ReadString( message );
+					bool looped = message->ReadBool();
+					int animation = (int)message->ReadChar();
+
+					((Model*)mObject)->LoadAnimation( name.AsChar(), looped, animation );
+				}
+				return true;
+			case OMT_AnimSynchro:
+				ApplyAnimationInfo( message, client );
+				return true;
+			default:
+				return false;
+			}
+		}
+		return true;
+	default:
+		return false;
+	}
+}
+
+void ModelSynchronizer::SetZombie( void )
+{
+	if( mPO )
+		mPO->SetZombie();
+
+	if( mRagdoll )
+		mRagdoll->SetZombie();
+
+	ObjectSynchronizer::SetZombie();
+}
+
+void ModelSynchronizer::AddAnimActivation( int animNumber, bool looped, float blendTime, float timeScale, bool hasMovementCurve )
+{
+	if( !mObject || !( mObject->SynchroState() & Entity::ESynchroAnimation ) )
+		return;
+
+	Assert( animNumber != -1 );
+	AnimActivation* aa = new AnimActivation;
+	aa->AnimNumber = (unsigned char)animNumber;
+	aa->Looped = looped;
+	aa->BlendTime = blendTime;
+	aa->TimeScale = timeScale;
+	aa->HasMovementCurve = hasMovementCurve;
+
+	SendStruct ss;
+	ss.OtherMessageType = OMT_Activation;
+	ss.Data = (void*)aa;
+
+	mToSend.Add(ss);
+}
+
+void ModelSynchronizer::AddAnimLoad( String name, bool looped, int animIndex )
+{
+	if( !mObject || !( mObject->SynchroState() & Entity::ESynchroAnimation ) )
+		return;
+
+	AnimLoad* al = new AnimLoad;
+	al->Name = name;
+	al->Looped = looped;
+	al->AnimNumber = (unsigned char)animIndex;
+
+	SendStruct ss;
+	ss.OtherMessageType = OMT_Load;
+	ss.Data = (void*)al;
+
+	mToSend.Add(ss);
+}
+
+ModelSynchronizer::~ModelSynchronizer()
+{
+	ClearOtherMessages();
+
+	if( mPO )
+	{
+		mPO->SetZombie();
+		mPO->mEntity = 0;
+	}
+
+	if( mRagdoll )
+	{
+		mRagdoll->SetZombie();
+		mRagdoll->mModel = 0;
+	}
+}
+// ***************************************************************************************
+#define PO_SAME_POSITION_TOLERANCE (0.05f*0.05f)
+#define PO_SAME_ROTATION_TOLERANCE 0.999f
+#define PO_PLAYER_SYNCHRO_NO_LESS_THAN 1.5f
+
+POSynchronizer::POSynchronizer( unsigned long uniqueNumber, NetworkClient* client, PhysicsObject* poToSynchronize, EntitySynchronizer* entitySynchro )
+:	ObjectSynchronizer( uniqueNumber, client ), mObject( poToSynchronize ), mEntity( entitySynchro )
+,	CollisionGroup( 127 ), CollisionGroupSynchroIndex( 0 ), PositionSynchroIndex( 0 )
+,	OrientationSynchroIndex( 0 ), Position( 0, 0, 0 ), Orientation(), mVelocitySynchroStopped(false)
+,	EntityGIndex(0)
+{
+	mPlayerLastTimeSynchronizedPosition = GEngine->SysDriver.GetCurrentTime();
+	if( entitySynchro )
+		EntityGIndex = entitySynchro->mObject->GIndex;
+	if( poToSynchronize )
+	{
+		PostCreateMessage();
+		for( int i = 0; i < POHavokPart::EActionLast; ++i )
+			if( poToSynchronize->mHavokPart->GetAction( i ) ) AddActionUpdate( i );
+	}
+}
+
+void POSynchronizer::Maintain( void )
+{
+	if( IsZombie ) return;
+
+	Assert( mEntity );
+	Assert( mEntity->mObject );
+
+	// Check if we have to create or delete PO on the other side
+	if( mEntity->mObject->PO && !mObject )
+	{
+		mObject = mEntity->mObject->PO;
+		PostCreateMessage();
+	}
+	else if( mObject && !mEntity->mObject->PO )
+	{
+//		mObject = 0;		// Can't do this - we need this pointer for RemoveZombieObjectSynchronizers()
+		ClearOtherMessages();
+		PostDeleteMessage();
+		SetZombie();
+	}
+}
+
+void POSynchronizer::ClientMaintain( void )
+{
+    return;
+	double curTime = GEngine->SysDriver.GetCurrentTime();
+	double diffTime = curTime - LastUpdateTime;
+	if( diffTime < 4.0f ) return;
+
+	if( IsZombie || !mObject || !mEntity || !mEntity->mObject ) return;
+
+	double diffPos = ( Position - mObject->GetPosition() ).Magnitude();
+
+	if( diffPos > 10.0*PO_SAME_POSITION_TOLERANCE )
+	{
+		mObject->SetPositionAndRotation( Position, Orientation );
+		LastUpdateTime = curTime;
+	}
+}
+
+void POSynchronizer::AddUpdateObjMessage( UdpMessage* message )
+{
+	if( IsZombie || !mObject ) return;
+
+	Assert( mEntity );
+	Assert( mEntity->mObject );
+
+	double curTime = GEngine->SysDriver.GetCurrentTime();
+	UpdateClassParams* updateParams = mClient->ConnectionParams.Find(UpdateClass);
+	if( updateParams && ( curTime - LastUpdateTime < updateParams->MinSynchroDelay ) )
+		return;
+
+	int startMesgPos = message->GetPos();
+
+	unsigned long cnt = GEngine->Net->Profiler.Remember( NPSynchronizerNumber );
+
+	Assert( UniqueNumber != -1 );
+	Assert( mEntity->UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypePO );
+	WriteSynchronizer( message, mEntity->UniqueNumber, mEntity->GetType() );
+
+	int mesgPos = message->GetPos();
+	message->WriteUChar( 0 );
+
+	unsigned char sendState = 0;
+
+	// Make sure players get their positions no less often than a second even if they don't move
+
+	if( ( mObject->GetType() == EPawnBodyPlayer ) &&
+		( curTime - mPlayerLastTimeSynchronizedPosition > PO_PLAYER_SYNCHRO_NO_LESS_THAN ) )
+		PositionSynchroIndex = 0;
+
+	// Try to send new position
+	{
+		Vector pos = mObject->GetPosition();
+
+		if( (pos-Position).MagnitudeSquared() < PO_SAME_POSITION_TOLERANCE )
+			PositionSynchroIndex++;
+		else
+		{
+			PositionSynchroIndex = 0;
+			Position = pos;
+		}
+
+		if( PositionSynchroIndex < mClient->mHowManyUnreliableAssumedToPass )
+		{
+			sendState |= (1<<0);
+			message->WritePositionOptimized( pos ); NPROF( NPPOPosition );
+			mPlayerLastTimeSynchronizedPosition = curTime;
+		}
+
+		if( PositionSynchroIndex == 255 ) PositionSynchroIndex = 254;	// no overflow needed
+	}
+
+	// Try to send new rotation
+	{
+		Quaternion q = mObject->GetRotQuaternion();
+
+		float dot = fabs( q.Dot(Orientation) );
+		if( dot > PO_SAME_ROTATION_TOLERANCE )
+			OrientationSynchroIndex++;
+		else
+		{
+			OrientationSynchroIndex = 0;
+			Orientation = q;
+		}
+
+		if( OrientationSynchroIndex < mClient->mHowManyUnreliableAssumedToPass )
+		{
+			sendState |= (1<<1);
+			message->WriteQuaternionOptimized2( q );
+		}
+
+		if( OrientationSynchroIndex == 255 ) OrientationSynchroIndex = 254;	// no overflow needed
+	}
+
+	Vector vel = mObject->GetVel();
+	float velms = vel.MagnitudeSquared();
+	if( ( velms > 0.001f ) || !mVelocitySynchroStopped )
+	{
+		sendState |= (1<<2);
+//		message->WriteVector( vel ); NPROF( NPPOVelocity );
+		message->WriteLinearVelocityOptimized( vel ); NPROF( NPPOVelocity );
+		mVelocitySynchroStopped = ( velms <= 0.001f );
+	}
+	else
+		mVelocitySynchroStopped = true;
+
+	Vector velAng = mObject->GetAngularVel();
+	if( velAng.MagnitudeSquared() > 0.001f )
+	{
+		sendState |= (1<<3);
+		message->WriteAngularVelocityOptimized( velAng ); NPROF( NPPOAngularVelocity );
+	}
+
+	int newCG = mObject->GetCollisionGroup();
+	if( CollisionGroup != newCG )
+	{
+		CollisionGroup = newCG;
+		CollisionGroupSynchroIndex = 5;
+	}
+
+	if( CollisionGroupSynchroIndex > 0 )
+	{
+		CollisionGroupSynchroIndex--;
+		sendState |= (1<<4);
+		message->WriteUChar( CollisionGroup ); NPROF(NPCollGroupIndex);
+	}
+
+	if( sendState == 0 )	// There was nothing to synchronize - message will not be sent this way
+	{
+		GEngine->Net->Profiler.Remind( NPSynchronizerNumber, cnt );
+		message->Seek(startMesgPos);
+		return;
+	}
+
+	int mesgPos2 = message->GetPos();
+	message->Seek(mesgPos);
+	message->WriteUChar(sendState); NPROF(NPPOUpdateSynchroMarker);
+	message->Seek(mesgPos2);
+
+	LastUpdateTime = curTime;
+}
+
+void POSynchronizer::AddCreateObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "PO::CREATEOBJ %d sent\n", UniqueNumber );
+
+	Assert( mEntity && mEntity->mObject && !IsZombie );
+
+	Assert( UniqueNumber != -1 );
+	Assert( mEntity->UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypePO );
+	WriteSynchronizer( message, mEntity->UniqueNumber, mEntity->GetType() );
+
+	PONetCreationEntry entry;
+	entry.UpdateClass = UpdateClass;
+	entry.ObjectState = mObject->State;
+	entry.BodyType = mObject->BodyType;
+	entry.BodyScale = mObject->BodyScale;
+	entry.FreedomOfRotation = mObject->GetFreedomOfRotation();
+	entry.Mass = mObject->GetMass();
+	entry.Friction = mObject->GetFriction();
+	entry.Restitution = mObject->GetRestitution();
+
+	CollisionGroup = mObject->GetCollisionGroup();
+	entry.CollisionGroup = CollisionGroup;
+	CollisionGroupSynchroIndex = 0;
+
+#ifdef _DEBUG
+	int sent = client->POCreationCache.SendPOCreationData( message, entry ); NPROF2( NPPOCreationData, sent );
+#else
+	client->POCreationCache.SendPOCreationData( message, entry );
+#endif
+
+/*
+	message->WriteUChar( UpdateClass ); NPROF( NPUpdateClass );
+	message->WriteUShort( mObject->State ); NPROF( NPPOState );
+	message->WriteUChar( mObject->BodyType ); NPROF( NPPOBodyType );
+	message->WriteFloat( mObject->BodyScale ); NPROF(NPEntityScale);
+	message->WriteChar( mObject->GetFreedomOfRotation() ); NPROF( NPPOFreedomOfRot );
+	message->WriteFloat( mObject->GetMass() ); NPROF(NPPOMass);
+	message->WriteFloat( mObject->GetFriction() ); NPROF(NPPOFriction);
+	message->WriteFloat( mObject->GetRestitution() ); NPROF(NPPORestitution);
+
+	CollisionGroup = mObject->GetCollisionGroup();
+	message->WriteUChar( CollisionGroup ); NPROF( NPCollGroupIndex );
+	CollisionGroupSynchroIndex = 0;
+*/
+
+	Position = mEntity->mObject->GetPosition();
+	message->WritePositionOptimized( Position ); NPROF( NPPOPosition );
+	PositionSynchroIndex = 0;
+
+	Orientation = mEntity->mObject->GetRotation();
+	message->WriteQuaternionOptimized( Orientation ); NPROF2(NPPORotation,6);
+	OrientationSynchroIndex = 0;
+
+//	GLog.Print( "MPO: (%f,%f,%f)\n", mObject->mModelPivotOffset.X, mObject->mModelPivotOffset.Y, mObject->mModelPivotOffset.Z );
+
+	Vector velocity = mObject->GetVel();
+//	message->WriteVector( velocity ); NPROF( NPPOVelocity );
+	message->WriteLinearVelocityOptimized( velocity ); NPROF( NPPOVelocity );
+
+	Vector angularVelocity = mObject->GetAngularVel();
+	message->WriteAngularVelocityOptimized( angularVelocity ); NPROF( NPPOAngularVelocity );
+}
+
+void POSynchronizer::AddDeleteObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "PO::DELETEOBJ %d sent. Entity %d, type %d \n", UniqueNumber, mEntity->UniqueNumber, mEntity->GetType() );
+	Assert( UniqueNumber != -1 );
+	Assert( mEntity->UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypePO );
+	WriteSynchronizer( message, mEntity->UniqueNumber, mEntity->GetType() );
+	message->WriteBool( IsZombie ); NPROF(NPIsZombie);
+}
+
+bool POSynchronizer::InterpretMessage( UdpMessage* message, unsigned char command, NetworkClient* client )
+{
+	unsigned long entityNumber;
+	unsigned char entityType;
+	ObjectSynchronizer::ReadSynchronizer( message, entityNumber, entityType );
+
+    // XXX na DM_Unseen tu sie wywalilo na kliencie
+    //-	mEntity	0x0f042050 {ActiveMeshIndex=-1 Position={X=0.00000000 Y=0.00000000 Z=0.00000000 ...} PositionSynchroIndex=0 ...}	EntitySynchronizer *
+    //    +	[MeshSynchronizer]	{ActiveMeshIndex=-1 Position={X=0.00000000 Y=0.00000000 Z=0.00000000 ...} PositionSynchroIndex=0 ...}	MeshSynchronizer
+    //    +	ObjectSynchronizer	{UniqueNumber=3 UpdateClass=1 '?' mClient=0x02f76fe8 {ConnectionType=-842203136 StringTransport={mNumber=0 StringToNumber={Table=0x02f76fec Array={...} FreePlaces={...} } NumberToString={Table=0x02f78004 Array={...} FreePlaces={...} } } mSummaryUpdatePacketSize=0 ...} ...}	ObjectSynchronizer
+    //    +	mObject	0x15aa7638 {registration={...} ClassName=0x1089f2e0 "WorldMesh" MPKIndex=-1 ...}	Entity *
+    //    +	mPO	0x15b7d820 {mObject=0x0f0c68b0 {mModelPivotOffset={X=0.00000000 Y=0.00000000 Z=9.5367432e-007 ...} mFreedomOfRotation=3 '?' mPlayerVariables=0x00000000 {AccumulatedDelta=??? FakeBulletTimeGravity=??? AtSteps=??? ...} ...} mEntity=0x0f042050 {ActiveMeshIndex=-1 Position={X=0.00000000 Y=0.00000000 Z=0.00000000 ...} PositionSynchroIndex=0 ...} CollisionGroup=7 '?' ...}	POSynchronizer *
+    
+    // mEntity->UniqueNumber = 3
+    // entityNumber = 64
+
+	Assert( !mEntity || ( mEntity->UniqueNumber == entityNumber ) );
+
+	if( !mEntity )
+	{
+		mEntity = (EntitySynchronizer*)client->SureGetEntitySynchronizer( entityNumber, entityType );
+		mEntity->mPO = this;
+	}
+
+	switch( command )
+	{
+	case NetworkClient::CREATEOBJ:
+		{
+			PONetCreationEntry entry;
+			client->POCreationCache.ReceivePOCreationData( message, entry );
+
+			UpdateClass = entry.UpdateClass;
+
+			Vector pos = message->ReadPositionOptimized();
+			Quaternion rot = message->ReadQuaternionOptimized();
+			Vector vel = message->ReadLinearVelocityOptimized();
+			Vector velAng = message->ReadAngularVelocityOptimized();
+
+			Assert( mEntity->mObject );
+			mEntity->mObject->SetPositionAndRotation( pos, rot );
+			if( !mEntity->mObject->PO )
+				mEntity->mObject->PO = GEngine->World->Physics->CreatePhysicsObject( pos, rot, entry.BodyType, mEntity->mObject, entry.BodyScale );
+
+			mObject = mEntity->mObject->PO;
+
+			Position = mObject->GetPosition();
+			Orientation = mObject->GetRotQuaternion();
+
+			mObject->State = entry.ObjectState;
+
+//			GLog.Print( "MPO: (%f,%f,%f)\n", mObject->mModelPivotOffset.X, mObject->mModelPivotOffset.Y, mObject->mModelPivotOffset.Z );
+
+			mObject->SetFreedomOfRotation( entry.FreedomOfRotation );
+			mObject->SetVel( vel );
+			mObject->SetAngularVel( velAng );
+			mObject->SetCollisionGroup( entry.CollisionGroup );
+			CollisionGroup = entry.CollisionGroup;
+
+			if( entry.Mass != mObject->GetMass() ) mObject->SetMass( entry.Mass );
+			if( entry.Friction != mObject->GetFriction() ) mObject->SetFriction( entry.Friction );
+			if( entry.Restitution != mObject->GetRestitution() ) mObject->SetRestitution( entry.Restitution );
+
+			char* synStr = mEntity->mObject->GetSynchroString();
+			if( synStr )
+				GScript.QueueMessage("PO_CREATE","%p,%p,%s",mEntity->mObject,mObject,synStr);
+/*
+			UpdateClass = message->ReadUChar();
+			unsigned short state = message->ReadUShort();
+			unsigned char bodyType = message->ReadUChar();
+			float bodyScale = message->ReadFloat();
+			char freedomOfRotation = message->ReadChar();
+			float mass = message->ReadFloat();
+			float friction = message->ReadFloat();
+			float restitution = message->ReadFloat();
+
+//			GLog.Print( "PO::CREATEOBJ %d: state = %d, body type = %d, body scale = %f, freedom of rotation = %d\n",
+//				UniqueNumber, state, bodyType, bodyScale, freedomOfRotation );
+
+			Vector pos = message->ReadPositionOptimized();
+			Quaternion rot = message->ReadQuaternionOptimized();
+			Vector vel = message->ReadLinearVelocityOptimized();
+			Vector velAng = message->ReadAngularVelocityOptimized();
+
+			Assert( mEntity->mObject );
+			mEntity->mObject->SetPositionAndRotation( pos, rot );
+			if( !mEntity->mObject->PO )
+				mEntity->mObject->PO = GEngine->World->Physics->CreatePhysicsObject( pos, rot, bodyType, mEntity->mObject, bodyScale );
+
+			mObject = mEntity->mObject->PO;
+
+			mObject->State = state;
+
+//			GLog.Print( "MPO: (%f,%f,%f)\n", mObject->mModelPivotOffset.X, mObject->mModelPivotOffset.Y, mObject->mModelPivotOffset.Z );
+
+			mObject->SetFreedomOfRotation( freedomOfRotation );
+			mObject->SetVel( vel );
+			mObject->SetAngularVel( velAng );
+			mObject->SetCollisionGroup( collGroup );
+			CollisionGroup = collGroup;
+
+			if( mass != mObject->GetMass() ) mObject->SetMass( mass );
+			if( friction != mObject->GetFriction() ) mObject->SetFriction( friction );
+			if( restitution != mObject->GetRestitution() ) mObject->SetRestitution( restitution );
+
+			char* synStr = mEntity->mObject->GetSynchroString();
+			if( synStr )
+				GScript.QueueMessage("PO_CREATE","%p,%p,%s",mEntity->mObject,mObject,synStr);
+*/
+		}
+		return true;
+	case NetworkClient::DELETEOBJ:
+//		GLog.Print( "PO::DELETEOBJ %d\n", UniqueNumber );
+		if( mEntity && mEntity->mObject )
+			mEntity->mObject->RemovePhysicsObject();
+		// else assume it's deleted
+		mObject = 0;
+		IsZombie = message->ReadBool();
+		return true;
+	case NetworkClient::UPDATE:
+		{
+//			String synchro = "";
+
+			unsigned char sendState = message->ReadUChar();
+
+			UpdateClassParams* updateParams = 0;
+			if( sendState & 0x1F )
+				updateParams = mClient->ConnectionParams.Find(UpdateClass);
+
+			if( sendState & (1<<0) )
+			{
+				Vector newPos = message->ReadPositionOptimized();
+                if( mObject )
+                {
+    				Vector pos = mObject->GetPosition();
+					if( ( newPos != Position ) ||
+						( (newPos-pos).MagnitudeSquared() > ( updateParams?(updateParams->MinPositionDiff*updateParams->MinPositionDiff):10*PO_SAME_POSITION_TOLERANCE ) ) )
+    				{
+/*                        String t = String::Sprintf( "myPos: (%f,%f,%f), newPos: (%f,%f,%f), lastGivenPos: (%f,%f,%f), diff: %f, min: %f\n",
+							pos.X, pos.Y, pos.Z, newPos.X, newPos.Y, newPos.Z, Position.X, Position.Y, Position.Z, (newPos-pos).MagnitudeSquared(),
+                            ( updateParams?(updateParams->MinPositionDiff*updateParams->MinPositionDiff):10*PO_SAME_POSITION_TOLERANCE ) );
+						synchro += t;
+*/	    				Position = newPos;
+		    			mObject->SetPosition( Position );
+//						GLog.Print( "PO Update - new pos: (%f,%f,%f)\n", Position.X, Position.Y, Position.Z );
+			    	}
+                }
+			}
+
+			if( sendState & (1<<1) )
+			{
+				Quaternion newOrient = message->ReadQuaternionOptimized2();
+				if( !( newOrient == Orientation ) && mObject )
+				{
+/*					String t = String::Sprintf( "lastOrient: (%f,(%f,%f,%f)), myOrient: (%f,(%f,%f,%f))\n",
+						Orientation.W, Orientation.X, Orientation.Y, Orientation.Z,
+						newOrient.W, newOrient.X, newOrient.Y, newOrient.Z );
+					synchro += t;
+*/					Orientation = newOrient;
+					mObject->SetRotQuaternion( Orientation );
+				}
+			}
+
+			if( sendState & (1<<2) )
+			{
+				Vector vel = message->ReadLinearVelocityOptimized();
+				if( mObject )
+				{
+					Vector oldVel = mObject->GetVel();
+					if( (oldVel-vel).Magnitude() > ( updateParams?updateParams->MinLinearVelocityDiff:0.001f ) )
+					{
+/*                      String t = String::Sprintf( "myVelocity: (%f,%f,%f), newVelocity: (%f,%f,%f), diff: %f, min: %f\n",
+							oldVel.X, oldVel.Y, oldVel.Z, vel.X, vel.Y, vel.Z, (oldVel-vel).Magnitude(),
+                            ( updateParams?updateParams->MinLinearVelocityDiff:0.001f ) );
+						synchro += t;
+*/						mObject->SetVel( vel );
+					}
+				}
+			}
+
+			if( sendState & (1<<3) )
+			{
+				Vector velAng = message->ReadAngularVelocityOptimized();
+				if( mObject )
+				{
+					Vector oldVelAng = mObject->GetAngularVel();
+					if( (oldVelAng-velAng).Magnitude() > ( updateParams?updateParams->MinAngularVelocityDiff:0.1f ) )
+					{
+/*                        String t = String::Sprintf( "myAngularVelocity: (%f,%f,%f), newAngularVelocity: (%f,%f,%f), diff: %f, min: %f%s\n",
+							oldVelAng.X, oldVelAng.Y, oldVelAng.Z, velAng.X, velAng.Y, velAng.Z, (oldVelAng-velAng).Magnitude(),
+                            ( updateParams?updateParams->MinAngularVelocityDiff:0.1f ), updateParams?", jest":", nie ma" );
+						synchro += t;
+*/						mObject->SetAngularVel( velAng );
+					}
+				}
+			}
+
+			if( sendState & (1<<4) )
+			{
+				unsigned char newCG = message->ReadUChar();
+				if( mObject && ( CollisionGroup != newCG ) )
+				{
+/*					String t = String::Sprintf( "OldCollisionGroup: %d, NewCollisionGroup: %d\n", CollisionGroup, newCG );
+					synchro += t;
+*/					mObject->SetCollisionGroup( newCG );
+					CollisionGroup = newCG;
+				}
+			}
+/*
+			if( mEntity && mEntity->mObject && ( mEntity->mObject->Name.Len() > 2 ) &&
+				strstr( mEntity->mObject->Name.AsChar(), "BECZKA_MALAShape" ) && ( synchro.Len() > 3 ) )
+				GLog.Print( synchro.AsChar() );
+*/
+			LastUpdateTime = GEngine->SysDriver.GetCurrentTime();
+		}
+		return true;
+	case NetworkClient::OTHEROBJ:
+		{
+			unsigned char howMany = message->ReadUChar();
+			for( int i = 0; i < howMany; ++i )
+				mObject->mHavokPart->ReadAction( message );
+		}
+		return true;
+	default:
+		return false;
+	}
+}
+
+POSynchronizer::~POSynchronizer()
+{
+	ClearOtherMessages();
+	if( mEntity )
+		mEntity->mPO = 0;
+}
+
+int POSynchronizer::HowManyOtherMessages( void ) { if( !mObject || IsZombie ) ClearOtherMessages(); return (mActionUpdates.Size() != 0)?1:0; }
+void POSynchronizer::ClearOtherMessages( void ) { mActionUpdates.Clear(); }
+
+void POSynchronizer::AddOtherObjMessage( UdpMessage* message, NetworkClient* client, int index )
+{
+	Assert( mObject );
+	Assert( UniqueNumber != -1 );
+	Assert( mEntity->UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypePO );
+	WriteSynchronizer( message, mEntity->UniqueNumber, mEntity->GetType() );
+	message->WriteUChar( mActionUpdates.Size() ); NPROF(NPPOActionCount);
+	for( int i = 0; i < mActionUpdates.Size(); ++i )
+		mObject->mHavokPart->WriteAction( mActionUpdates[i], message );
+}
+
+
+// ***************************************************************************************
+#define RAGDOLL_SAME_POSITION_TOLERANCE (0.05f*0.05f)
+#define RAGDOLL_SAME_ROTATION_TOLERANCE 0.999f
+
+RagdollSynchronizer::RagdollSynchronizer( unsigned long uniqueNumber, NetworkClient* client, Ragdoll* ragdollToSynchronize, ModelSynchronizer* modelSynchro )
+:	ObjectSynchronizer( uniqueNumber, client ), mObject( ragdollToSynchronize ), mModel( modelSynchro ), mDoesNotSynchroAnim(false)
+,	EntityGIndex(0)
+{
+	if( modelSynchro )
+		EntityGIndex = modelSynchro->mObject->GIndex;
+	if( ragdollToSynchronize )
+		PostCreateMessage();
+}
+
+void RagdollSynchronizer::Maintain( void )
+{
+	if( IsZombie ) return;
+
+	Assert( mModel );
+	Assert( mModel->mObject );
+	Model* model = (Model*)mModel->mObject;
+
+	// Check if we have to create or delete ragdoll on the other side
+	if( model->RagdollPtr && model->RagDoll && !mObject )
+	{
+		mObject = model->RagdollPtr;
+		Assert( mObject );
+		PostCreateMessage();
+	}
+	else if( mObject && ( !model->RagdollPtr || !model->RagDoll ) )
+	{
+//		mObject = 0;	// Can't do this - we need this pointer for RemoveZombieObjectSynchronizers()
+		ClearOtherMessages();
+		PostDeleteMessage();
+		SetZombie();
+	}
+}
+
+void RagdollSynchronizer::AddUpdateObjMessage( UdpMessage* message )
+{
+	if( IsZombie || !mObject ) return;
+
+	Assert( mModel );
+	Assert( mModel->mObject );
+
+	if( !(mModel->mObject->SynchroState() & (Entity::ESynchroRagdoll|Entity::ESynchroRagdollCreation)) )
+		return;	// don't synchronize ragdoll
+
+	float curTime = 0.0f;
+	UpdateClassParams* updateParams = mClient->ConnectionParams.Find(UpdateClass);
+	if( updateParams && ( updateParams->MinSynchroDelay > 0.0f ) )
+	{
+		curTime = GEngine->SysDriver.GetCurrentTime();
+		if( curTime - LastUpdateTime < updateParams->MinSynchroDelay )
+			return;
+	}
+
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeRagdoll );
+	char c = message->WriteULongOptimized( mModel->UniqueNumber + 1 ); NPROF2(NPSynchronizerNumber,c);
+
+	// Synchronize ragdoll update
+
+	// Get ragdoll update state
+	DynamicArray<Vector> positions;
+	DynamicArray<Quaternion> rotations;
+	mObject->GetLimbsPositionsAndRotations( positions, rotations );
+
+	Assert( positions.Size() < 29 );
+	Assert( mLimbPositions.Size() == positions.Size() );
+
+	// Gather information, which positions we synchronize this time
+	unsigned long limbPositionStates = 0;
+	for( int i = 0; i < positions.Size(); ++i )
+	{
+		if( (positions[i]-mLimbPositions[i]).MagnitudeSquared() < RAGDOLL_SAME_POSITION_TOLERANCE )
+			mLimbPositionsUnchanged[i]++;
+		else
+		{
+			mLimbPositionsUnchanged[i] = 0;
+			mLimbPositions[i] = positions[i];
+		}
+
+		if( mLimbPositionsUnchanged[i] < mClient->mHowManyUnreliableAssumedToPass )
+			limbPositionStates |= (1<<i);
+
+		if( mLimbPositionsUnchanged[i] == 255 )
+			mLimbPositionsUnchanged[i]--;	// no overflow needed
+	}
+
+	// Send position data
+	message->WriteStateOptimized( limbPositionStates ); NPROF(NPRagdollLimbState);
+	for( int i = 0; i < positions.Size(); ++i )
+		if( mLimbPositionsUnchanged[i] < mClient->mHowManyUnreliableAssumedToPass )
+			message->WritePositionOptimized( positions[i] ); NPROF(NPRagdollLimbPosition);
+
+	// Gather information, which rotations we synchronize this time
+	unsigned long limbRotationStates = 0;
+	for( int i = 0; i < rotations.Size(); ++i )
+	{
+		float dot = fabs( rotations[i].Dot(mLimbRotations[i]) );
+		if( dot > RAGDOLL_SAME_ROTATION_TOLERANCE )
+			mLimbRotationsUnchanged[i]++;
+		else
+		{
+			mLimbRotationsUnchanged[i] = 0;
+			mLimbRotations[i] = rotations[i];
+		}
+
+		if( mLimbRotationsUnchanged[i] < mClient->mHowManyUnreliableAssumedToPass )
+			limbRotationStates |= (1<<i);
+
+		if( mLimbRotationsUnchanged[i] == 255 )
+			mLimbRotationsUnchanged[i]--;	// no overflow needed
+	}
+
+	// Send rotation data
+	message->WriteStateOptimized( limbRotationStates ); NPROF(NPRagdollLimbState);
+	for( int i = 0; i < rotations.Size(); ++i )
+		if( mLimbRotationsUnchanged[i] < mClient->mHowManyUnreliableAssumedToPass )
+			message->WriteQuaternionOptimized( rotations[i] ); NPROF(NPRagdollLimbOrientation);
+
+	LastUpdateTime = curTime;
+}
+
+void RagdollSynchronizer::AddCreateObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "Ragdoll::CREATEOBJ %d sent\n", UniqueNumber );
+
+	Assert( mModel && mModel->mObject && !IsZombie );
+
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeRagdoll );
+	char c = message->WriteULongOptimized( mModel->UniqueNumber + 1 ); NPROF2(NPSynchronizerNumber,c);
+	message->WriteUChar( UpdateClass ); NPROF( NPUpdateClass );
+
+	// Send create ragdoll data
+
+	// Get ragdoll data
+	RagdollData data;
+	mObject->FillRagdollData( data );
+
+	// Fill mLimbPositions and mLimbRotations with current data
+	mLimbPositions.Clear();
+	mLimbPositionsUnchanged.Clear();
+	for( int i = 0; i < data.LimbPositions.Size(); ++i )
+	{
+		mLimbPositions.Add( data.LimbPositions[i] );
+		mLimbPositionsUnchanged.Add(0);
+	}
+
+	mLimbRotations.Clear();
+	mLimbRotationsUnchanged.Clear();
+	for( int i = 0; i < data.LimbOrientations.Size(); ++i )
+	{
+		mLimbRotations.Add( data.LimbOrientations[i] );
+		mLimbRotationsUnchanged.Add(0);
+	}
+
+	// Send position and rotation data
+	message->WriteUChar( mLimbPositions.Size() ); NPROF(NPRagdollLimbCount);
+	for( int i = 0; i < mLimbPositions.Size(); ++i )
+		message->WritePositionOptimized( mLimbPositions[i] ); NPROF(NPRagdollLimbPosition);
+	for( int i = 0; i < mLimbPositions.Size(); ++i )
+		message->WriteQuaternionOptimized( mLimbRotations[i] ); NPROF(NPRagdollLimbOrientation);
+
+	// Send linear and angular velocities data
+	for( int i = 0; i < mLimbPositions.Size(); ++i )
+		message->WriteLinearVelocityOptimized( data.LimbLinearVelocities[i] ); NPROF(NPRagdollLimbVelocity);
+	for( int i = 0; i < mLimbPositions.Size(); ++i )
+		message->WriteAngularVelocityOptimized( data.LimbAngularVelocities[i] ); NPROF(NPRagdollLimbAngularVelocity);
+
+	// Send pinned/not pinned limbs info
+	for( int i = 0; i < mLimbPositions.Size(); ++i )
+		message->WriteBool( data.LimbPinned[i] ); NPROF(NPRagdollLimbPinned);
+
+	// Send dampings
+	message->WriteFloat( data.LinearDamping ); NPROF(NPRagdollLinearDamping);
+	message->WriteFloat( data.AngularDamping ); NPROF(NPRagdollAngularDamping);
+
+	// Send mass
+	message->WriteFloat( data.Mass ); NPROF(NPRagdollMass);
+
+	// Send collision group
+	message->WriteUChar( data.CollisionGroup ); NPROF(NPRagdollCollisionGroup);
+}
+
+void RagdollSynchronizer::AddDeleteObjMessage( UdpMessage* message, NetworkClient* client )
+{
+//	GLog.Print( "Ragdoll::DELETEOBJ %d sent\n", UniqueNumber );
+	Assert( UniqueNumber != -1 );
+	WriteSynchronizer( message, UniqueNumber, STypeRagdoll );
+	char c = message->WriteULongOptimized( mModel->UniqueNumber + 1 ); NPROF2(NPSynchronizerNumber,c);
+	message->WriteBool( IsZombie ); NPROF(NPIsZombie);
+}
+
+bool RagdollSynchronizer::InterpretMessage( UdpMessage* message, unsigned char command, NetworkClient* client )
+{
+	Assert( ( command == NetworkClient::CREATEOBJ ) || ( command == NetworkClient::DELETEOBJ ) || ( command == NetworkClient::UPDATE ) );
+
+	unsigned long entityNumber = message->ReadULongOptimized()-1;
+
+	Assert( !mModel || ( mModel->UniqueNumber == entityNumber ) );
+
+	if( !mModel )
+	{
+		mModel = (ModelSynchronizer*)client->SureGetEntitySynchronizer( entityNumber, STypeModel );
+		mModel->mRagdoll = this;
+	}
+
+	switch( command )
+	{
+	case NetworkClient::CREATEOBJ:
+		{
+			// Really, object is already created, we just have to start synchronizing it again
+//			GLog.Print( "Ragdoll::CREATEOBJ\n" );
+			UpdateClass = message->ReadUChar();
+
+			RagdollData data;
+
+			// Get position and rotation data
+			int limbSize = message->ReadUChar();
+
+			for( int i = 0; i < limbSize; ++i )
+				data.LimbPositions.Add( message->ReadPositionOptimized() );
+			for( int i = 0; i < limbSize; ++i )
+				data.LimbOrientations.Add( message->ReadQuaternionOptimized() );
+
+			// Get linear and angular velocities data
+			for( int i = 0; i < limbSize; ++i )
+				data.LimbLinearVelocities.Add( message->ReadLinearVelocityOptimized() );
+			for( int i = 0; i < limbSize; ++i )
+				data.LimbAngularVelocities.Add( message->ReadAngularVelocityOptimized() );
+
+			// Get pinned/not pinned limbs info
+			for( int i = 0; i < limbSize; ++i )
+				data.LimbPinned.Add( message->ReadBool() );
+
+			// Get dampings
+			data.LinearDamping = message->ReadFloat();
+			data.AngularDamping = message->ReadFloat();
+
+			// Get mass
+			data.Mass = message->ReadFloat();
+
+			// Get collision group
+			data.CollisionGroup = message->ReadUChar();
+
+			Assert( mModel->mObject );
+
+			if( !mObject )
+			{
+				((Model*)mModel->mObject)->SetRagdoll( true, HCGInsideItems );
+				mObject = ((Model*)mModel->mObject)->RagdollPtr;
+				mDoesNotSynchroAnim = true;
+			}
+   			mObject->SetFromRagdollData( data );
+		}
+		return true;
+	case NetworkClient::DELETEOBJ:
+//		GLog.Print( "Ragdoll::DELETEOBJ %d\n", UniqueNumber );
+		IsZombie = message->ReadBool();
+		if( mObject )
+		{
+			if( mModel && mModel->mObject && mDoesNotSynchroAnim )
+				((Model*)mModel->mObject)->SetRagdoll( false, HCGInsideItems );
+			else if( IsZombie )
+				delete mObject;
+			mObject = 0;
+		}
+		return true;
+	case NetworkClient::UPDATE:
+		{
+			DynamicArray<Vector> positions;
+			DynamicArray<Quaternion> rotations;
+			mObject->GetLimbsPositionsAndRotations( positions, rotations );
+
+			// Get ragdoll update state
+			unsigned long limbPositionStates = message->ReadStateOptimized();
+			for( int i = 0; i < 30; ++i )
+				if( limbPositionStates & (1<<i) )
+					positions[i] = message->ReadPositionOptimized();
+
+			unsigned long limbRotationStates = message->ReadStateOptimized();
+			for( int i = 0; i < 30; ++i )
+				if( limbRotationStates & (1<<i) )
+					rotations[i] = message->ReadQuaternionOptimized();
+
+			mObject->SetLimbsPositionsAndRotations( positions, rotations );
+		}
+		LastUpdateTime = GEngine->SysDriver.GetCurrentTime();
+		return true;
+	case NetworkClient::OTHEROBJ:
+	default:
+		return false;
+	}
+	return true;
+}
+
+RagdollSynchronizer::~RagdollSynchronizer()
+{
+	if( mModel )
+		mModel->mRagdoll = 0;
+}
+
+/*
+			GLog.Print( "Model state just after read ( model index %d )\n", UniqueNumber );
+			GLog.Print( "***********************************************\n" );
+			GLog.Print( "Animations: %d\n", mModel->Mesh->Animations.Size() );
+			for( int i = 1; i < mModel->Mesh->Animations.Size(); ++i )
+			{
+				if( mModel->Mesh->Animations[i] )
+					GLog.Print( "Animation %d = '%s', %s\n", i, mModel->Mesh->Animations[i]->Name.AsChar(), mModel->Mesh->Animations[i]->Looped?"looped":"not looped" );
+				else
+					GLog.Print( "Animation %d empty\n", i );
+			}
+			GLog.Print( "Running Animations: %d\n", mModel->AnimController.Animations.Size() );
+			for( int i = 0; i < mModel->AnimController.Animations.Size(); ++i )
+			{
+				int index = -1;
+				for( int j = 0; j < mModel->Mesh->Animations.Size(); ++j )
+				{
+					if( mModel->Mesh->Animations[j] == mModel->AnimController.Animations[i].Animation )
+					{
+						index = j;
+						break;
+					}
+				}
+				GLog.Print( "Animation %d <weight=%f,timescale=%f,%s,frameblendtime=%f,blendtime=%f>\n",
+					index, mModel->AnimController.Animations[i].Weight, mModel->AnimController.Animations[i].TimeScale,
+					mModel->AnimController.Animations[i].Looped?"looped":"not looped", mModel->AnimController.Animations[i].FrameBlendTime,
+					mModel->AnimController.Animations[i].BlendTime );
+			}
+			GLog.Print( "***********************************************\n" );
+*/
+
+/*
+	GLog.Print( "Model state just after write ( model index %d )\n", UniqueNumber );
+	GLog.Print( "***********************************************\n" );
+	GLog.Print( "Animations: %d\n", mModel->Mesh->Animations.Size() );
+
+	for( int i = 1; i < mModel->Mesh->Animations.Size(); ++i )
+	{
+		if( mModel->Mesh->Animations[i] )
+			GLog.Print( "Animation %d = '%s', %s\n", i, mModel->Mesh->Animations[i]->Name.AsChar(), mModel->Mesh->Animations[i]->Looped?"looped":"not looped" );
+		else
+			GLog.Print( "Animation %d empty\n", i );
+	}
+	GLog.Print( "Running Animations: %d\n", mModel->AnimController.Animations.Size() );
+	for( int i = 0; i < mModel->AnimController.Animations.Size(); ++i )
+	{
+		int index = -1;
+		for( int j = 0; j < mModel->Mesh->Animations.Size(); ++j )
+		{
+			if( mModel->Mesh->Animations[j] == mModel->AnimController.Animations[i].Animation )
+			{
+				index = j;
+				break;
+			}
+		}
+		GLog.Print( "Animation %d <weight=%f,timescale=%f,%s,frameblendtime=%f,blendtime=%f>\n",
+			index, mModel->AnimController.Animations[i].Weight, mModel->AnimController.Animations[i].TimeScale,
+			mModel->AnimController.Animations[i].Looped?"looped":"not looped", mModel->AnimController.Animations[i].FrameBlendTime,
+			mModel->AnimController.Animations[i].BlendTime );
+	}
+	GLog.Print( "***********************************************\n" );
+*/
+
+int PONetCreationCache::SendPOCreationData( UdpMessage* message, PONetCreationEntry& entry )
+{
+	for( int i = 0; i < Entries.Size(); ++i )
+		if( Entries[i] == entry )
+		{
+			message->WriteLong( Entries[i].index );
+
+			while( ( i > 0 ) && ( Entries[i-1].timesSent < Entries[i].timesSent ) )
+			{
+				Entries.Swap( i, i-1 );
+				i--;
+			}
+
+			return 4;
+		}
+	int ind = Entries.Add(entry);
+	entry.timesSent = 0;
+	entry.index = ind;
+	Entries[ind].index = ind;
+	entry.SendEntry(message);
+	return 25;
+}
+
+void PONetCreationCache::ReceivePOCreationData( UdpMessage* message, PONetCreationEntry& entry )
+{
+	int index = message->ReadLong();
+	Assert( !(index > Entries.Size()) );
+	if( index == Entries.Size() )
+	{
+		entry.ReceiveEntry( message );
+		Entries.Add(entry);
+		entry.index = index;
+	}
+	else
+		entry = Entries[index];	// on client entry index field is always equal to entry index
+}
+
+void PONetCreationEntry::SendEntry( UdpMessage* message )
+{
+	message->WriteLong( index );
+	message->WriteUShort( ObjectState );
+	message->WriteFloat( Mass );
+	message->WriteFloat( Friction );
+	message->WriteFloat( Restitution );
+	message->WriteFloat( BodyScale );
+	message->WriteUChar( BodyType );
+	message->WriteChar( FreedomOfRotation );
+	message->WriteUChar( CollisionGroup );
+}
+
+void PONetCreationEntry::ReceiveEntry( UdpMessage* message )
+{
+	ObjectState = message->ReadUShort();
+	Mass = message->ReadFloat();
+	Friction = message->ReadFloat();
+	Restitution = message->ReadFloat();
+	BodyScale = message->ReadFloat();
+	BodyType = message->ReadUChar();
+	FreedomOfRotation = message->ReadChar();
+	CollisionGroup = message->ReadUChar();
+}

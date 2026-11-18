@@ -1,0 +1,3 @@
+o.Frozen = true
+o.BaseObj = "CheckPoint.CItem"
+o.Pos = Vector:New(-64.6439,-23.8447,-2.83863)

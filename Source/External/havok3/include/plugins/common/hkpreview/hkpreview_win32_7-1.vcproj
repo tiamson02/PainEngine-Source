@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	ProjectGUID="{857E3577-7246-40AD-92D3-C6540ADD610B}"
+	Name="hkpreview"
+
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration Name="FullDebug|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\fulldebug"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,HK_FULLDEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\fulldebug;..\..\..\..\sdk\lib\win32-net\debug;..\..\..\..\lib\win32-net\fulldebug"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="FullDebug Multithreaded|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\fulldebug_multithreaded"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,HK_FULLDEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\fulldebug_multithreaded;..\..\..\..\sdk\lib\win32-net\debug_multithreaded;..\..\..\..\lib\win32-net\fulldebug_multithreaded"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="FullDebug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\fulldebug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded_dll\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,HK_FULLDEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\fulldebug_multithreaded_dll;..\..\..\..\sdk\lib\win32-net\debug_multithreaded_dll;..\..\..\..\lib\win32-net\fulldebug_multithreaded_dll"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Hybrid Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\hybrid_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\hybrid_multithreaded_dll\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\hybrid_multithreaded_dll;..\..\..\..\lib\win32-net\hybrid_multithreaded_dll"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Debug|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\debug"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\debug\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\debug;..\..\..\..\lib\win32-net\debug"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Debug Multithreaded|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\debug_multithreaded"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\debug_multithreaded;..\..\..\..\lib\win32-net\debug_multithreaded"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Debug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\debug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded_dll\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\debug_multithreaded_dll;..\..\..\..\lib\win32-net\debug_multithreaded_dll"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkpreview.dll.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Release|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\release"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\release\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,"
+				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
+				RuntimeLibrary="4"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\release;..\..\..\..\lib\win32-net\release"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(INTDIR)/hkpreview.dll.map"
+				SubSystem="2"
+				OptimizeReferences="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Release Multithreaded|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\release_multithreaded"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,"
+				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\release_multithreaded;..\..\..\..\lib\win32-net\release_multithreaded"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(INTDIR)/hkpreview.dll.map"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Release Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\release_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded_dll\hkpreview"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..,.,bitmaps,..\..\..\..\demo,..\..\..\..\demo\hkdemoframework,..\..\..\..\..\demo,..\..\..\..\..\demo\hkdemoframework,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,"
+				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile="$(INTDIR)\hkpreview.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib hkvisualize.lib hkdynamics.lib hkconstraintsolver.lib hkcollide.lib hkutilities.lib hkinternal.lib hkvehicle.lib hkgraphics.lib hkgraphicsogl.lib hkgraphicsdx8.lib hkgraphicsdx9.lib hkgraphicsdx9s.lib hkgraphicsbridge.lib hkdemoframework.lib"
+				OutputFile="$(OUTDIR)\hkpreview.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\..\..\sdk\lib;..\..\..\..\sdks\win32\dx8\lib;..\..\..\..\sdks\win32\dx9\lib;..\..\..\..\sdk\lib\win32-net\release_multithreaded_dll;..\..\..\..\lib\win32-net\release_multithreaded_dll"
+				ModuleDefinitionFile="hkpreview.def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(INTDIR)/hkpreview.dll.map"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkpreview.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+			<File RelativePath=".\RemoveFixedRigidBodyListener.cpp">
+</File>
+	<File RelativePath=".\RemoveFixedRigidBodyListener.h">
+</File>
+	<File RelativePath=".\classes.cpp">
+</File>
+	<File RelativePath=".\classes.h">
+</File>
+	<File RelativePath=".\convertToXml.cpp">
+</File>
+	<File RelativePath=".\convertToXml.h">
+</File>
+	<File RelativePath=".\createWorld.cpp">
+</File>
+	<File RelativePath=".\createWorld.h">
+</File>
+	<File RelativePath=".\dllentry.cpp">
+</File>
+	<File RelativePath=".\extractXml.cpp">
+</File>
+	<File RelativePath=".\hkPreview.def">
+</File>
+	<File RelativePath=".\hkPreview.h">
+</File>
+	<File RelativePath=".\hkPreview.rc">
+</File>
+	<File RelativePath=".\hkPreviewDemo.cpp">
+</File>
+	<File RelativePath=".\hkPreviewDemo.h">
+</File>
+	<Filter Name="hkexport2" Filter="">
+	<File RelativePath=".\hkexport2\errorlog.cpp">
+</File>
+	<File RelativePath=".\hkexport2\errorlog.h">
+</File>
+	<File RelativePath=".\hkexport2\exportaction.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportaction.h">
+</File>
+	<File RelativePath=".\hkexport2\exportactionfactory.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportactionfactory.h">
+</File>
+	<File RelativePath=".\hkexport2\exportangulardashaction.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportangulardashaction.h">
+</File>
+	<File RelativePath=".\hkexport2\exportclass.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportclass.h">
+</File>
+	<File RelativePath=".\hkexport2\exportcollisiongroups.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportcollisiongroups.h">
+</File>
+	<File RelativePath=".\hkexport2\exportconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportconstraintfactory.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportconstraintfactory.h">
+</File>
+	<File RelativePath=".\hkexport2\exportdashpotaction.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportdashpotaction.h">
+</File>
+	<File RelativePath=".\hkexport2\exportentitycollection.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportentitycollection.h">
+</File>
+	<File RelativePath=".\hkexport2\exportentitycollfactory.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportentitycollfactory.h">
+</File>
+	<File RelativePath=".\hkexport2\exportfastconstraintsolver.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportfastconstraintsolver.h">
+</File>
+	<File RelativePath=".\hkexport2\exportgeometricprimitive.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportgeometricprimitive.h">
+</File>
+	<File RelativePath=".\hkexport2\exportgeometry.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportgeometry.h">
+</File>
+	<File RelativePath=".\hkexport2\exportgeometryfactory.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportgeometryfactory.h">
+</File>
+	<File RelativePath=".\hkexport2\exporthingeconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exporthingeconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportinlinegeometry.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportinlinegeometry.h">
+</File>
+	<File RelativePath=".\hkexport2\exportlimitedptopconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportlimitedptopconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportmarker.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportmarker.h">
+</File>
+	<File RelativePath=".\hkexport2\exportmarkerlist.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportmarkerlist.h">
+</File>
+	<File RelativePath=".\hkexport2\exportmopprepository.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportmopprepository.h">
+</File>
+	<File RelativePath=".\hkexport2\exportmotoraction.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportmotoraction.h">
+</File>
+	<File RelativePath=".\hkexport2\exportprimitive.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportprimitive.h">
+</File>
+	<File RelativePath=".\hkexport2\exportprimitivefactory.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportprimitivefactory.h">
+</File>
+	<File RelativePath=".\hkexport2\exportprismaticconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportprismaticconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportptopconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportptopconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportragdollconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportragdollconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportrigidbody.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportrigidbody.h">
+</File>
+	<File RelativePath=".\hkexport2\exportrigidbodycollection.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportrigidbodycollection.h">
+</File>
+	<File RelativePath=".\hkexport2\exportsingleton.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportsingleton.h">
+</File>
+	<File RelativePath=".\hkexport2\exportsphericalprimitive.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportsphericalprimitive.h">
+</File>
+	<File RelativePath=".\hkexport2\exportspringaction.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportspringaction.h">
+</File>
+	<File RelativePath=".\hkexport2\exportstiffspringconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportstiffspringconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportstream.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportstream.h">
+</File>
+	<File RelativePath=".\hkexport2\exportsubspace.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportsubspace.h">
+</File>
+	<File RelativePath=".\hkexport2\exportwheelconstraint.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportwheelconstraint.h">
+</File>
+	<File RelativePath=".\hkexport2\exportworld.cpp">
+</File>
+	<File RelativePath=".\hkexport2\exportworld.h">
+</File>
+	<File RelativePath=".\hkexport2\hkexport.cpp">
+</File>
+	<File RelativePath=".\hkexport2\hkexport.h">
+</File>
+	<File RelativePath=".\hkexport2\inexportstream.cpp">
+</File>
+	<File RelativePath=".\hkexport2\inexportstream.h">
+</File>
+	</Filter>
+	<File RelativePath=".\previewWorld.cpp">
+</File>
+	<File RelativePath=".\previewWorld.h">
+</File>
+	<File RelativePath=".\properties.cpp">
+</File>
+	<File RelativePath=".\properties.h">
+</File>
+
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
+

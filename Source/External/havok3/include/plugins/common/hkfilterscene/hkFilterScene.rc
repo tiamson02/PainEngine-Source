@@ -1,0 +1,215 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Ireland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENI)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_EIRE
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TRANSFORM_DIALOG DIALOGEX 0, 0, 153, 209
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_CLIENTEDGE
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_PRESET_COMBO,27,15,103,77,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Apply to Node Transforms",IDC_NODE_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,48,99,10
+    CONTROL         "Apply to Vertex Buffers",IDC_BUFFERS_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,59,91,10
+    CONTROL         "Apply to Lights",IDC_LIGHTS_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,70,63,10
+    CONTROL         "Apply to Cameras",IDC_CAMERAS_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,81,73,10
+    CONTROL         "Flip Triangle Winding",IDC_WINDING_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,92,81,10
+    EDITTEXT        IDC_EDIT_MAT00,32,139,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT01,61,139,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT02,90,139,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT10,32,155,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT11,61,155,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT12,90,155,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT20,32,171,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT21,61,171,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        IDC_EDIT_MAT22,90,171,27,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    GROUPBOX        "Transformation Matrix",IDC_STATIC,7,108,139,93
+    GROUPBOX        "Preset",IDC_STATIC,7,3,139,32
+    GROUPBOX        "Basis",IDC_STATIC,29,120,93,72
+    GROUPBOX        "Transform Options",IDC_STATIC,7,37,139,70
+    LTEXT           "X",IDC_STATIC,45,129,9,9
+    LTEXT           "Y",IDC_STATIC,74,129,9,9
+    LTEXT           "Z",IDC_STATIC,103,129,9,9
+END
+
+IDD_ALTER_MESH_DIALOG DIALOGEX 0, 0, 153, 199
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_CLIENTEDGE
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Remove Indices",IDC_REMOVE_INDICES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,7,139,14
+END
+
+IDD_PLATFORM_WRITER_DIALOG DIALOGEX 0, 0, 153, 199
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_CLIENTEDGE
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_FILENAME,11,15,111,15,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BROWSE_FILENAME,125,15,17,15
+    COMBOBOX        IDC_PLATFORM_PRESET_COMBO,27,49,103,170,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_PTR_BYTES,30,83,28,13,ES_AUTOHSCROLL
+    CONTROL         "Little Endian",IDC_LITTLE_ENDIAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,98,55,10
+    CONTROL         "Reuse Padding Opt.",IDC_REUSE_PADDING_OPT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,109,80,10
+    CONTROL         "Empty Base Class Opt.",IDC_EMPTYBASE_CLASS_OPT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,120,89,10
+    GROUPBOX        "Preset",IDC_STATIC,7,37,139,32
+    GROUPBOX        "Edit Platform",IDC_STATIC,7,71,139,70
+    GROUPBOX        "Filename",IDC_STATIC,7,4,139,32
+    LTEXT           "Bytes in Pointer",IDC_STATIC_BYTESINPTR,61,85,52,13
+    GROUPBOX        "Options",IDC_STATIC,7,143,139,51
+    CONTROL         "Remove Metadata",IDC_CB_REMOVE_METADATA,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,157,75,10
+    EDITTEXT        IDC_ED_USER_TAG,67,171,51,13,ES_AUTOHSCROLL
+    LTEXT           "User Tag",IDC_STATIC,29,173,33,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_TRANSFORM_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 146
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 204
+    END
+
+    IDD_ALTER_MESH_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 146
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 194
+    END
+
+    IDD_PLATFORM_WRITER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 146
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 194
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_TRANSFORM_DIALOG DLGINIT
+BEGIN
+    IDC_PRESET_COMBO, 0x403, 9, 0
+0x4852, 0x2d20, 0x203e, 0x484c, "\000" 
+    IDC_PRESET_COMBO, 0x403, 7, 0
+0x484c, 0x3e2d, 0x4852, "\000" 
+    IDC_PRESET_COMBO, 0x403, 8, 0
+0x694d, 0x7272, 0x726f, 0x0058, 
+    IDC_PRESET_COMBO, 0x403, 8, 0
+0x694d, 0x7272, 0x726f, 0x0059, 
+    IDC_PRESET_COMBO, 0x403, 8, 0
+0x694d, 0x7272, 0x726f, 0x005a, 
+    IDC_PRESET_COMBO, 0x403, 15, 0
+0x6546, 0x7465, 0x7420, 0x206f, 0x654d, 0x7274, 0x7365, "\000" 
+    IDC_PRESET_COMBO, 0x403, 20, 0
+0x614d, 0x2078, 0x6e55, 0x7469, 0x2073, 0x6f74, 0x4d20, 0x7465, 0x6572, 
+0x0073, 
+    IDC_PRESET_COMBO, 0x403, 11, 0
+0x4320, 0x7375, 0x6f74, 0x2e6d, 0x2e2e, "\000" 
+    0
+END
+
+#endif    // English (Ireland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

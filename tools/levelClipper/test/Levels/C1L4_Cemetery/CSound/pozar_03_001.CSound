@@ -1,0 +1,6 @@
+o.Volume = 100
+o.IsObstructed = true
+o.Falloff.Start = 2
+o.BaseObj = "pozar_03.CSound"
+o.Sound = "c2l5_town\\ogien_trzask"
+o.Pos = Vector:New(-44.916,-22.2622,-69.9142)

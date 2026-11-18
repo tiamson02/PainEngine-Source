@@ -1,0 +1,165 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D3Dev", "D3Dev\D3Dev.vcproj", "{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B} = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcproj", "{88551966-62BD-45EE-AEA4-8FD0E15E176B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A} = {2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PainEditor", "PainEditor\PainEditor.vcproj", "{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B} = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F} = {6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PCFWorldExport", "Plugins\PCFWorldExport\PCFWorldExport.vcproj", "{EA12D18B-406E-4398-B823-FAD3779C4805}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshMender", "Tools\MeshMender\MeshMender.vcproj", "{27282973-4F76-4FA0-BE7B-6685A5E25626}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B} = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PCFCharacterExporter", "..\..\Tools\PCFCharacterExporter\PCFCharacterExporter.vcproj", "{C2523375-1C5E-4DFA-BD32-1718CC1B8350}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B} = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PCFMeshPlug", "Plugins\PCFMeshPlug\MeshPlug.vcproj", "{0747F7E4-2121-4A0A-8B69-C41FE251F054}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Loader", "Loader\Loader.vcproj", "{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PKServer", "PKServer\PKServer.vcproj", "{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B} = {88551966-62BD-45EE-AEA4-8FD0E15E176B}
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F} = {6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlackEditionLoader", "BlackEditionLoader\BlackEditionLoader.vcproj", "{69E13F65-EFBE-4E54-903A-3FEDE670D118}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PKTVProxy", "PKTVProxy\PKTVProxy.vcproj", "{52093C59-73BA-4DD0-857E-35FBFE03FBD6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TNG_WIN", "TNG_WIN\TNG_WIN.vcproj", "{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		FinalBuild|Win32 = FinalBuild|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Debug|Win32.Build.0 = Debug|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.FinalBuild|Win32.Build.0 = FinalBuild|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Release|Win32.ActiveCfg = Release|Win32
+		{6B130E9B-F1AF-4C0D-9266-FAD1829DF95F}.Release|Win32.Build.0 = Release|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Debug|Win32.Build.0 = Debug|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.FinalBuild|Win32.Build.0 = FinalBuild|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Release|Win32.ActiveCfg = Release|Win32
+		{88551966-62BD-45EE-AEA4-8FD0E15E176B}.Release|Win32.Build.0 = Release|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Debug|Win32.ActiveCfg = Debug|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Debug|Win32.Build.0 = Debug|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.FinalBuild|Win32.Build.0 = FinalBuild|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Release|Win32.ActiveCfg = Release|Win32
+		{73F5E4EB-BC27-4FA1-A50D-E160E30DAB19}.Release|Win32.Build.0 = Release|Win32
+		{EA12D18B-406E-4398-B823-FAD3779C4805}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EA12D18B-406E-4398-B823-FAD3779C4805}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{EA12D18B-406E-4398-B823-FAD3779C4805}.Release|Win32.ActiveCfg = Release|Win32
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.Debug|Win32.ActiveCfg = Debug|Win32
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{27282973-4F76-4FA0-BE7B-6685A5E25626}.Release|Win32.ActiveCfg = Release|Win32
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{C2523375-1C5E-4DFA-BD32-1718CC1B8350}.Release|Win32.ActiveCfg = Release|Win32
+		{0747F7E4-2121-4A0A-8B69-C41FE251F054}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0747F7E4-2121-4A0A-8B69-C41FE251F054}.FinalBuild|Win32.ActiveCfg = FinalBuild|Win32
+		{0747F7E4-2121-4A0A-8B69-C41FE251F054}.Release|Win32.ActiveCfg = Release|Win32
+		{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}.Debug|Win32.Build.0 = Debug|Win32
+		{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}.FinalBuild|Win32.ActiveCfg = Release|Win32
+		{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}.FinalBuild|Win32.Build.0 = Release|Win32
+		{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}.Release|Win32.ActiveCfg = Release|Win32
+		{5BA511CF-FB09-449A-A4F7-1DA3EF0DE40D}.Release|Win32.Build.0 = Release|Win32
+		{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}.Debug|Win32.Build.0 = Debug|Win32
+		{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}.FinalBuild|Win32.ActiveCfg = Release|Win32
+		{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}.FinalBuild|Win32.Build.0 = Release|Win32
+		{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}.Release|Win32.ActiveCfg = Release|Win32
+		{F9C5515E-C07F-40C0-8EE0-65F289F39BDD}.Release|Win32.Build.0 = Release|Win32
+		{69E13F65-EFBE-4E54-903A-3FEDE670D118}.Debug|Win32.ActiveCfg = Debug|Win32
+		{69E13F65-EFBE-4E54-903A-3FEDE670D118}.Debug|Win32.Build.0 = Debug|Win32
+		{69E13F65-EFBE-4E54-903A-3FEDE670D118}.FinalBuild|Win32.ActiveCfg = Release|Win32
+		{69E13F65-EFBE-4E54-903A-3FEDE670D118}.FinalBuild|Win32.Build.0 = Release|Win32
+		{69E13F65-EFBE-4E54-903A-3FEDE670D118}.Release|Win32.ActiveCfg = Release|Win32
+		{69E13F65-EFBE-4E54-903A-3FEDE670D118}.Release|Win32.Build.0 = Release|Win32
+		{52093C59-73BA-4DD0-857E-35FBFE03FBD6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{52093C59-73BA-4DD0-857E-35FBFE03FBD6}.FinalBuild|Win32.ActiveCfg = Release|Win32
+		{52093C59-73BA-4DD0-857E-35FBFE03FBD6}.Release|Win32.ActiveCfg = Release|Win32
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}.Debug|Win32.Build.0 = Debug|Win32
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}.FinalBuild|Win32.ActiveCfg = Release|Win32
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}.FinalBuild|Win32.Build.0 = Release|Win32
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}.Release|Win32.ActiveCfg = Release|Win32
+		{2FDDEC48-4448-4A78-9748-3B71E4EBDD2A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 12
+		SccLocalPath0 = .
+		CanCheckoutShared = true
+		SolutionUniqueID = {2BCF9C6F-56EC-4E00-AE7D-0A0A9FB27CDA}
+		SccProjectUniqueName1 = D3Dev\\D3Dev.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection1 = D3Dev\\
+		SccProjectUniqueName2 = Engine\\Engine.vcproj
+		SccLocalPath2 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection2 = Engine\\
+		SccProjectUniqueName3 = PainEditor\\PainEditor.vcproj
+		SccLocalPath3 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection3 = PainEditor\\
+		SccProjectUniqueName4 = Plugins\\PCFWorldExport\\PCFWorldExport.vcproj
+		SccLocalPath4 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection4 = Plugins\\PCFWorldExport\\
+		SccProjectUniqueName5 = Tools\\MeshMender\\MeshMender.vcproj
+		SccLocalPath5 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection5 = Tools\\MeshMender\\
+		SccProjectUniqueName6 = ..\\..\\Tools\\PCFCharacterExporter\\PCFCharacterExporter.vcproj
+		SccProjectName6 = \u0022$/Tools/PCFCharacterExporter\u0022,\u0020NWAAAAAA
+		SccLocalPath6 = ..\\..\\Tools\\PCFCharacterExporter
+		CanCheckoutShared = true
+		SccProjectUniqueName7 = Plugins\\PCFMeshPlug\\MeshPlug.vcproj
+		SccLocalPath7 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection7 = Plugins\\PCFMeshPlug\\
+		SccProjectUniqueName8 = Loader\\Loader.vcproj
+		SccLocalPath8 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection8 = Loader\\
+		SccProjectUniqueName9 = PKServer\\PKServer.vcproj
+		SccLocalPath9 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection9 = PKServer\\
+		SccProjectUniqueName10 = BlackEditionLoader\\BlackEditionLoader.vcproj
+		SccLocalPath10 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection10 = BlackEditionLoader\\
+		SccProjectUniqueName11 = PKTVProxy\\PKTVProxy.vcproj
+		SccLocalPath11 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection11 = PKTVProxy\\
+	EndGlobalSection
+EndGlobal

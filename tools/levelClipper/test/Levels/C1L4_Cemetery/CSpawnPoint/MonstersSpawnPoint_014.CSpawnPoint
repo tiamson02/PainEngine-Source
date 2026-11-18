@@ -1,0 +1,8 @@
+o.GroupDelay = 1
+o.SpawnFX = "MonsterSpawnFromGround.CAction"
+o.BaseObj = "MonstersSpawnPoint.CSpawnPoint"
+o.GroupCount = 1
+o.EachDelay = 1
+o.StartDelay = 38.1
+o.SpawnTemplate = "Zombie_Soldier_WalkOnly.CActor"
+o.Pos = Vector:New(-88.313,-22.9701,35.5092)

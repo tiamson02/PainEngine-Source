@@ -1,0 +1,3 @@
+o.Volume = 80
+o.BaseObj = "Pan_01.CSound"
+o.Pos = Vector:New(-21.0074,-25.7056,-34.0176)

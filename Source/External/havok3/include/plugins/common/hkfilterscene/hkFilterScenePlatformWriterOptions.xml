@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file>
+	<product>ALL</product>
+	<visibility>CLIENT</visibility>
+	<class>
+		<name>hkFilterScenePlatformWriterOptions</name>
+		<description>Describes the platform writer options.</description>	
+		<enum>
+			<name>Preset</name>
+			<item>CUSTOM</item>
+			<item>MSVC_WIN32</item>
+			<item>MSVC_XBOX</item>
+			<item>MSVC_AMD64</item>
+			<item>CW_PS2</item>
+			<item>CW_GAMECUBE</item>
+			<item>GCC33_PS2</item>
+			<item>GCC32_PS2</item>
+			<item>GCC295_PS2</item>
+			<item>SN31_PS2</item>
+			<item>SN393_GAMECUBE</item>
+		</enum>
+				
+		<!-- Options for this filter -->
+		<member>
+			<name>filename</name>
+			<description>The filename to export as. It is the name less the 'common path' between what was entered / selected and what the current asset is called.</description>
+			<type>char*</type>
+		</member>
+		<member>
+			<name>preset</name>
+			<description>Chosen layout preset</description>
+			<type>enum Preset</type>
+			<default>MSVC_WIN32</default>
+		</member>
+		<member>
+			<name>bytesInPointer</name>
+			<description>Number of bytes in a pointer</description>
+			<type>hkInt8</type>
+			<default>4</default>
+		</member>
+		<member>
+			<name>littleEndian</name>
+			<description>Is the platform little endian. Eg:  pc, xbox and ps2 are 1, and 0 for  powerpc based.</description>
+			<type>hkInt8</type>
+			<default>1</default>
+		</member>
+		<member>
+			<name>reusePaddingOptimized</name>
+			<description>Does the reuse padding optimization.</description>
+			<type>hkInt8</type>
+			<default>0</default>
+		</member>
+		<member>
+			<name>emptyBaseClassOptimized</name>
+			<description>Does the empty base class optimization.</description>
+			<type>hkInt8</type>
+			<default>1</default>
+		</member>
+	</class>
+</file>

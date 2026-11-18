@@ -1,0 +1,91 @@
+#
+# Makefile for tg_psp
+#
+
+### Generic autoconf variables
+TOPSRCDIR	= .
+TOPOBJDIR	= .
+SRCDIR		= .
+TOP             = /usr/local/psp/devkit
+LIBDIR		= $(TOP)/lib
+INCDIR		= $(TOP)/include
+BUILD		= DEBUG
+DIR.OBJ         = out.GCC3.PSPDEVKIT
+DLLS		= libphysfs.a
+NAME		= libphysfs
+MKDIR		= mkdir -p
+CC		= psp-gcc
+CXX		= psp-g++
+LD		= psp-ar  #psp-ld
+
+### Global settings
+DEBUG_DEFINES	= -D_DEBUG -DDEBUG $(addprefix -D, $(PROJECTDEFS)) #-DUSE_DEBUGPRINT
+DEFINES		= $(DEBUG_DEFINES) \
+                         -DTRANSGAMING \
+                         -DTRANSGAMING_PSP \
+			-DTARGET_PSP \
+			-DHAVE_CONFIG_H \
+			-DTRANSGAMING_NO_ZIP_COMPRESSION
+			#-DMEMORY_TEST
+
+LIBS_STATIC	=
+INCLUDE_PATH	= -I./include -I../../crosslibs/include  -I../psplibs/tgCommon/include
+
+#PSPLIB_C_SRCS		=
+#PSPLIB_CPP_SRCS		=
+#PSPLIB_C_SRCS		= crosslibs/source/helloc.c
+#PSPLIB_CPP_SRCS		= crosslibs/source/hellocpp.cpp
+PC2PSPLIB_C_SRCS	= 	\
+./archivers/zip.c\
+./archivers/dir.c\
+./physfs.c\
+./physfs_byteorder.c\
+./platform/posix.c\
+./platform/unix.c\
+./extras/globbing.c
+
+PSPLIB_SRCS = $(PC2PSPLIB_C_SRCS) #$(PSPLIB_C_SRCS) $(PSPLIB_CPP_SRCS)i
+
+vpath %.c .:..
+vpath %.cpp .:..
+
+DBGFLAG         = -g
+OPTFLAG         = -O
+CFLAGS          = -W -Wall $(DBGFLAG) $(OPTFLAG) -I$(INCDIR) $(INCLUDE_PATH) $(DEFINES)
+ASFLAGS         = $(DBGFLAG)
+LDFLAGS         = $(DBGFLAG) -L$(LIBDIR) -L.
+LDLIBS          = 
+
+#PSPLIB_C_OBJ = $(addprefix $(DIR.OBJ)/, $(addsuffix .o, $(basename $(PSPLIB_C_SRCS))))
+#PSPLIB_CPP_OBJ = $(addprefix $(DIR.OBJ)/, $(addsuffix .o, $(basename $(PSPLIB_CPP_SRCS))))
+PC2PSPLIB_C_OBJ = $(addprefix $(DIR.OBJ)/, $(addsuffix .o, $(basename $(PC2PSPLIB_C_SRCS))))
+PSPLIB_OBJ = $(PC2PSPLIB_C_OBJ) #$(PSPLIB_C_OBJ) $(PSPLIB_CPP_OBJ)
+
+#null:
+
+
+default: $(DIR.OBJ)/$(NAME).a
+
+
+
+clean:
+	rm -f $(TARGET).prx $(TARGET).a *~ *.bak $(PSPLIB_OBJ)
+	#rm -f $(TARGET).prx $(TARGET).elf *.o *~ *.bak $(PSPLIB_OBJ)
+
+all: default
+
+#${PSPLIB_C_OBJ}: $(DIR.OBJ)/%.o: %.c
+#	$(MKDIR) $(dir $@)
+#	$(CC) $(CFLAGS) -I. -o $@ -c $<
+
+${PC2PSPLIB_C_OBJ}: $(DIR.OBJ)/%.o: %.c
+	$(MKDIR) $(dir $@)
+	$(CC) $(CFLAGS) -I. -o $@ -c $<
+
+#${PSPLIB_CPP_OBJ}: $(DIR.OBJ)/%.o: %.cpp
+#	$(MKDIR) $(dir $@)
+#	$(CXX) $(CFLAGS) -I. -o $@ -c $<
+			
+$(DIR.OBJ)/$(NAME).a: $(PSPLIB_OBJ)
+	$(LD) -r $@ $^
+

@@ -1,0 +1,2 @@
+o.Pos = Vector:New(-75.2518,-23.115,10.1863)
+o.BaseObj = "IShotgunFZ.CItem"

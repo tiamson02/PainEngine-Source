@@ -1,0 +1,5 @@
+o.Scale = 0.6
+o.Portal = "portal17_zone1_zoneshape9"
+o.StartPos = Vector:New(-13.8552,-22.457,-40.923)
+o.Pos = Vector:New(-13.8552,-22.457,-40.923)
+o.BaseObj = "Slab.CItem"

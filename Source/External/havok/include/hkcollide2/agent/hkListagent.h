@@ -1,0 +1,69 @@
+/* 
+ * 
+ * Confidential Information of Telekinesys Research Limited (t/a Havok).  This software contains code, techniques and know-how
+ * which is confidential and proprietary to Havok.  Not for disclosure or distribution without prior written consent.
+ * Havok Game Dynamics SDK (C) Copyright 1999/2003 Telekinesys Research Limited. All Rights Reserved. Use of this software is subject to the terms of an end user license agreement.
+ * 
+ */
+
+#ifndef HK_COLLIDE2_LISTAGENT_H
+#define HK_COLLIDE2_LISTAGENT_H
+
+#include <hkcollide2/agent/hkCollisionAgent.h>
+
+class hkCollisionDispatcher;
+
+
+/// This agent handles collisions between hkListShapes and other shapes. An hkListAgent gets
+/// further agents from the dispatcher to handle collisions for each of the list shape's child shapes.
+class hkListAgent : public hkCollisionAgent
+{
+	public:
+			/// Registers this agent with the collision dispatcher.
+		static void HK_CALL registerAgent(hkCollisionDispatcher* dispatcher);
+
+			// hkCollisionAgent interface implementation.
+		virtual void processCollision(const hkCollidable& collA, const hkCollidable& collB, const hkCollisionEnvironment& env, hkCollisionResult& result);
+
+			// hkCollisionAgent interface implementation.
+		virtual void getClosestPoints( const hkCollidable& collidableA, const hkCollidable& collidableB, const hkCollisionEnvironment& env, hkClosestPointsDetails& pointDetails); 
+	
+			/// hkCollisionAgent interface implementation.
+		virtual bool arePenetrating(const  hkCollidable& collA, const hkCollidable& collB, const hkCollisionEnvironment& env );
+
+			// hkCollisionAgent interface implementation.
+		virtual void cleanup(const hkCollisionEnvironment& env);
+
+	protected:
+		
+		/// Constructor, called by the agent creation functions.
+		hkListAgent( const hkCollidable& collA, const hkCollidable& collidableB, const hkCollisionEnvironment& environment);
+
+		/// Agent creation function used by the hkCollisionDispatcher. 
+		static hkCollisionAgent* HK_CALL createListAAgent(const 	hkCollidable& collA, const hkCollidable& collB, const hkCollisionEnvironment& env);
+		
+		/// Agent creation function used by the hkCollisionDispatcher. 
+		static hkCollisionAgent* HK_CALL createListBAgent(	const hkCollidable& collA, const hkCollidable& collB, const hkCollisionEnvironment& env);
+
+	private:
+
+		hkInplaceArray<hkCollisionAgent*,4> m_agents;
+
+};
+
+#endif // HK_COLLIDE2_LISTAGENT_H
+
+/*
+* Havok Game Dynamics SDK - PUBLIC RELEASE, BUILD(#20030622)
+*
+* (C) Copyright 1999/2003 Telekinesys Research Limited. All Rights Reserved. The Telekinesys
+* Logo, Havok and the Havok buzzsaw logo are trademarks of Telekinesys
+* Research Limited.  Title, ownership
+* rights, and intellectual property rights in the Software remain in
+* Telekinesys Research Limited and/or its suppliers.
+*
+* Use of this software is subject to and indicates acceptance of the End User licence
+* Agreement for this product. A copy of the license is included with this software and
+* is also available from info@havok.com.
+*
+*/ 

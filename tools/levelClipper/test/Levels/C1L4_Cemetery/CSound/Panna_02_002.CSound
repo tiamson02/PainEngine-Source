@@ -1,0 +1,5 @@
+o.Volume = 50
+o.Falloff.Start = 6
+o.Falloff.End = 30
+o.BaseObj = "Panna_02.CSound"
+o.Pos = Vector:New(28.1169,-28.9819,21.4218)

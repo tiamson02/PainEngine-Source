@@ -1,0 +1,8 @@
+o.Scale = 0.45
+o.StartPos = Vector:New(18.0828,-20.9376,18.8733)
+o.IsAntiPortal = true
+o.Pos = Vector:New(18.0828,-20.9376,18.8733)
+o.BaseObj = "Slab.CItem"
+o.Rot = Quaternion:New(0.705349,0,-0.70886,0)
+o.Portals[1] = "portal_churchdoorshape"
+o.Portals[2] = "portal_churchdoor1shape"

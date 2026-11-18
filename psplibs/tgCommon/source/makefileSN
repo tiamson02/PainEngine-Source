@@ -1,0 +1,91 @@
+# [SCE CONFIDENTIAL DOCUMENT]
+# PSP(TM) Programmer Tool Runtime Library Release 2.6.0
+# Copyright (C) 2004-2005 Sony Computer Entertainment Inc.
+# All Rights Reserved
+
+.SILENT:
+
+# Comment out to build a release version
+DEBUG = 1
+
+# Abort the build if the required environment variable isn't present
+ifndef SCE_PSP_HW_ROOT
+$(error Environment variable 'SCE_PSP_HW_ROOT' must be defined)
+endif
+
+# The location of the SCE include files
+SCE_INCLUDES    = "$(SCE_PSP_HW_ROOT)/include"
+
+# The location of the SCE libraries
+SCE_LIBDIR      = "$(SCE_PSP_HW_ROOT)/lib"
+
+# The location of tgCommon
+TGDIR			= ..
+TGINC			= "$(TGDIR)/include"
+
+# The build sources
+TARGET          = "$(TGDIR)/lib/tgCommonSN.a"
+OBJS            = tgFile.o \
+				  tgMath.o \
+				  tgMatrix.o \
+				  tgMem.o \
+				  tgPad.o \
+				  tgQuaternion.o \
+				  tgVector.o \
+				  tgCallTrace.o \
+				  tgPSMF.o \
+				  strfile.o
+LIBS            = 
+				
+# The name of the compiler
+COMPILER        = pspsnc
+LINKER          = pspld
+PRXGEN			= pspprxgen
+AR				= snarl
+
+LINKER_SCRIPT   = "$(SN_PSP_PATH)/lib/psp.ld"
+SN_LIBS         = "$(SN_PSP_PATH)/lib"
+
+DELETE          = rm -f
+
+# The build options
+CFLAGS          = -G0
+DEBUG_FLAGS     = -O0 -g
+RELEASE_FLAGS   = -O3 
+LINKER_FLAGS    = -lsncpp -lm -lc -lsn -lgcs -dc -r -G0
+ARFLAGS			= -qc
+
+# Debug / release specific flags
+ifdef DEBUG
+CFLAGS          += $(DEBUG_FLAGS)
+else
+CFLAGS          += $(RELEASE_FLAGS)
+endif
+
+# Allow the 'make all samples' makefile to override $(CFLAGS)
+ifdef GLOBAL_CFLAGS
+CFLAGS          = $(GLOBAL_CFLAGS)
+endif
+
+
+all: $(TARGET)
+
+# Building the library
+$(TARGET): $(OBJS)
+	@echo ProDG Building library $@
+	$(AR) $(ARFLAGS) $@ $(OBJS)
+	
+	
+# Building c files
+%.o: %.c
+	@echo ProDG Compiling $<
+	$(COMPILER) $(CFLAGS) -I$(SCE_INCLUDES) -I$(TGINC) -I. -c $< -o $*.o
+	
+%.o: %.cpp
+	@echo ProDG Compiling $<
+	$(COMPILER) $(CFLAGS) -I$(SCE_INCLUDES) -I$(TGINC) -I. -c $< -o $*.o
+	
+
+# Make clean rule
+.PHONY clean:
+	-$(DELETE) *.o $(TARGET)

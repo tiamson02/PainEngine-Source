@@ -1,0 +1,2 @@
+o.BaseObj = "ziemia.CSound"
+o.Pos = Vector:New(-43.9472,-23.7123,-54.6122)

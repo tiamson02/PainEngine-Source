@@ -1,0 +1,4 @@
+o.DetailMap.Tex = "special/detail"
+o.Specular.Lights[1] = "lampki_out_008"
+o.Specular.Lights[2] = "lampki_out_035"
+o.TileMultiplier = 1

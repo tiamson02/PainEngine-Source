@@ -1,0 +1,6 @@
+o.Corona.MinSize = 40
+o.Texture = "sflare1"
+o.Color = Color:New(255,173,91,0)
+o.BaseObj = "Corona_Fog.CBillboard"
+o.Size = 8
+o.Pos = Vector:New(23.9263,-6.14564,18.6881)

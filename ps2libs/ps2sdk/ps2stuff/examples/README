@@ -1,0 +1,33 @@
+/*	  Copyright (C) 2000,2001,2002  Sony Computer Entertainment America
+       	  
+       	  This file is subject to the terms and conditions of the GNU Lesser
+	  General Public License Version 2.1. See the file "COPYING" in the
+	  main directory of this archive for more details.                             */
+
+
+Building and Running
+--------------------
+
+You'll need to have applied all the patches in the 'patches/ee-gcc' project in
+cvs to even think about building this example.  See the patches/README.
+
+If you've done the above, 'make run' should build and run it.  As with all
+ueber-Makefile projects, you can add a build name to the command line (debug,
+optimized, and release by default).  'make debug' is useful when stepping
+through in gdb.
+
+See the usage printed on stdout when the program is run.
+
+Files
+-----
+
+If you're looking for info about vectors, take a look at cloth.cpp.  Otherwise,
+you'll find main() in cloth_app.cpp, which contains the main loop and code
+specific to this application.  It defines CClothApp, a subclass of CPs2App which
+contains code that can be reused across applications.
+
+Try pressing the select button to switch between libvu0 vectors and ps2stuff
+vector classes.. aside from being much more readable, they're twice as fast in
+this example.  (In a more computation-intensive application the difference can
+be even greater.)
+

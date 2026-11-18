@@ -1,0 +1,46 @@
+MultiStream V7.2
+26th April 2004
+(c) 2004 Sony Computer Entertainment Europe
+Updates: Jason Page @ SCEE
+
+
+1) Synchronising Left/Right streams fixed.
+	 Caused by MIBEnd and MIBLoop not being cleared in SetStreamChild_Int
+	 Also possible problem with sync when preloading. Fixed in SOUND_SPUInitHalfSize and SOUND_GetSPUTranSizeAndRemain
+
+2) SPUTransfer now turns off when SOUND_StopStream is called for relevant stream.
+
+3) SPU_LoopCounter reset in SOUND_PlayStream
+	Caused problems if calling SOUND_PlaySFXLoop followed by SOUND_PlayStream using the same SPU channel
+
+4) MasterEnable=1 (was ==1)
+	In AdpcmSetParam
+
+5) Stream Allocation - 	Possible problems with Child streams causing memory leaks fixed
+	SOUND_SetStreamChild_Int changes the address stored in StreamBuffer[i].IOPAddress.
+	This address was previously used when freeing the stream buffer's IOP RAM
+
+6) SOUND_FreeFileID - Fixed to handle possible pre-StartStream issue
+	If SOUND_PlayStream has been called, followed by SOUND_FreeFileID, using the same FileID there was an issue
+	where SOUND_FreeFileID may not use the same ID. It would use the FileID which was last used by a playing stream.
+	This is due to there being two copies of the File ID. One is stored in a temp location via SOUND_PlayStream.
+	This is then copied to the "real" FileID via StartStream (when the stream starts to preload data).
+	SOUND_FreeFileID only used the "real" FileID	
+
+7) EE Thread safe code modified.
+	Should be much safer to use on multiple threads now.
+	Fixes in SOUND_MultiThreadSafeCheckStart and SOUND_MultiThreadSafeCheckEnd
+
+8) SOUND_GetFileInfo/SOUND_CreateFileInfo will pause streams and flag an error if the CD tray is opened
+
+9) SOUND_AppendStream fix
+	CD sector for new file to stream was not copied into stream buffer.
+
+10) SOUND_PlaySFX bug
+	Problem where 7.1 would ignore the release rate. Fixed.
+
+11) SOUND_GetChannelSPUVolume returns 0 only
+	Fixed - SOUND_SetSPUChannelVolume needed to set values even if no grouping were used.
+
+
+

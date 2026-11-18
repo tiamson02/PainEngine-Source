@@ -1,0 +1,6 @@
+o.Volume = 60
+o.Falloff.End = 12
+o.Interval = 12
+o.BaseObj = "ryk_02.CSound"
+o.RandomShift = 2
+o.Pos = Vector:New(-52.4663,-22.0327,41.6118)

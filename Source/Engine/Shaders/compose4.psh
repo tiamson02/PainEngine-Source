@@ -1,0 +1,11 @@
+ps.1.1
+
+tex t0	; tex0			
+tex t1	; tex1
+tex t2	; tex2
+tex t3	; tex3
+
+mul r0, t0, c0
+mad r0, t1, c1, r0
+mad r0, t2, c2, r0
+mad r0, t3, c3, r0

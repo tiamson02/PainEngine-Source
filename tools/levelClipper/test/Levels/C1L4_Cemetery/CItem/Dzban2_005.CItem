@@ -1,0 +1,5 @@
+o.Scale = 0.2
+o.Pos = Vector:New(-33.7381,-23.2484,35.8898)
+o.BaseObj = "Dzban2.CItem"
+o.Health = 1
+o.Rot = Quaternion:New(1,-1.76987e-005,-0.00024566,2.78338e-005)

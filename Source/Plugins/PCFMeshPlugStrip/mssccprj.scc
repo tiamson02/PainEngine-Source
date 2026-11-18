@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[MeshPlug.sln]
+SCC_Aux_Path = "\\Serwerdanych\Painkiller\Vss"
+SCC_Project_Name = "$/Game/Source/Plugins/PCFMeshPlug", ERDAAAAA
+
+[MeshPlug.vcproj]
+SCC_Aux_Path = "\\pkserver\pkstuff\Vss"
+SCC_Project_Name = "$/Game/Source/Plugins/PCFMeshPlug", ERDAAAAA

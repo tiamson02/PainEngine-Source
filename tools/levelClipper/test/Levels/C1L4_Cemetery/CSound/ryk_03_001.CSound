@@ -1,0 +1,6 @@
+o.IsObstructed = true
+o.Falloff.End = 20
+o.Interval = 5
+o.BaseObj = "ryk_03.CSound"
+o.RandomShift = 2
+o.Pos = Vector:New(-49.1377,-23.2799,51.9314)

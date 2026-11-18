@@ -1,0 +1,3 @@
+o.Falloff.End = 20
+o.BaseObj = "nagrobek_01.CSound"
+o.Pos = Vector:New(-33.9766,-23.1304,-17.9453)

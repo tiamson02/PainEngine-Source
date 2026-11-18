@@ -1,0 +1,11 @@
+o.Corona.FadeInTime = 1
+o.Corona.TraceMargin = 2
+o.Corona.OffDistance = 48
+o.Corona.FadeOutTime = 0.2
+o.Corona.Enabled = true
+o.Texture = "sflare1"
+o.Alpha = 0.6
+o.BaseObj = "CBillboard"
+o.Color = Color:New(255,173,91,0)
+o.Size = 3
+o.Pos = Vector:New(23.9067,-6.12872,18.688)

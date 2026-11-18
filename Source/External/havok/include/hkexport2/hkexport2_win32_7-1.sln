@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hkexport2", "hkexport2_win32_7-1.vcproj", "{268B193E-3B66-4356-8D2B-45EB283A99EF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug Multithreaded = Debug Multithreaded
+		Debug Multithreaded DLL = Debug Multithreaded DLL
+		FullDebug = FullDebug
+		FullDebug Multithreaded = FullDebug Multithreaded
+		FullDebug Multithreaded DLL = FullDebug Multithreaded DLL
+		Hybrid Multithreaded DLL = Hybrid Multithreaded DLL
+		Release = Release
+		Release Multithreaded = Release Multithreaded
+		Release Multithreaded DLL = Release Multithreaded DLL
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Debug.ActiveCfg = Debug|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Debug.Build.0 = Debug|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Debug Multithreaded.ActiveCfg = Debug Multithreaded|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Debug Multithreaded.Build.0 = Debug Multithreaded|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Debug Multithreaded DLL.ActiveCfg = Debug Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Debug Multithreaded DLL.Build.0 = Debug Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.FullDebug.ActiveCfg = FullDebug|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.FullDebug.Build.0 = FullDebug|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.FullDebug Multithreaded.ActiveCfg = FullDebug Multithreaded|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.FullDebug Multithreaded.Build.0 = FullDebug Multithreaded|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.FullDebug Multithreaded DLL.ActiveCfg = FullDebug Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.FullDebug Multithreaded DLL.Build.0 = FullDebug Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Hybrid Multithreaded DLL.ActiveCfg = Hybrid Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Hybrid Multithreaded DLL.Build.0 = Hybrid Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Release.ActiveCfg = Release|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Release.Build.0 = Release|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Release Multithreaded.ActiveCfg = Release Multithreaded|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Release Multithreaded.Build.0 = Release Multithreaded|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Release Multithreaded DLL.ActiveCfg = Release Multithreaded DLL|Win32
+		{268B193E-3B66-4356-8D2B-45EB283A99EF}.Release Multithreaded DLL.Build.0 = Release Multithreaded DLL|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

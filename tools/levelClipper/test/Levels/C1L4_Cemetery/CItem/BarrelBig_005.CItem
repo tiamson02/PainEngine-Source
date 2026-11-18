@@ -1,0 +1,4 @@
+o.Pos = Vector:New(-50.2631,-22.6806,51.9762)
+o.BaseObj = "BarrelBig.CItem"
+o.Health = 10
+o.Rot = Quaternion:New(0.999996,1.17081e-005,0.00272698,5.91708e-005)

@@ -1,0 +1,2 @@
+export PATH=/usr/local/sce/ee/gcc/bin:/usr/local/sce/bin:$PATH:/usr/local/sce/iop/gcc/bin
+

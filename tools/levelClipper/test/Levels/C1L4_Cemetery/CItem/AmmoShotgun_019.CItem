@@ -1,0 +1,3 @@
+o.Rot = Quaternion:New(-0.997132,-0.00404367,0.075353,-0.0058586)
+o.BaseObj = "AmmoShotgun.CItem"
+o.Pos = Vector:New(-45.3387,-23.5796,-9.80621)

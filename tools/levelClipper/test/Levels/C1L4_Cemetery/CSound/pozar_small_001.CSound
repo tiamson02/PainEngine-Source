@@ -1,0 +1,3 @@
+o.Volume = 100
+o.BaseObj = "pozar_small.CSound"
+o.Pos = Vector:New(-45.0992,-22.8951,-67.2425)

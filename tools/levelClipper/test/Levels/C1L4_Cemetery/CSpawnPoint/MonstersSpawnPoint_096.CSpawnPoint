@@ -1,0 +1,7 @@
+o.GroupDelay = -1
+o.SpawnTemplate = "Zombie.CActor"
+o.BaseObj = "MonstersSpawnPoint.CSpawnPoint"
+o.EachDelay = 0.5
+o.GroupCount = 3
+o.StartDelay = 1
+o.Pos = Vector:New(48.4082,-21.2482,32.1638)

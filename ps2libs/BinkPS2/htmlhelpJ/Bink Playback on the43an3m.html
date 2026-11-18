@@ -1,0 +1,35 @@
+<!-- This page was created with the RAD auto-doc generator. -->
+<!doctype html public "-//w3c//dtd html 3.2 final//en">
+<html>
+<head>
+<title>ニンテンドー ゲームキューブでの Bink 再生</title>
+<meta http-equiv="content-type" content="text/html; charset=shift_jis">
+<meta name="ms.locale" content="en-us">
+<meta name="description" content="">
+<meta name="ms-hkwd" content="ニンテンドー ゲームキューブでの Bink 再生">
+<link rel="stylesheet" title="default" href="reference.css" type="text/css" media="screen">
+</head>
+<body topmargin="0">
+<table cellspacing=0 cellpadding=0 class=bar width=100% height=25>
+<tr class=bar>
+<td class=bar>
+<i>&nbsp;<a href="index.html" class=trn>Bink SDK 1.8b</a></i>
+</td>
+</tr>
+</table>
+<h1>ニンテンドー ゲームキューブでの Bink 再生</h1>
+<h4>説明</h4>
+<p> PC や Mac と比較して、ニンテンドー ゲームキューブでのビデオの再生ははるかに簡単です。ハードウェアがきわめて高速で、何よりも安定性があることが理由です。手元のマシンで問題なく再生できれば、他のマシンでも同様に再生できます。</p><p>ゲームキューブで画面にビデオ フレームをブリットする場合、バック バッファへのコピーする方法と、テクスチャにコピーしてからレンダリングする方法があります。</p><p>バック バッファにコピーするほうが簡単であることは間違いありません。Bink で YUV データを直接画面の YUV のバック バッファにコピーするだけです。これは同時に、最大のパフォーマンスが得られる方法でもあります。レンダリングをループの外に置くことができるだけでなく、Bink 内で使用される YUV フォーマットから変換する必要がないためです。きわめて高速で、とても簡単です。この種類の再生のサンプルについては、ExamNbb.C を参照してください。</p><p>柔軟性の点で優れている選択肢は、Bink によってテクスチャにコピーしてから、そのテクスチャを画面にレンダリングする方法です。この方法では、<a href="Alpha%20Planes.html#alpha">アルファ</a>透過、アニメーション テクスチャ、またシーンに 3D オブジェクトを含むウィンドウ内のビデオなど、あらゆる種類の高度な操作を実行できます。</p><p>ゲームキューブのテクスチャ フォーマットは、使いやすくシンプルです。まず、テクスチャが 2 の累乗である必要がありません。これはビデオ作成にとって大きな利点です。ただし、GPU の内部フォーマットにスウィズルするという面倒な作業があります。</p><p>ここで <a href="BinkCopyToBuffer.html">BinkCopyToBuffer</a> 関数を使うと、YUV データを RGB に変換するときにピクセルを<b>自動的にスウィズルする</b>ことができます。つまり、Bink の<a href="BinkCopyToBuffer.html">BinkCopyToBuffer</a>を呼び出すだけで、ピクセルを Bink の YUV バッファから RGB テクスチャに置き換えることができます。</p><p>スウィズルの出力に合わせて、ゲームキューブの <a href="BinkCopyToBuffer.html">BinkCopyToBuffer</a> のパラメータである X オフセット、Y オフセット、幅、高さの値を 4 の倍数にする必要があります。</p><p>この種類の再生のサンプルについては、ExamNTex.C を参照してください。</p>
+<p><a href="NTSC%20and%20PAL%20on%20the%20cadb3m.html">次のトピック (ニンテンドー ゲームキューブでの NTSC と PAL)</a>  </p><p><a href="Distributing%20Bink%20on8uyiaz.html">前のトピック (ニンテンドー ゲームキューブでの Bink ファイルの配布)</a>  </p><p>
+<br>
+<b>グループ:</b> <a href="The%20Nintendo%20GameCubm0rzpb.html">ニンテンドー ゲームキューブ プラットフォーム</a><br>
+<b>関連項目:</b> <a href="Alpha%20Planes.html">アルファ平面</a><br>
+<b>関連する関数:</b> <a href="BinkCopyToBuffer.html">BinkCopyToBuffer</a></p>
+<p align=center>
+<a href="mailto:Bink3@radgametools.com">テクニカル サポート: Bink3@radgametools.com</a>
+<br>
+<a href="http://www.radgametools.com/bnkmain.htm?from=help1.6d">&#169; Copyright 1994-2004 RAD Game Tools, Inc. All Rights Reserved.</a>
+</p>
+<br>
+</body>
+</html>

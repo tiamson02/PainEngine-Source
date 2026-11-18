@@ -1,0 +1,6 @@
+o.Scale = 0.6
+o.StartPos = Vector:New(63.411,-21.3971,29.1158)
+o.Closed = true
+o.Pos = Vector:New(63.411,-21.3971,29.1158)
+o.BaseObj = "Slab.CItem"
+o.Rot = Quaternion:New(0.705349,0,-0.70886,0)

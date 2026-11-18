@@ -1,0 +1,61 @@
+[D] - MAIN: put #ifdef TRANSGAMING around DumpError() in Scripting.h
+[X] - MAIN: fix lua number support when TRANSGAMING or TRANSGAMING_LUA_DOUBLE are defined
+[X] - MAIN: in Script::DoFile() pass <buf> instead of <&buf> to the GFile::ReadA() function
+[X] - MAIN: fix all the (lua_Number) cast problems in the lua code
+[X] - fix remaining cast errors in lua
+[X] - clear up the #ifdef TRANSGAMING problems
+[X] - diff this lua project with the main one to see what's changed, then update those changes in the main project
+[ ] - look at the differences between .mpk and .pkmdl files
+[X] - make a CreateEntity function to call from script
+[X] - remove garbage collection calls from the script (Game_GC() i think)
+[X] - enable logging in World::DeleteEntity() and World::CreateEntity()
+[X] - fix decal rendering/creation [HACK! cut out for now]
+[X] - find out if World::DeleteDelayedEntities() gets called on a frame-to-frame basis [yes]
+[ ] - check out the entity cache to see if things ever actually get cleared out
+[X] - merge the lua 5.1.1 changes into the current version
+[X] - build a test script that will hopefully recreate the table bug
+[X] - look at the skeletal animation system to see if it really really needs to have fixed-time key frames. [no]
+[ ] - drop in the PS2 texture coord fix
+[X] - profile calling Clone() on different versions of it
+[ ] - make sure lua_createtable() is used instead of lua_newtable() when the size of the result is known
+[ ] - 
+[ ] - 
+[ ] - 
+Code Fixes:
+[X] - lbaselib.c: C inconsistencies in luaB_collectgarbage():
+        [X] - variables defined in the middle of the function
+        [X] - no returned value
+        [X] - missing type cast in lua_pushnumber()
+        [X] - not all control paths return a value
+[X] - luaconf.h: 
+        [X] - _w64 conversion warning in ptrdiff_t
+        [X] - lua_str2number() uses the undefined strtof() function.  Cast the result of strtod() to lua_Number instead
+        [X] - define LUAI_UACNUMBER	to be float instead of double
+[X] - Scripting.cpp: 
+        [X] - bad argument passed to GFile::ReadA() (this SHOULD have caused a compile error!)
+[X] - lmathlib.c: 
+        [X] - use sinhf() instead of sinh() under #ifndef TRANSGAMING_LUA_DOUBLE in math_sinh()
+        [X] - use coshf() instead of cosh() under #ifndef TRANSGAMING_LUA_DOUBLE in math_cosh()
+        [X] - use tanhf() instead of tanh() under #ifndef TRANSGAMING_LUA_DOUBLE in math_tanh()
+        [X] - use modff() instead of modf() under #ifndef TRANSGAMING_LUA_DOUBLE in math_modf()
+        [X] - cast HUGE_VAL to lua_Number luaopen_math()
+[X] - lapi.c:
+        [X] - don't include assert.h, math.h, or stdarg.h.  They either aren't used, or are grabbed from another header
+[X] - ltable.c:
+        [X] - don't include math.h
+[X] - loslib.c:
+        [X] - cast the return value of difftime() to lua_Number in os_difftime()
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 
+[ ] - 

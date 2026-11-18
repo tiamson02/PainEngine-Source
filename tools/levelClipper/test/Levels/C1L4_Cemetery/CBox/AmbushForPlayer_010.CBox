@@ -1,0 +1,9 @@
+o.ToLaunch[1] = "MonstersSpawnPoint_060"
+o.BaseObj = "AmbushForPlayer.CBox"
+o.Size.Height = 4.51807
+o.Size.Depth = 3.65753
+o.Size.Width = 18.6425
+o.TouchAction[1] = "Close:Slab_014,1"
+o.TouchAction[2] = "Wait:2"
+o.TouchAction[3] = "Open:Slab_017"
+o.Pos = Vector:New(-44.8563,-21.8704,-44.8305)

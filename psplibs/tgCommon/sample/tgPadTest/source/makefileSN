@@ -1,0 +1,100 @@
+# [SCE CONFIDENTIAL DOCUMENT]
+# PSP(TM) Programmer Tool Runtime Library Release 2.6.0
+# Copyright (C) 2004-2005 Sony Computer Entertainment Inc.
+# All Rights Reserved
+
+.SILENT:
+
+# Comment out to build a release version
+DEBUG = 1
+
+# Abort the build if the required environment variable isn't present
+ifndef SCE_PSP_HW_ROOT
+$(error Environment variable 'SCE_PSP_HW_ROOT' must be defined)
+endif
+
+# The location of the SCE include files
+SCE_INCLUDES    = "$(SCE_PSP_HW_ROOT)/include"
+
+# The location of tgCommon
+TGDIR			= ../../..
+TGINC			= "$(TGDIR)/include"
+TGLIB			= "$(TGDIR)/lib"
+TGSRC			= "$(TGDIR)/source"
+
+# The location of the SCE libraries
+SCE_LIBDIR      = "$(SCE_PSP_HW_ROOT)/lib"
+
+# The build sources
+TARGET          = tgPadTestSN
+OBJS            = main.o
+LIBS            = $(TGLIB)\tgCommonSN.a \
+				$(SCE_LIBDIR)/libgu.a \
+				$(SCE_LIBDIR)/libgum.a \
+				$(SCE_LIBDIR)/libkernel.a \
+				$(SCE_LIBDIR)/ctrl_stub.a \
+				$(SCE_LIBDIR)/display_stub.a \
+				$(SCE_LIBDIR)/ge_user_stub.a \
+				$(SCE_LIBDIR)/crt0_prx.o \
+				$(SCE_LIBDIR)/kernel_bridge.o
+				
+# The name of the compiler
+COMPILER        = pspsnc
+LINKER          = pspld
+PRXGEN			= pspprxgen
+
+LINKER_SCRIPT   = "$(SN_PSP_PATH)/lib/psp.ld"
+SN_LIBS         = "$(SN_PSP_PATH)/lib"
+
+DELETE          = del
+
+# The build options
+CFLAGS          = -G0
+DEBUG_FLAGS     = -O0 -g
+RELEASE_FLAGS   = -O3 
+LINKER_FLAGS    = -lsncpp -lm -lc -lsn -lgcs -dc -r -G0
+
+
+# Debug / release specific flags
+ifdef DEBUG
+CFLAGS          += $(DEBUG_FLAGS)
+else
+CFLAGS          += $(RELEASE_FLAGS)
+endif
+
+# Allow the 'make all samples' makefile to override $(CFLAGS)
+ifdef GLOBAL_CFLAGS
+CFLAGS          = $(GLOBAL_CFLAGS)
+endif
+
+all: $(TARGET).elf $(TARGET).prx
+
+# Linking
+$(TARGET).elf: $(OBJS) $(TGDIR)\lib\tgCommonSN.a
+	@echo ProDG Linking ELF $@
+	$(LINKER) -L$(SN_LIBS) $(LIBS) $(OBJS) $(LINKER_FLAGS) -o $@ -T$(LINKER_SCRIPT)
+
+# Building the PRX
+$(TARGET).prx: $(TARGET).elf
+	@echo ProDG Building PRX $@
+	$(PRXGEN) $< -r $@
+
+# Building the tgCommon library
+$(TGDIR)\lib\tgCommonSN.a:
+	make -C $(TGSRC) -f makefileSN
+	
+	
+# Building c files
+%.o: %.c
+	@echo ProDG Compiling $<
+	$(COMPILER) $(CFLAGS) -I$(SCE_INCLUDES) -I$(TGINC) -I. -c $< -o $*.o
+	
+%.o: %.cpp
+	@echo ProDG Compiling $<
+	$(COMPILER) $(CFLAGS) -I$(SCE_INCLUDES) -I$(TGINC) -I. -c $< -o $*.o
+
+
+# Make clean rule
+.PHONY clean:
+	-$(DELETE) *.o $(TARGET).elf $(TARGET).prx
+	make -C $(TGSRC) -f makefileSN clean

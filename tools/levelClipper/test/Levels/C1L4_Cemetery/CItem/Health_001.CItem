@@ -1,0 +1,2 @@
+o.Pos = Vector:New(70.9666,-22.7637,24.5532)
+o.BaseObj = "Health.CItem"

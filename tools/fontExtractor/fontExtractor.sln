@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fontExtractor", "fontExtractor.vcproj", "{8272760A-D716-4F6A-A2CD-6E6546F28DA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8272760A-D716-4F6A-A2CD-6E6546F28DA3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8272760A-D716-4F6A-A2CD-6E6546F28DA3}.Debug|Win32.Build.0 = Debug|Win32
+		{8272760A-D716-4F6A-A2CD-6E6546F28DA3}.Release|Win32.ActiveCfg = Release|Win32
+		{8272760A-D716-4F6A-A2CD-6E6546F28DA3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = true
+		SolutionUniqueID = {874F8566-A681-4D8C-9AC9-C1AB95BB73B9}
+		SccProjectUniqueName1 = fontExtractor.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = true
+	EndGlobalSection
+EndGlobal

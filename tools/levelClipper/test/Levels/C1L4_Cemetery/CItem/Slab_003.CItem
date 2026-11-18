@@ -1,0 +1,7 @@
+o.Scale = 1.14
+o.StartPos = Vector:New(-53.3339,-25.2886,26.1461)
+o.Pos = Vector:New(-53.3339,-25.2886,26.1461)
+o.cnt = 45
+o.BaseObj = "Slab.CItem"
+o.Rot = Quaternion:New(0.70186,0,-0.712315,0)
+o.Portals[1] = "portal6_zone3_zoneshape5"

@@ -1,0 +1,12 @@
+o.ToLaunch[1] = "MonstersSpawnPoint_017"
+o.ToLaunch[2] = "MonstersSpawnPoint_019"
+o.ToLaunch[3] = "AmbushForPlayer_004"
+o.Actions.OnTouch[1] = "Close:Slab_001,999"
+o.Actions.OnTouch[2] = "Kill:CheckPoint_001"
+o.Actions.OnTouch[3] = "WaitForCorpses:22"
+o.Actions.OnTouch[4] = "Launch:CheckPoint_002"
+o.Size.Height = 5.35742
+o.Size.Depth = 5.073
+o.Size.Width = 41.4221
+o.BaseObj = "AmbushForPlayer.CBox"
+o.Pos = Vector:New(-75.2822,-21.552,-4.41235)

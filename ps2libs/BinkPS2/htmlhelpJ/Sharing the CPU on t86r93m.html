@@ -1,0 +1,34 @@
+<!-- This page was created with the RAD auto-doc generator. -->
+<!doctype html public "-//w3c//dtd html 3.2 final//en">
+<html>
+<head>
+<title>ニンテンドー ゲームキューブでの CPU の共有</title>
+<meta http-equiv="content-type" content="text/html; charset=shift_jis">
+<meta name="ms.locale" content="en-us">
+<meta name="description" content="">
+<meta name="ms-hkwd" content="ニンテンドー ゲームキューブでの CPU の共有">
+<link rel="stylesheet" title="default" href="reference.css" type="text/css" media="screen">
+</head>
+<body topmargin="0">
+<table cellspacing=0 cellpadding=0 class=bar width=100% height=25>
+<tr class=bar>
+<td class=bar>
+<i>&nbsp;<a href="index.html" class=trn>Bink SDK 1.8b</a></i>
+</td>
+</tr>
+</table>
+<h1>ニンテンドー ゲームキューブでの CPU の共有</h1>
+<h4>説明</h4>
+<p>ニンテンドー ゲームキューブでは、CPU を OS と共用する必要はまったくありません。これはコンソール上の作業で得られる特別なメリットで、CPU を必要なだけ使い切ることができます。</p><p>これは、ニンテンドー ゲームキューブでの一般的な Bink 再生ループがきわめて単純であることを意味します。Bink は <a href="BinkWait.html">BinkWait</a> 関数でタイミングを処理するので、必要な処理は、ビデオの再生中は常にこの関数を確認するということだけです。</p><p>したがって、ニンテンドー ゲームキューブでの再生の簡単なサンプルは次のようになります。</p><p></p><code><font size=3 color=#006000><pre>for ( ; ; )<br>{<br>   <i>// 再生をチェック</i><br>   if ( !BinkWait( bink ) )<br>   {<br>     <i>// 次の Bink フレームの処理に進む</i><br>     Show_next_frame( bink, texture );<br>   }<br> }<br>}<br></pre></font></code><p></p><p></p>
+<p><a href="Handling%20the%20Reset%20Bkw9663.html">次のトピック (ニンテンドーでのりセット ボタンの取り扱い)</a>  </p><p><a href="Memory%20management%20on8uyiaz.html">前のトピック (ニンテンドー ゲームキューブでのメモリ管理)</a>  </p><p>
+<br>
+<b>グループ:</b> <a href="The%20Nintendo%20GameCubm0rzpb.html">ニンテンドー ゲームキューブ プラットフォーム</a><br>
+<b>関連する関数:</b> <a href="BinkWait.html">BinkWait</a></p>
+<p align=center>
+<a href="mailto:Bink3@radgametools.com">テクニカル サポート: Bink3@radgametools.com</a>
+<br>
+<a href="http://www.radgametools.com/bnkmain.htm?from=help1.6d">&#169; Copyright 1994-2004 RAD Game Tools, Inc. All Rights Reserved.</a>
+</p>
+<br>
+</body>
+</html>

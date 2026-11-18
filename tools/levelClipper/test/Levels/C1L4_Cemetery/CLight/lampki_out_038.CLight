@@ -1,0 +1,7 @@
+o.Range = 7
+o.Intensity = 2
+o.StartFalloff = 4.2
+o.Pos = Vector:New(57.3307,-7.04065,18.9099)
+o.Color = Color:New(189,166,113,0)
+o.BaseObj = "lampki_out.CLight"
+o.Direction = Vector:New(1.78814e-007,-1,-4.11272e-005)

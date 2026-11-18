@@ -1,0 +1,11 @@
+ps.1.1
+
+tex t0	; base 1			
+tex t1	; base 2
+tex t2	; alpha
+tex t3	; lmap
+
+mul r0,t0,1-t2
+mul r1,t1,t2
+add r0,r0,r1
+mul r0,r0,t3

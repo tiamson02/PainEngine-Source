@@ -1,0 +1,429 @@
+/*
+** $Id: lmathlib.c,v 1.67 2005/08/26 17:36:32 roberto Exp $
+** Standard mathematical library
+** See Copyright Notice in lua.h
+*/
+
+
+#include <stdlib.h>
+#include <math.h>
+
+//extern long IRandom(long min, long max);
+extern float Random();
+
+
+#define lmathlib_c
+#define LUA_LIB
+
+#include "lua.h"
+
+#include "lauxlib.h"
+#include "lualib.h"
+
+
+#undef PI
+#ifndef TRANSGAMING_LUA_DOUBLE
+# define    PI                  (3.14159265358979323846f)
+# define    RADIANS_PER_DEGREE  (PI/180.0f)
+#else
+# define PI (3.14159265358979323846)
+# define RADIANS_PER_DEGREE (PI/180.0)
+#endif
+
+
+static int math_abs (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, fabsf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, fabs(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_sin (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, sinf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, sin(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_sinh (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+    lua_pushnumber(L, sinhf(luaL_checknumber(L, 1)));
+#else
+    lua_pushnumber(L, sinh(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_cos (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, cosf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, cos(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_cosh (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+    lua_pushnumber(L, coshf(luaL_checknumber(L, 1)));
+#else
+    lua_pushnumber(L, cosh(luaL_checknumber(L, 1)));
+#endif
+    return 1;
+}
+
+static int math_tan (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, tanf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, tan(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_tanh (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+    lua_pushnumber(L, tanhf(luaL_checknumber(L, 1)));
+#else
+    lua_pushnumber(L, tanh(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_asin (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, asinf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, asin(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_acos (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, acosf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, acos(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_atan (lua_State *L) {
+#ifdef TRANSGAMING_WINDOWS
+  lua_pushnumber(L, atan(luaL_checknumber(L, 1)));
+#else
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, atanf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, atan(luaL_checknumber(L, 1)));
+#endif
+#endif // TRANSGAMING_WINDOWS
+  return 1;
+}
+
+static int math_atan2 (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, atan2f(luaL_checknumber(L, 1), luaL_checknumber(L, 2)));
+#else
+  lua_pushnumber(L, atan2(luaL_checknumber(L, 1), luaL_checknumber(L, 2)));
+#endif
+  return 1;
+}
+
+static int math_ceil (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, ceilf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, ceil(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_floor (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, floorf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, floor(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_fmod (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, fmodf(luaL_checknumber(L, 1), luaL_checknumber(L, 2)));
+#else
+  lua_pushnumber(L, fmod(luaL_checknumber(L, 1), luaL_checknumber(L, 2)));
+#endif
+  return 1;
+}
+
+static int math_modf (lua_State *L) {
+  lua_Number ip;
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_Number fp = modff(luaL_checknumber(L, 1), &ip);
+#else
+  lua_Number fp = modf(luaL_checknumber(L, 1), &ip);
+#endif
+  lua_pushnumber(L, ip);
+  lua_pushnumber(L, fp);
+  return 2;
+}
+
+static int math_sqrt (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, sqrtf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, sqrt(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_pow (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, powf(luaL_checknumber(L, 1), luaL_checknumber(L, 2)));
+#else
+  lua_pushnumber(L, pow(luaL_checknumber(L, 1), luaL_checknumber(L, 2)));
+#endif
+  return 1;
+}
+
+static int math_log (lua_State *L) {
+#ifdef TRANSGAMING_WINDOWS
+  lua_pushnumber(L, log(luaL_checknumber(L, 1)));
+#else
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, logf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, log(luaL_checknumber(L, 1)));
+#endif
+#endif // TRANSGAMING_WINDOWS
+  return 1;
+}
+
+static int math_log10 (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, log10f(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, log10(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_exp (lua_State *L) {
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, expf(luaL_checknumber(L, 1)));
+#else
+  lua_pushnumber(L, exp(luaL_checknumber(L, 1)));
+#endif
+  return 1;
+}
+
+static int math_deg (lua_State *L) {
+  lua_pushnumber(L, luaL_checknumber(L, 1)/RADIANS_PER_DEGREE);
+  return 1;
+}
+
+static int math_rad (lua_State *L) {
+  lua_pushnumber(L, luaL_checknumber(L, 1)*RADIANS_PER_DEGREE);
+  return 1;
+}
+
+static int math_frexp (lua_State *L) {
+  int e;
+#ifdef TRANSGAMING_WINDOWS
+  lua_pushnumber(L, frexp(luaL_checknumber(L, 1), &e));
+#else
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, (lua_Number)frexp((double)luaL_checknumber(L, 1), &e));
+#else
+  lua_pushnumber(L, frexp(luaL_checknumber(L, 1), &e));
+#endif
+#endif // TRANSGAMING_WINDOWS
+  lua_pushinteger(L, e);
+  return 2;
+}
+
+static int math_ldexp (lua_State *L) {
+#ifdef TRANSGAMING_WINDOWS
+  lua_pushnumber(L, ldexp(luaL_checknumber(L, 1), luaL_checkint(L, 2)));
+#else
+#ifndef TRANSGAMING_LUA_DOUBLE
+  lua_pushnumber(L, (lua_Number)ldexp((double)luaL_checknumber(L, 1), luaL_checkint(L, 2)));
+#else
+  lua_pushnumber(L, ldexp(luaL_checknumber(L, 1), luaL_checkint(L, 2)));
+#endif
+#endif // TRANSGAMING_WINDOWS
+  return 1;
+}
+
+
+
+static int math_min (lua_State *L) {
+  int n = lua_gettop(L);  /* number of arguments */
+  lua_Number dmin = luaL_checknumber(L, 1);
+  int i;
+  for (i=2; i<=n; i++) {
+    lua_Number d = luaL_checknumber(L, i);
+    if (d < dmin)
+      dmin = d;
+  }
+  lua_pushnumber(L, dmin);
+  return 1;
+}
+
+
+static int math_max (lua_State *L) {
+  int n = lua_gettop(L);  /* number of arguments */
+  lua_Number dmax = luaL_checknumber(L, 1);
+  int i;
+  for (i=2; i<=n; i++) {
+    lua_Number d = luaL_checknumber(L, i);
+    if (d > dmax)
+      dmax = d;
+  }
+  lua_pushnumber(L, dmax);
+  return 1;
+}
+
+
+static int math_random (lua_State *L) {
+  /* the `%' avoids the (rare) case of r==1, and is needed also because on
+     some systems (SunOS!) `rand()' may return a value larger than RAND_MAX */
+  //lua_Number r = (lua_Number)(rand()%RAND_MAX) / (lua_Number)RAND_MAX;
+#ifdef TRANSGAMING
+  lua_Number r = Random();
+
+  switch (lua_gettop(L)) {  /* check number of arguments */
+    case 0: {  /* no arguments */
+      lua_pushnumber(L, r);  /* Number between 0 and 1 */
+      break;
+    }
+    case 1: {  /* only upper limit.  Return number in 1..u */
+      int u = luaL_checkint(L, 1);
+
+
+      if (u == 1){
+          lua_pushnumber(L, 1);
+
+          return 1;
+      }
+
+
+      //luaL_argcheck(L, 1 <= u, 1, "interval is empty");
+#ifndef TRANSGAMING_LUA_DOUBLE
+      lua_pushnumber(L, floorf(r * (u - 1)) + 1);  /* int between 1 and `u' */
+#else
+      lua_pushnumber(L, floor(r * (u - 1)) + 1);  /* int between 1 and `u' */
+#endif
+      break;
+    }
+    case 2: {  /* lower and upper limits.  Return number in l..u */
+      int l = luaL_checkint(L, 1);
+      int u = luaL_checkint(L, 2);
+
+
+      if (u <= l){
+          lua_pushnumber(L, l);
+
+          return 1;
+      }
+
+      //luaL_argcheck(L, l<=u, 2, "interval is empty");
+#ifndef TRANSGAMING_LUA_DOUBLE
+      lua_pushnumber(L, floorf(r * (u - l)) + l);  /* int between `l' and `u' */
+#else
+      lua_pushnumber(L, floor(r * (u - l)) + l);  /* int between `l' and `u' */
+#endif
+      break;
+    }
+    default: return luaL_error(L, "wrong number of arguments");
+  }
+  return 1;
+
+#else
+  lua_Number r =  (lua_Number)IRandom(0,RAND_MAX-1)/(lua_Number)RAND_MAX;
+
+  switch (lua_gettop(L)) {  /* check number of arguments */
+    case 0: {  /* no arguments */
+      lua_pushnumber(L, r);  /* Number between 0 and 1 */
+      break;
+    }
+    case 1: {  /* only upper limit */
+      int u = luaL_checkint(L, 1);
+      luaL_argcheck(L, 1<=u, 1, "interval is empty");
+      lua_pushnumber(L, floor(r*u)+1);  /* int between 1 and `u' */
+      break;
+    }
+    case 2: {  /* lower and upper limits */
+      int l = luaL_checkint(L, 1);
+      int u = luaL_checkint(L, 2);
+      luaL_argcheck(L, l<=u, 2, "interval is empty");
+      lua_pushnumber(L, floor(r*(u-l+1))+l);  /* int between `l' and `u' */
+      break;
+    }
+    default: return luaL_error(L, "wrong number of arguments");
+  }
+  return 1;
+#endif
+}
+
+
+static int math_randomseed (lua_State *L) {
+  srand(luaL_checkint(L, 1));
+  return 0;
+}
+
+
+static const luaL_Reg mathlib[] = {
+  {"abs",   math_abs},
+  {"acos",  math_acos},
+  {"asin",  math_asin},
+  {"atan2", math_atan2},
+  {"atan",  math_atan},
+  {"ceil",  math_ceil},
+  {"cosh",   math_cosh},
+  {"cos",   math_cos},
+  {"deg",   math_deg},
+  {"exp",   math_exp},
+  {"floor", math_floor},
+  {"fmod",   math_fmod},
+  {"frexp", math_frexp},
+  {"ldexp", math_ldexp},
+  {"log10", math_log10},
+  {"log",   math_log},
+  {"max",   math_max},
+  {"min",   math_min},
+  {"modf",   math_modf},
+  {"pow",   math_pow},
+  {"rad",   math_rad},
+  {"random",     math_random},
+  {"randomseed", math_randomseed},
+  {"sinh",   math_sinh},
+  {"sin",   math_sin},
+  {"sqrt",  math_sqrt},
+  {"tanh",   math_tanh},
+  {"tan",   math_tan},
+  {NULL, NULL}
+};
+
+
+/*
+** Open math library
+*/
+LUALIB_API int luaopen_math (lua_State *L) {
+  luaL_register(L, LUA_MATHLIBNAME, mathlib);
+  lua_pushnumber(L, PI);
+  lua_setfield(L, -2, "pi");
+  lua_pushnumber(L, (lua_Number)HUGE_VAL);
+  lua_setfield(L, -2, "huge");
+#if defined(LUA_COMPAT_MOD)
+  lua_getfield(L, -1, "fmod");
+  lua_setfield(L, -2, "mod");
+#endif
+  return 1;
+}
+

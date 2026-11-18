@@ -1,0 +1,655 @@
+#include "Engine.h"
+
+#include "Core/SimpleProfiler.h"
+extern ENGINE_API SimpleProfiler GProfiler;
+
+#include "Scripting/Scripting.h"
+extern ENGINE_API Script	GScript;
+
+#include "Render/Hud.h"
+#include "Render/View.h"
+#include "Engine/InputSystem.h"
+#include "Physics/Ragdoll.h"
+#include "Physics/PhysicsEngine.h"
+#include "Physics/PhysicsWorld.h"
+//#include "Audio/AudioDevice.h"
+#include "Audio/MilesEngine.h"
+#include "Engine/BaseGame.h"
+#include "Physics/PhysicsObject.h"
+#include "Render/Video.h"
+#include "Render/Material.h"
+#include "Engine/Model.h"
+#include "Engine/World.h"
+#include "Engine/PainMenu.h"
+#include "Engine/MagicBoard.h"
+#include "Engine/MapSelect.h"
+
+#ifdef NEW_NETCODE
+#include "Net/NetworkDevice2.h"
+#else
+#include "Net/NetworkDevice.h"
+#endif
+
+#include "Core/FileSystem/LogBuffer.h"
+extern ENGINE_API LogBuffer GLog;
+
+extern ENGINE_API View* (*OurView)(void);
+
+EngineGame::EngineGame() : mPaused(false), mUpdateLogic(false)
+{
+	curTimeMS = GEngine->SysDriver.GetCurrentTimeMS();
+
+//#ifdef _DEBUG
+//	canPreprocessPlayer = true;
+//	preprocessPlayerNow = false;
+//#endif
+}
+
+void EngineGame::Initialize()
+{
+    if (GEngine->Video)
+    {
+	    View* view = (*OurView)();
+	    view->Init();
+	    view->SetWorld( GEngine->World );
+	    GEngine->Video->AddView( view); 
+	    GEngine->Video->SetViewAsActive(view);
+        GEngine->World->Paths.SetViewport( &GEngine->Video->GetActiveView()->LocalViewport );
+    }
+
+    if (GEngine->Audio)
+    {
+		if( !GScript.Globals()["Cfg"]["SoundProvider3D"].IsNil() )
+		{
+			if( !GEngine->Audio->Set3DSoundProvider( GScript.Globals()["Cfg"]["SoundProvider3D"].GetString() ) )
+//				GEngine->Audio->SetFirstSuccesfulProvider();
+				GEngine->Audio->SetMostSuitableProvider();
+		}
+
+		if( GEngine->Audio->GetCurrentSoundProvider() == -1 )
+		{
+			GLog.Print("ERROR: Could not find any 3D sound provider!!! Audio off.\n");
+			delete GEngine->Audio;
+			GEngine->Audio = 0;
+		}
+		else
+		{
+		    Vector front(0,0,1);
+		    Vector up(0,1,0);
+		    GEngine->Audio->SetPlayerOrientation( front, up );
+		}
+    }
+
+	GScript.DoString("Game:Init()");	
+
+	mUpdateLogic = true;
+    IsMotorcyclePlayer = false;
+}
+
+void EngineGame::Close()
+{
+	GEngine->World->Release();
+}
+
+void EngineGame::Tick(bool minimized, float timeDelta)
+{
+//	static DWORD lastMS = 0;
+
+	View* view;
+
+	switch( GEngine->GameState )
+	{
+	case PCFSystem::PCFSystemStates::MultiplayerServer:
+
+		Assert( GEngine->InputSys );
+        Assert( GEngine->Video );
+
+		GProfiler.SetState(INPUTSYS_TICK);
+        if (!minimized)
+        {
+		    GEngine->InputSys->Tick();
+		    ProcessInput();
+        }
+
+		if( mUpdateLogic )
+		{
+			GProfiler.SetState(UPDATE_LOGIC);	
+			GScript.Call("Game_Tick",0,"%f",timeDelta);
+		}
+
+		if( !GEngine->Net )
+			break;
+
+		{
+			GProfiler.SetState(PHYSICS_TICK);
+#ifndef NEW_NETCODE
+			GEngine->Net->ServerPhysicsTick( timeDelta );
+#else
+			// Move the local player
+			Entity* pe = GEngine->Net->GetPlayerByIndex( SERVER_ID );
+			if( pe && pe->PO )
+			{
+				Assert( GEngine->Video );
+
+				View * view = GEngine->Video->GetActiveView();
+				float pitch = FDeg2Rad(view->mCamera.GetRotation().Y);
+				float yaw = FDeg2Rad(view->mCamera.GetRotation().X);
+				yaw = fmod( 2*F_PI + fmod(yaw,2*F_PI), 2*F_PI );
+
+				GLog.Print( "Yaw: %f, Pitch: %f\n", yaw, pitch );
+
+				int i = GProfiler.GetState();
+				GProfiler.SetState( HAVOK_INDEPENDENT_PLAYER_ACTION );
+				pe->PO->MultiPlayerActionNonPhysic( yaw, pitch, timeDelta );
+				GProfiler.SetState( i );
+			}
+
+			// TO DO - move entities ( that move by non-physical means )
+			GEngine->Physics->Tick(timeDelta);	
+#endif
+			if( GEngine->World && GEngine->World->Physics)
+				GEngine->World->Physics->UpdateEntities();
+		}
+
+		if( GEngine->Audio )
+		{
+			GProfiler.SetState(AUDIO_TICK);
+	        GEngine->Audio->Tick(timeDelta);
+		}
+
+		if( mUpdateLogic )
+		{
+			GProfiler.SetState( UPDATE_LOGIC );
+			GScript.Call("Game_Tick2",0,"%f", timeDelta ); // after physics
+		}
+		GProfiler.SetState(WORLD_TICK);	
+		GEngine->World->Tick(timeDelta);
+        if (!minimized)
+        {
+            GProfiler.SetState(CLIENT_RENDER);            
+            GEngine->Video->MaterialSys->Tick(timeDelta);
+            view = GEngine->Video->GetActiveView();
+            view->Render(timeDelta);
+        }
+		GProfiler.SetState(OTHER);
+        GEngine->Video->Hud->mConsole.ExecLastCommand();
+
+		break;
+	case PCFSystem::PCFSystemStates::DedicatedServer:
+
+		Assert( !GEngine->InputSys );
+        Assert( !GEngine->Audio );
+        Assert( !GEngine->Video );
+
+		if( mUpdateLogic )
+		{
+			GProfiler.SetState(UPDATE_LOGIC);	
+			GScript.Call("Game_Tick",0,"%f",timeDelta);
+		}
+
+		{
+			GProfiler.SetState(PHYSICS_TICK);
+#ifndef NEW_NETCODE
+			GEngine->Net->ServerPhysicsTick( timeDelta );
+#else
+			// TO DO - move the entities (that move by non-physic means)
+
+			// Move physical entities
+			GEngine->Physics->Tick(timeDelta);	
+#endif
+			GEngine->World->Physics->UpdateEntities();
+		}
+
+		if( mUpdateLogic )
+		{
+			GProfiler.SetState( UPDATE_LOGIC );
+			GScript.Call("Game_Tick2",0,"%f", timeDelta ); // after physics
+		}
+
+		GProfiler.SetState(WORLD_TICK);
+		GEngine->World->Tick(timeDelta);
+		GProfiler.SetState(OTHER);
+
+		break;
+	case PCFSystem::PCFSystemStates::MultiplayerClient:
+
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT1\n");
+		#endif
+		// Input Sys
+        if( !minimized )
+        {
+		    GProfiler.SetState(INPUTSYS_TICK);
+		    GEngine->InputSys->Tick();	
+		    ProcessInput();
+        }
+
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT2\n");
+		#endif
+		if( mUpdateLogic )
+		{
+			GProfiler.SetState(UPDATE_LOGIC);	
+			GScript.Call("Game_Tick",0,"%f",timeDelta);
+		}
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT3\n");
+		#endif
+
+//			DWORD curTime = GEngine->SysDriver.GetCurrentTimeMS();
+//			GLog.Print( "time diff: %d, timeDelta: %f\n", curTime-lastMS, timeDelta );
+//			lastMS = curTime;
+
+		// Physics
+		GProfiler.SetState( PHYSICS_TICK );
+#ifndef NEW_NETCODE
+		if( GEngine->Net )
+			GEngine->Net->ClientPhysicsTick( timeDelta );
+#endif
+
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT4\n");
+        #endif
+
+		if( GEngine->Audio )
+		{
+			GProfiler.SetState(AUDIO_TICK);
+	        GEngine->Audio->Tick(timeDelta);
+		}
+	
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT5\n");
+		#endif
+
+		if( !minimized )
+		{
+	        Assert( GEngine->Video );
+            GEngine->Video->MaterialSys->Tick(timeDelta);
+		}
+
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT6\n");
+		#endif
+
+		if( mUpdateLogic )
+		{
+			GProfiler.SetState( UPDATE_LOGIC );
+			GScript.Call("Game_Tick2",0,"%f", timeDelta ); // after physics
+		}
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT7\n");
+		#endif
+
+		GProfiler.SetState(WORLD_TICK);	
+		GEngine->World->Tick(timeDelta);
+		
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT8\n");
+		#endif
+
+		GProfiler.SetState( PHYSICS_TICK );
+        if (GEngine->World->Physics)
+            GEngine->World->Physics->UpdateEntities();
+
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT9\n");
+		#endif
+
+		if( !minimized )
+		{
+		    Assert( GEngine->Video );
+	        GProfiler.SetState( CLIENT_RENDER );
+	        view = GEngine->Video->GetActiveView();
+	    	view->Render( timeDelta );
+		}
+
+		#ifdef ENGINE_LOG
+		GLog.Print("^* GT10\n");
+		#endif
+
+		GProfiler.SetState( OTHER );
+        GEngine->Video->Hud->mConsole.ExecLastCommand();
+
+		break;
+	case PCFSystem::PCFSystemStates::SingleGame:
+	default:
+		GProfiler.SetState(INPUTSYS_TICK);
+		Assert( GEngine->InputSys );
+		GEngine->InputSys->Tick();	
+		ProcessInput();
+
+	    if( !mPaused )
+		{
+			if( mUpdateLogic )
+			{
+				GProfiler.SetState(UPDATE_LOGIC);	
+				GScript.Call("Game_Tick",0,"%f",timeDelta);
+			}
+
+			GProfiler.SetState(PHYSICS_TICK);
+			GEngine->Physics->Tick(timeDelta);	
+
+			if( GEngine->Audio )
+			{
+				GProfiler.SetState(AUDIO_TICK);
+	            GEngine->Audio->Tick(timeDelta);
+			}
+
+            GProfiler.SetState(CLIENT_RENDER);
+			Assert( GEngine->Video );
+            GEngine->Video->MaterialSys->Tick(timeDelta);
+
+			if( mUpdateLogic )
+			{
+				GProfiler.SetState( UPDATE_LOGIC );
+				GScript.Call("Game_Tick2",0,"%f", timeDelta ); // after physics
+			}
+
+			GProfiler.SetState(WORLD_TICK);	
+			GEngine->World->Tick(timeDelta);
+		}
+
+#ifdef _DEBUG
+		if( GEngine->World && GEngine->World->Physics )
+			GEngine->World->Physics->StaticMeshEntityCheck();
+#endif
+
+	    Assert( GEngine->Video );
+        GProfiler.SetState( CLIENT_RENDER );
+        view = GEngine->Video->GetActiveView();
+    	view->Render( timeDelta );
+		GProfiler.SetState( OTHER );
+        GEngine->Video->Hud->mConsole.ExecLastCommand();
+		break;
+	}
+}
+
+Entity * EngineGame::CreatePlayer(LPCSTR modelName,bool ragdoll)
+{
+    Entity *player;
+    if( stricmp(modelName,"motor") == 0)
+    {
+        IsMotorcyclePlayer = true;
+		player = GEngine->World->CreateEntity( Entity::ETypeModel, modelName, "", 1.2f );
+    }
+	else
+    {
+        IsMotorcyclePlayer = false;
+        player = GEngine->World->CreateEntity( Entity::ETypeModel, modelName, "", 0.155f );
+    }		
+
+    if (!player)
+    {
+        MessageBox(NULL,"Cannot create player entity!!!","Error",MB_TOPMOST);
+        return NULL;
+    }
+
+    if( !ragdoll )
+    {
+		Ragdoll* r = ((Model*)player)->RagdollPtr;
+	    if( r ) delete r;
+    }
+
+	player->SetPositionAndRotation( Vector(0,100,0),Quaternion(0,Vector(0,1,0)) );
+	GEngine->World->AddEntity( player );
+	player->Flags |= Entity::EEntAlwaysVisible|Entity::EEntNoDraw|Entity::EEntDestroyOnReload;		// don't draw player entity	
+
+    // Physics Object    
+    if( !IsMotorcyclePlayer )
+    {
+        player->CreatePhysicsObject( EPawnBodyPlayer, 1.0f, -1, true );
+        //player->PO->SetModelPivotOffset(Vector(0,6,0));
+    }
+    else
+    {
+        player->CreatePhysicsObject(  EPawnBodyPlayer, 1.0f, -1, true );
+        player->PO->EnableSpeedDamping( true, 70.0f, 50.0f, 0.01f );            
+    }
+    player->PO->ZeroVelocity();
+
+    if (GEngine->Video)
+    {
+        View * view = GEngine->Video->GetActiveView();
+        if (view)
+            player->PO->SetPawnHeadPos( view->mCamera.GetPosition() );
+    }
+    
+    return player;
+}
+
+void EngineGame::SwitchMenu( bool force )
+{
+	ScriptObject game = GScript.Globals()["Game"];
+
+	if( game["Paused"].GetBool() )
+		return;
+
+	if( GEngine->Video->MBoard->Active() )
+	{
+		if( force )
+			SwitchMagicBoard( true );
+		else
+			return;
+	}
+	else if( GEngine->Video->MapSel->Active() )
+	{
+		if( force )
+			SwitchMapSelect( true );
+		else
+			return;
+	}
+
+	String curLevelName = GScript.Globals()["Lev"]["_Name"].GetString();
+
+	if( GEngine->Video->PMenu->Active() && curLevelName == "NoName" && !force )
+		return;
+
+	if( !GEngine->Video->PMenu->Active() )
+	{
+		ShowMenu();
+	}
+	else
+	{
+		HideMenu();
+	}
+}
+
+void EngineGame::ShowMenu()
+{
+	ScriptObject game = GScript.Globals()["Game"];
+
+	if( game["Paused"].GetBool() )
+		return;
+
+	if( GEngine->Video->PMenu->Active() )
+		return;
+
+	View * view = GEngine->Video->GetActiveView();
+	if( view )
+	{
+		view->Mode |= View::EModeDoNotRenderWorld;
+		mPaused = true;
+		GEngine->Video->PMenu->Activate( true );
+	}
+}
+
+void EngineGame::HideMenu()
+{
+	ScriptObject game = GScript.Globals()["Game"];
+
+	if( game["Paused"].GetBool() )
+		return;
+
+	if( !GEngine->Video->PMenu->Active() )
+		return;
+
+	View * view = GEngine->Video->GetActiveView();
+	if( view )
+	{
+		view->Mode &= ~View::EModeDoNotRenderWorld;
+		mPaused = false;
+		GEngine->Video->PMenu->Activate( false );
+		GScript.DoString( "Game.Paused = false" );
+	}
+}
+
+void EngineGame::SwitchMagicBoard( bool force )
+{
+	ScriptObject game = GScript.Globals()["Game"];
+
+	if( game["Paused"].GetBool() )
+		return;
+
+	if( GEngine->Video->PMenu->Active() )
+	{
+		if( force )
+			SwitchMenu( true );
+		else
+			return;
+	}
+	else if( GEngine->Video->MapSel->Active() )
+	{
+		if( force )
+			SwitchMapSelect( true );
+		else
+			return;
+	}
+
+	String curLevelName = GScript.Globals()["Lev"]["_Name"].GetString();
+	if( GEngine->Video->MBoard->Active() && curLevelName == "NoName" && !force )
+		return;
+
+	View * view = GEngine->Video->GetActiveView();
+	if( view )
+	{
+		if( !GEngine->Video->MBoard->Active() )
+		{
+			view->Mode |= View::EModeDoNotRenderWorld;
+			mPaused = true;
+		}
+		GEngine->Video->MBoard->Activate( !GEngine->Video->MBoard->Active() );
+		if( !GEngine->Video->MBoard->Active() )
+		{
+			view->Mode &= ~View::EModeDoNotRenderWorld;
+			mPaused = false;
+			GScript.DoString( "Game.Paused = false" );
+		}
+	}
+}
+
+void EngineGame::SwitchMapSelect( bool force )
+{
+	ScriptObject game = GScript.Globals()["Game"];
+
+	if( game["Paused"].GetBool() )
+		return;
+
+	if( GEngine->Video->PMenu->Active() )
+	{
+		if( force )
+			SwitchMenu( true );
+		else
+			return;
+	}
+	else if( GEngine->Video->MBoard->Active() )
+	{
+		if( force )
+			SwitchMagicBoard( true );
+		else
+			return;
+	}
+
+	String curLevelName = GScript.Globals()["Lev"]["_Name"].GetString();
+	if( GEngine->Video->MapSel->Active() && curLevelName == "NoName" && !force )
+		return;
+
+	View * view = GEngine->Video->GetActiveView();
+	if( view )
+	{
+		if( !GEngine->Video->MapSel->Active() )
+		{
+			view->Mode |= View::EModeDoNotRenderWorld;
+			mPaused = true;
+		}
+		GEngine->Video->MapSel->Activate( !GEngine->Video->MapSel->Active() );
+		if( !GEngine->Video->MapSel->Active() )
+		{
+			view->Mode &= ~View::EModeDoNotRenderWorld;
+			mPaused = false;
+			GScript.DoString( "Game.Paused = false" );
+		}
+	}
+}
+
+void EngineGame::SwitchConsole()
+{
+	ScriptObject game = GScript.Globals()["Game"];
+
+	if( game["Paused"].GetBool() )
+		return;
+
+	GEngine->Video->Hud->mConsole.Activate( !GEngine->Video->Hud->mConsole.Active() );
+}
+
+void EngineGame::ShowMPStats()
+{
+	GEngine->Video->Hud->MPStats.Activate( true );
+}
+
+void EngineGame::HideMPStats()
+{
+	GEngine->Video->Hud->MPStats.Activate( false );
+}
+
+
+void EngineGame::RecordingUpdateViewFromPlayer( Entity *player, float yaw, float dir )
+{
+#ifndef NEW_NETCODE
+	if( !GEngine->Net || !GEngine->Net->Recording.IsPlaying() ) return;
+#endif
+
+	View* view = GEngine->Video->GetActiveView();
+	Vector camRot = view->mCamera.GetRawRotation();
+
+
+	camRot.Z = 0.0f;
+	if( player->PO )
+	{
+		if( dir != 1000.0f )
+		{
+			camRot.X = 180.0f-dir*180.0/F_PI;
+			if( camRot.X < 0.0f ) camRot.X += 360.0f;
+			if( camRot.X >= 360.0f ) camRot.X -= 360.0f;
+		}
+
+		Vector destPos = ( GEngine->GameState == PCFSystem::PCFSystemStates::SingleGame )?player->PO->GetPawnHeadPos():player->PO->GetInterpolatedHeadPos();
+
+/*
+		// Camera position interpolation based on player velocity
+		float tickPart = GEngine->World->Physics->GetTickPart();
+		if( tickPart )	// != 0.0f
+			destPos += ( player->PO->GetVel() * tickPart );
+*/
+		if( view->mCamera.Interpolation )
+		{
+			Vector diff = destPos - LastCamPos;
+			if( diff.Magnitude() < 3 )				// interpolation
+				destPos = LastCamPos + diff * 0.33f;
+		}
+
+		view->mCamera.SetPosition( destPos );
+		LastCamPos = destPos;
+
+		if( player->PO->GetType() == EPawnMotorcycle )	// set pawn orientation
+			camRot.Z = player->PO->GetMotorRoll();
+	}
+
+	// y lock
+	camRot.Y = yaw;
+	if( camRot.Y > +80.0f ) camRot.Y = +80.0f;
+	if( camRot.Y < -80.0f ) camRot.Y = -80.0f;
+
+	view->mCamera.SetRotation(camRot);
+	view->mCamera.InverseTransform();
+
+}

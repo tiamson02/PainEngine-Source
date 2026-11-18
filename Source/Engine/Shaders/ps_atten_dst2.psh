@@ -1,0 +1,20 @@
+ps.1.1
+
+tex t0	// attenuation x2+y2
+tex t1	// attenuation z2
+tex t2	// L
+tex t3	// Texture
+;v0		; Color
+;v1		; N
+
+mul		r0.rgb, t3.a, v0
+dp3_sat	r1, v1_bx2, t2_bx2
+
+mul		r0.rgb, r0, r1
++add	r0.a, 1-t0.a, -t1.a
+
+mul		r0.rgb, r0, r0.a
++mul	r0.a, r1.a, r0.a
+
+mul_x2	r0.rgb, r0, t3
+

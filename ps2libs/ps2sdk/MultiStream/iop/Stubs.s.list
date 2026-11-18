@@ -1,0 +1,444 @@
+                             # -------------------- sysmem --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       sysmem_stub      
+                             sysmem_stub                                      
+0x00000000: 0000e041                            .word        0x41e00000       
+0x00000004: 00000000                            .word        0x0000           
+0x00000008: 0101                                .short       0x0101           
+0x0000000a: 0000                                .short       0x0000           
+0x0000000c: 7379736d656d0000                    .ascii       "sysmem\0\0"     
+                                                .align       2                
+                                                .globl       AllocSysMemory   
+                             AllocSysMemory                                   
+0x00000014: 0800e003                            j            $31              
+0x00000018: 04000024                            addiu        $0, $0, 4        
+                                                .globl       FreeSysMemory    
+                             FreeSysMemory                                    
+0x0000001c: 0800e003                            j            $31              
+0x00000020: 05000024                            addiu        $0, $0, 5        
+                                                .globl       QueryMaxFreeMemSize 
+                             QueryMaxFreeMemSize                               
+0x00000024: 0800e003                            j            $31              
+0x00000028: 07000024                            addiu        $0, $0, 7        
+                                                .globl       Kprintf          
+                             Kprintf                                          
+0x0000002c: 0800e003                            j            $31              
+0x00000030: 0e000024                            addiu        $0, $0, 14       
+0x00000034: 0000000000000000                    .word        0, 0             
+                             # -------------------- intrman --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       intrman_stub     
+                             intrman_stub                                     
+0x0000003c: 0000e041                            .word        0x41e00000       
+0x00000040: 00000000                            .word        0x0000           
+0x00000044: 0201                                .short       0x0102           
+0x00000046: 0000                                .short       0x0000           
+0x00000048: 696e74726d616e00                    .ascii       "intrman\0"      
+                                                .align       2                
+                                                .globl       CpuSuspendIntr   
+                             CpuSuspendIntr                                   
+0x00000050: 0800e003                            j            $31              
+0x00000054: 11000024                            addiu        $0, $0, 17       
+                                                .globl       CpuResumeIntr    
+                             CpuResumeIntr                                    
+0x00000058: 0800e003                            j            $31              
+0x0000005c: 12000024                            addiu        $0, $0, 18       
+0x00000060: 0000000000000000                    .word        0, 0             
+                             # -------------------- ioman --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       ioman_stub       
+                             ioman_stub                                       
+0x00000068: 0000e041                            .word        0x41e00000       
+0x0000006c: 00000000                            .word        0x0000           
+0x00000070: 0401                                .short       0x0104           
+0x00000072: 0000                                .short       0x0000           
+0x00000074: 696f6d616e000000                    .ascii       "ioman\0\0\0"    
+                                                .align       2                
+                                                .globl       open             
+                             open                                             
+0x0000007c: 0800e003                            j            $31              
+0x00000080: 04000024                            addiu        $0, $0, 4        
+                                                .globl       close            
+                             close                                            
+0x00000084: 0800e003                            j            $31              
+0x00000088: 05000024                            addiu        $0, $0, 5        
+                                                .globl       read             
+                             read                                             
+0x0000008c: 0800e003                            j            $31              
+0x00000090: 06000024                            addiu        $0, $0, 6        
+                                                .globl       lseek            
+                             lseek                                            
+0x00000094: 0800e003                            j            $31              
+0x00000098: 08000024                            addiu        $0, $0, 8        
+0x0000009c: 0000000000000000                    .word        0, 0             
+                             # -------------------- sifcmd --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       sifcmd_stub      
+                             sifcmd_stub                                      
+0x000000a4: 0000e041                            .word        0x41e00000       
+0x000000a8: 00000000                            .word        0x0000           
+0x000000ac: 0101                                .short       0x0101           
+0x000000ae: 0000                                .short       0x0000           
+0x000000b0: 736966636d640000                    .ascii       "sifcmd\0\0"     
+                                                .align       2                
+                                                .globl       sceSifInitRpc    
+                             sceSifInitRpc                                    
+0x000000b8: 0800e003                            j            $31              
+0x000000bc: 0e000024                            addiu        $0, $0, 14       
+                                                .globl       sceSifBindRpc    
+                             sceSifBindRpc                                    
+0x000000c0: 0800e003                            j            $31              
+0x000000c4: 0f000024                            addiu        $0, $0, 15       
+                                                .globl       sceSifCallRpc    
+                             sceSifCallRpc                                    
+0x000000c8: 0800e003                            j            $31              
+0x000000cc: 10000024                            addiu        $0, $0, 16       
+                                                .globl       sceSifRegisterRpc 
+                             sceSifRegisterRpc                                
+0x000000d0: 0800e003                            j            $31              
+0x000000d4: 11000024                            addiu        $0, $0, 17       
+                                                .globl       sceSifSetRpcQueue 
+                             sceSifSetRpcQueue                                
+0x000000d8: 0800e003                            j            $31              
+0x000000dc: 13000024                            addiu        $0, $0, 19       
+                                                .globl       sceSifRpcLoop    
+                             sceSifRpcLoop                                    
+0x000000e0: 0800e003                            j            $31              
+0x000000e4: 16000024                            addiu        $0, $0, 22       
+0x000000e8: 0000000000000000                    .word        0, 0             
+                             # -------------------- sifman --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       sifman_stub      
+                             sifman_stub                                      
+0x000000f0: 0000e041                            .word        0x41e00000       
+0x000000f4: 00000000                            .word        0x0000           
+0x000000f8: 0101                                .short       0x0101           
+0x000000fa: 0000                                .short       0x0000           
+0x000000fc: 7369666d616e0000                    .ascii       "sifman\0\0"     
+                                                .align       2                
+                                                .globl       sceSifInit       
+                             sceSifInit                                       
+0x00000104: 0800e003                            j            $31              
+0x00000108: 05000024                            addiu        $0, $0, 5        
+                                                .globl       sceSifSetDma     
+                             sceSifSetDma                                     
+0x0000010c: 0800e003                            j            $31              
+0x00000110: 07000024                            addiu        $0, $0, 7        
+                                                .globl       sceSifDmaStat    
+                             sceSifDmaStat                                    
+0x00000114: 0800e003                            j            $31              
+0x00000118: 08000024                            addiu        $0, $0, 8        
+                                                .globl       sceSifCheckInit  
+                             sceSifCheckInit                                  
+0x0000011c: 0800e003                            j            $31              
+0x00000120: 1d000024                            addiu        $0, $0, 29       
+0x00000124: 0000000000000000                    .word        0, 0             
+                             # -------------------- stdio --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       stdio_stub       
+                             stdio_stub                                       
+0x0000012c: 0000e041                            .word        0x41e00000       
+0x00000130: 00000000                            .word        0x0000           
+0x00000134: 0301                                .short       0x0103           
+0x00000136: 0000                                .short       0x0000           
+0x00000138: 737464696f000000                    .ascii       "stdio\0\0\0"    
+                                                .align       2                
+                                                .globl       printf           
+                             printf                                           
+0x00000140: 0800e003                            j            $31              
+0x00000144: 04000024                            addiu        $0, $0, 4        
+0x00000148: 0000000000000000                    .word        0, 0             
+                             # -------------------- sysclib --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       sysclib_stub     
+                             sysclib_stub                                     
+0x00000150: 0000e041                            .word        0x41e00000       
+0x00000154: 00000000                            .word        0x0000           
+0x00000158: 0401                                .short       0x0104           
+0x0000015a: 0000                                .short       0x0000           
+0x0000015c: 737973636c696200                    .ascii       "sysclib\0"      
+                                                .align       2                
+                                                .globl       memcpy           
+                             memcpy                                           
+0x00000164: 0800e003                            j            $31              
+0x00000168: 0c000024                            addiu        $0, $0, 12       
+                                                .globl       memset           
+                             memset                                           
+0x0000016c: 0800e003                            j            $31              
+0x00000170: 0e000024                            addiu        $0, $0, 14       
+                                                .globl       strcat           
+                             strcat                                           
+0x00000174: 0800e003                            j            $31              
+0x00000178: 14000024                            addiu        $0, $0, 20       
+                                                .globl       strcpy           
+                             strcpy                                           
+0x0000017c: 0800e003                            j            $31              
+0x00000180: 17000024                            addiu        $0, $0, 23       
+                                                .globl       strlen           
+                             strlen                                           
+0x00000184: 0800e003                            j            $31              
+0x00000188: 1b000024                            addiu        $0, $0, 27       
+                                                .globl       strncmp          
+                             strncmp                                          
+0x0000018c: 0800e003                            j            $31              
+0x00000190: 1d000024                            addiu        $0, $0, 29       
+                                                .globl       strstr           
+                             strstr                                           
+0x00000194: 0800e003                            j            $31              
+0x00000198: 22000024                            addiu        $0, $0, 34       
+0x0000019c: 0000000000000000                    .word        0, 0             
+                             # -------------------- thbase --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       thbase_stub      
+                             thbase_stub                                      
+0x000001a4: 0000e041                            .word        0x41e00000       
+0x000001a8: 00000000                            .word        0x0000           
+0x000001ac: 0201                                .short       0x0102           
+0x000001ae: 0000                                .short       0x0000           
+0x000001b0: 7468626173650000                    .ascii       "thbase\0\0"     
+                                                .align       2                
+                                                .globl       CreateThread     
+                             CreateThread                                     
+0x000001b8: 0800e003                            j            $31              
+0x000001bc: 04000024                            addiu        $0, $0, 4        
+                                                .globl       DeleteThread     
+                             DeleteThread                                     
+0x000001c0: 0800e003                            j            $31              
+0x000001c4: 05000024                            addiu        $0, $0, 5        
+                                                .globl       StartThread      
+                             StartThread                                      
+0x000001c8: 0800e003                            j            $31              
+0x000001cc: 06000024                            addiu        $0, $0, 6        
+                                                .globl       TerminateThread  
+                             TerminateThread                                  
+0x000001d0: 0800e003                            j            $31              
+0x000001d4: 0a000024                            addiu        $0, $0, 10       
+                                                .globl       ChangeThreadPriority 
+                             ChangeThreadPriority                               
+0x000001d8: 0800e003                            j            $31              
+0x000001dc: 0e000024                            addiu        $0, $0, 14       
+                                                .globl       GetThreadId      
+                             GetThreadId                                      
+0x000001e0: 0800e003                            j            $31              
+0x000001e4: 14000024                            addiu        $0, $0, 20       
+                                                .globl       SleepThread      
+                             SleepThread                                      
+0x000001e8: 0800e003                            j            $31              
+0x000001ec: 18000024                            addiu        $0, $0, 24       
+                                                .globl       WakeupThread     
+                             WakeupThread                                     
+0x000001f0: 0800e003                            j            $31              
+0x000001f4: 19000024                            addiu        $0, $0, 25       
+                                                .globl       iWakeupThread    
+                             iWakeupThread                                    
+0x000001f8: 0800e003                            j            $31              
+0x000001fc: 1a000024                            addiu        $0, $0, 26       
+                                                .globl       DelayThread      
+                             DelayThread                                      
+0x00000200: 0800e003                            j            $31              
+0x00000204: 21000024                            addiu        $0, $0, 33       
+                                                .globl       USec2SysClock    
+                             USec2SysClock                                    
+0x00000208: 0800e003                            j            $31              
+0x0000020c: 27000024                            addiu        $0, $0, 39       
+0x00000210: 0000000000000000                    .word        0, 0             
+                             # -------------------- thsemap --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       thsemap_stub     
+                             thsemap_stub                                     
+0x00000218: 0000e041                            .word        0x41e00000       
+0x0000021c: 00000000                            .word        0x0000           
+0x00000220: 0101                                .short       0x0101           
+0x00000222: 0000                                .short       0x0000           
+0x00000224: 746873656d617000                    .ascii       "thsemap\0"      
+                                                .align       2                
+                                                .globl       CreateSema       
+                             CreateSema                                       
+0x0000022c: 0800e003                            j            $31              
+0x00000230: 04000024                            addiu        $0, $0, 4        
+                                                .globl       DeleteSema       
+                             DeleteSema                                       
+0x00000234: 0800e003                            j            $31              
+0x00000238: 05000024                            addiu        $0, $0, 5        
+                                                .globl       SignalSema       
+                             SignalSema                                       
+0x0000023c: 0800e003                            j            $31              
+0x00000240: 06000024                            addiu        $0, $0, 6        
+                                                .globl       iSignalSema      
+                             iSignalSema                                      
+0x00000244: 0800e003                            j            $31              
+0x00000248: 07000024                            addiu        $0, $0, 7        
+                                                .globl       WaitSema         
+                             WaitSema                                         
+0x0000024c: 0800e003                            j            $31              
+0x00000250: 08000024                            addiu        $0, $0, 8        
+0x00000254: 0000000000000000                    .word        0, 0             
+                             # -------------------- timrman --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       timrman_stub     
+                             timrman_stub                                     
+0x0000025c: 0000e041                            .word        0x41e00000       
+0x00000260: 00000000                            .word        0x0000           
+0x00000264: 0301                                .short       0x0103           
+0x00000266: 0000                                .short       0x0000           
+0x00000268: 74696d726d616e00                    .ascii       "timrman\0"      
+                                                .align       2                
+                                                .globl       AllocHardTimer   
+                             AllocHardTimer                                   
+0x00000270: 0800e003                            j            $31              
+0x00000274: 04000024                            addiu        $0, $0, 4        
+                                                .globl       FreeHardTimer    
+                             FreeHardTimer                                    
+0x00000278: 0800e003                            j            $31              
+0x0000027c: 06000024                            addiu        $0, $0, 6        
+                                                .globl       SetTimerHandler  
+                             SetTimerHandler                                  
+0x00000280: 0800e003                            j            $31              
+0x00000284: 14000024                            addiu        $0, $0, 20       
+                                                .globl       SetupHardTimer   
+                             SetupHardTimer                                   
+0x00000288: 0800e003                            j            $31              
+0x0000028c: 16000024                            addiu        $0, $0, 22       
+                                                .globl       StartHardTimer   
+                             StartHardTimer                                   
+0x00000290: 0800e003                            j            $31              
+0x00000294: 17000024                            addiu        $0, $0, 23       
+0x00000298: 0000000000000000                    .word        0, 0             
+                             # -------------------- libsd --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       libsd_stub       
+                             libsd_stub                                       
+0x000002a0: 0000e041                            .word        0x41e00000       
+0x000002a4: 00000000                            .word        0x0000           
+0x000002a8: 0501                                .short       0x0105           
+0x000002aa: 0000                                .short       0x0000           
+0x000002ac: 6c69627364000000                    .ascii       "libsd\0\0\0"    
+                                                .align       2                
+                                                .globl       sceSdInit        
+                             sceSdInit                                        
+0x000002b4: 0800e003                            j            $31              
+0x000002b8: 04000024                            addiu        $0, $0, 4        
+                                                .globl       sceSdSetParam    
+                             sceSdSetParam                                    
+0x000002bc: 0800e003                            j            $31              
+0x000002c0: 05000024                            addiu        $0, $0, 5        
+                                                .globl       sceSdGetParam    
+                             sceSdGetParam                                    
+0x000002c4: 0800e003                            j            $31              
+0x000002c8: 06000024                            addiu        $0, $0, 6        
+                                                .globl       sceSdSetSwitch   
+                             sceSdSetSwitch                                   
+0x000002cc: 0800e003                            j            $31              
+0x000002d0: 07000024                            addiu        $0, $0, 7        
+                                                .globl       sceSdGetSwitch   
+                             sceSdGetSwitch                                   
+0x000002d4: 0800e003                            j            $31              
+0x000002d8: 08000024                            addiu        $0, $0, 8        
+                                                .globl       sceSdSetAddr     
+                             sceSdSetAddr                                     
+0x000002dc: 0800e003                            j            $31              
+0x000002e0: 09000024                            addiu        $0, $0, 9        
+                                                .globl       sceSdGetAddr     
+                             sceSdGetAddr                                     
+0x000002e4: 0800e003                            j            $31              
+0x000002e8: 0a000024                            addiu        $0, $0, 10       
+                                                .globl       sceSdSetCoreAttr 
+                             sceSdSetCoreAttr                                 
+0x000002ec: 0800e003                            j            $31              
+0x000002f0: 0b000024                            addiu        $0, $0, 11       
+                                                .globl       sceSdProcBatch   
+                             sceSdProcBatch                                   
+0x000002f4: 0800e003                            j            $31              
+0x000002f8: 0f000024                            addiu        $0, $0, 15       
+                                                .globl       sceSdVoiceTrans  
+                             sceSdVoiceTrans                                  
+0x000002fc: 0800e003                            j            $31              
+0x00000300: 11000024                            addiu        $0, $0, 17       
+                                                .globl       sceSdBlockTrans  
+                             sceSdBlockTrans                                  
+0x00000304: 0800e003                            j            $31              
+0x00000308: 12000024                            addiu        $0, $0, 18       
+                                                .globl       sceSdVoiceTransStatus 
+                             sceSdVoiceTransStatus                               
+0x0000030c: 0800e003                            j            $31              
+0x00000310: 13000024                            addiu        $0, $0, 19       
+                                                .globl       sceSdBlockTransStatus 
+                             sceSdBlockTransStatus                               
+0x00000314: 0800e003                            j            $31              
+0x00000318: 14000024                            addiu        $0, $0, 20       
+                                                .globl       sceSdSetEffectAttr 
+                             sceSdSetEffectAttr                               
+0x0000031c: 0800e003                            j            $31              
+0x00000320: 17000024                            addiu        $0, $0, 23       
+                                                .globl       sceSdClearEffectWorkArea 
+                             sceSdClearEffectWorkArea                               
+0x00000324: 0800e003                            j            $31              
+0x00000328: 19000024                            addiu        $0, $0, 25       
+                                                .globl       sceSdSetTransIntrHandler 
+                             sceSdSetTransIntrHandler                               
+0x0000032c: 0800e003                            j            $31              
+0x00000330: 1a000024                            addiu        $0, $0, 26       
+                                                .globl       sceSdGetTransIntrHandlerArgument 
+                             sceSdGetTransIntrHandlerArgument                               
+0x00000334: 0800e003                            j            $31              
+0x00000338: 1c000024                            addiu        $0, $0, 28       
+0x0000033c: 0000000000000000                    .word        0, 0             
+                             # -------------------- cdvdman --------------------
+                                                .text                         
+                                                .set         noreorder        
+                                                .globl       cdvdman_stub     
+                             cdvdman_stub                                     
+0x00000344: 0000e041                            .word        0x41e00000       
+0x00000348: 00000000                            .word        0x0000           
+0x0000034c: 0101                                .short       0x0101           
+0x0000034e: 0000                                .short       0x0000           
+0x00000350: 636476646d616e00                    .ascii       "cdvdman\0"      
+                                                .align       2                
+                                                .globl       sceCdInit        
+                             sceCdInit                                        
+0x00000358: 0800e003                            j            $31              
+0x0000035c: 04000024                            addiu        $0, $0, 4        
+                                                .globl       sceCdRead        
+                             sceCdRead                                        
+0x00000360: 0800e003                            j            $31              
+0x00000364: 06000024                            addiu        $0, $0, 6        
+                                                .globl       sceCdGetError    
+                             sceCdGetError                                    
+0x00000368: 0800e003                            j            $31              
+0x0000036c: 08000024                            addiu        $0, $0, 8        
+                                                .globl       sceCdSearchFile  
+                             sceCdSearchFile                                  
+0x00000370: 0800e003                            j            $31              
+0x00000374: 0a000024                            addiu        $0, $0, 10       
+                                                .globl       sceCdSync        
+                             sceCdSync                                        
+0x00000378: 0800e003                            j            $31              
+0x0000037c: 0b000024                            addiu        $0, $0, 11       
+                                                .globl       sceCdDiskReady   
+                             sceCdDiskReady                                   
+0x00000380: 0800e003                            j            $31              
+0x00000384: 0d000024                            addiu        $0, $0, 13       
+                                                .globl       sceCdCallback    
+                             sceCdCallback                                    
+0x00000388: 0800e003                            j            $31              
+0x0000038c: 25000024                            addiu        $0, $0, 37       
+                                                .globl       sceCdGetReadPos  
+                             sceCdGetReadPos                                  
+0x00000390: 0800e003                            j            $31              
+0x00000394: 2c000024                            addiu        $0, $0, 44       
+                                                .globl       sceCdMmode       
+                             sceCdMmode                                       
+0x00000398: 0800e003                            j            $31              
+0x0000039c: 4b000024                            addiu        $0, $0, 75       
+0x000003a0: 0000000000000000                    .word        0, 0             

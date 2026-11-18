@@ -1,0 +1,148 @@
+# Which build to do if none is specified on the command line
+DEFAULTBUILD		= optimized
+
+### native ###
+
+optflags		:= -mvu0-use-vf0-vf31
+incdirs			:= $(SCEDIR)/ee/include $(SCEDIR)/common/include
+debug_flags		:= -D_DEBUG -g
+
+# debug
+BUILDNAMES		+= debug
+debug_DEBUGFLAGS	:= $(debug_flags)
+debug_OPTFLAGS		:= $(optflags)
+debug_INCDIRS		:= $(incdirs)
+
+optflags		+= -ffast-math -O2
+
+# optimized
+BUILDNAMES		+= optimized
+optimized_DEBUGFLAGS	:= $(debug_flags)
+optimized_OPTFLAGS	:= $(optflags)
+optimized_INCDIRS	:= $(incdirs)
+
+# optimized_sd
+BUILDNAMES		+= optimized_sd
+optimized_sd_DEBUGFLAGS	:= $(debug_flags)
+optimized_sd_OPTFLAGS	:= $(optflags) -fshort-double
+optimized_sd_INCDIRS	:= $(incdirs)
+
+# temporary to test gcc 3.1 I downloaded..
+
+# optimized_3_1
+BUILDNAMES		+= optimized_3_1
+optimized_3_1_DEBUGFLAGS	:= $(debug_flags)
+optimized_3_1_OPTFLAGS	:= $(optflags)
+optimized_3_1_INCDIRS	:= $(incdirs)
+
+SCE_LIBS	+= graph dma dev pkt vu0 pad cdvd ipu kernl lout mc mpeg msin mtap pc sdr ssyn
+SCE_LIBDIRS	+= $(SCEDIR)/ee/lib
+
+optimized_3_1_LIBS	+= $(SCE_LIBS)
+optimized_3_1_LIBDIRS	:= $(SCE_LIBDIRS)
+
+# temporary to test gcc 3.1 I downloaded..
+# optimized_3_2
+BUILDNAMES		+= optimized_3_2
+optimized_3_2_DEBUGFLAGS	:= $(debug_flags)
+optimized_3_2_OPTFLAGS	:= $(optflags)
+optimized_3_2_INCDIRS	:= $(incdirs)
+
+optimized_3_2_LIBS	+= $(SCE_LIBS)
+optimized_3_2_LIBDIRS	:= $(SCE_LIBDIRS)
+
+# release
+BUILDNAMES		+= release
+release_OPTFLAGS	:= $(optflags)
+release_INCDIRS		:= $(incdirs)
+
+# cdrom
+BUILDNAMES		+= cdrom
+cdrom_DEBUGFLAGS	:= $(debug_flags)
+cdrom_OPTFLAGS		:= $(optflags)
+cdrom_INCDIRS		:= $(incdirs)
+cdrom_DEFINES		:= CDROM
+
+# perf
+BUILDNAMES		+= perf
+perf_DEBUGFLAGS		:= -DPS2S_DO_TIMERS
+perf_OPTFLAGS		:= $(optflags)
+perf_INCDIRS		:= $(incdirs)
+
+### native, no vu0 vectors ###
+
+defines			:= NO_VU0_VECTORS
+optflags		:= -ffast-math -O2
+
+# debug_no_vu0
+BUILDNAMES		+= debug_no_vu0
+debug_no_vu0_DEBUGFLAGS	:= -D_DEBUG -g
+debug_no_vu0_OPTFLAGS	:=
+debug_no_vu0_DEFINES	:= $(defines)
+debug_no_vu0_INCDIRS	:= $(incdirs)
+
+# optimized_no_vu0
+BUILDNAMES			+= optimized_no_vu0
+optimized_no_vu0_DEBUGFLAGS	:= -D_DEBUG -g
+optimized_no_vu0_OPTFLAGS	:= $(optflags)
+optimized_no_vu0_DEFINES	:= $(defines)
+optimized_no_vu0_INCDIRS	:= $(incdirs)
+
+# release_no_vu0
+BUILDNAMES		+= release_no_vu0
+release_no_vu0_OPTFLAGS	:= $(optflags)
+release_no_vu0_DEFINES	:= $(defines)
+release_no_vu0_INCDIRS	:= $(incdirs)
+
+### linux ###
+
+incdirs			:= $(PS2STUFF)/linux/kernel_module
+libdirs			:= /usr/lib
+debug_flags		:= -D_DEBUG -g
+defines			:= PS2_LINUX NO_VU0_VECTORS
+optflags		:= -ffast-math -O2 
+
+# linux
+BUILDNAMES		+= linux
+linux_INCDIRS		:= $(incdirs)
+linux_LIBDIRS		:= $(libdirs)
+linux_DEFINES		:= $(defines)
+linux_DEBUGFLAGS	:= $(debug_flags)
+linux_OPTFLAGS		:= $(optflags)
+linux_PLATFORM		:= linux
+
+# linux_debug
+BUILDNAMES		+= linux_debug
+linux_debug_INCDIRS	:= $(incdirs)
+linux_debug_LIBDIRS	:= $(libdirs)
+linux_debug_DEFINES	:= $(defines)
+linux_debug_DEBUGFLAGS	:= $(debug_flags)
+linux_debug_OPTFLAGS	:= 
+linux_debug_PLATFORM	:= linux
+
+# linux_release
+BUILDNAMES		+= linux_release
+linux_release_INCDIRS	:= $(incdirs)
+linux_release_LIBDIRS	:= $(libdirs)
+linux_release_DEFINES	:= $(defines)
+linux_release_DEBUGFLAGS= 
+linux_release_OPTFLAGS	:= $(optflags)
+linux_release_PLATFORM	:= linux
+
+### cross-compiled linux ###
+
+# cross_linux
+BUILDNAMES		+= cross_linux
+cross_linux_INCDIRS	:= $(incdirs)
+cross_linux_DEFINES	:= PS2_LINUX NO_VU0_VECTORS
+cross_linux_DEBUGFLAGS	:= -D_DEBUG -g
+cross_linux_OPTFLAGS	:= -ffast-math -O2
+cross_linux_PLATFORM	:= linux_cross
+
+# cross_linux_debug
+BUILDNAMES		+= cross_linux_debug
+cross_linux_INCDIRS	:= $(incdirs)
+cross_linux_DEFINES	:= PS2_LINUX NO_VU0_VECTORS
+cross_linux_DEBUGFLAGS	:= -D_DEBUG -g
+cross_linux_OPTFLAGS	:= -ffast-math
+cross_linux_PLATFORM	:= linux_cross

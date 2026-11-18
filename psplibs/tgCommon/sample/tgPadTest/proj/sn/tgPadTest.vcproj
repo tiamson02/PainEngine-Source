@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="tgPadTest"
+	ProjectGUID="{034507F4-C70B-4CB6-A5BC-02ABCFDE6BE9}">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="PSP Debug|Win32"
+			OutputDirectory="PSP_Debug"
+			IntermediateDirectory="PSP_Debug"
+			ConfigurationType="1"
+			DeleteExtensionsOnClean="*.obj;*.d;*.map;*.lst;*.pch;$(TargetPath)">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="-g -O0 -G0"
+				AdditionalIncludeDirectories="../../../../include"
+				PreprocessorDefinitions="SN_TARGET_PSP_PRX;_DEBUG"
+				ProgramDataBaseFileName=""
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="-G0"
+				AdditionalDependencies="crt0_prx.o tgCommonSN.a"
+				OutputFile="$(OutDir)/tempprx.obj"
+				AdditionalLibraryDirectories="../../../../lib/"
+				ProgramDatabaseFile=""/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Generating Debug PRX &quot;../../source/tgPadTestSN.prx&quot;"
+				CommandLine="pspprxgen &quot;$(TargetPath)&quot; -r &quot;../../source/tgPadTestSN.prx&quot;"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="PSP Release|Win32"
+			OutputDirectory="PSP_Release"
+			IntermediateDirectory="PSP_Release"
+			ConfigurationType="1"
+			DeleteExtensionsOnClean="*.obj;*.d;*.map;*.lst;*.pch;$(TargetPath)">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="-O3"
+				AdditionalIncludeDirectories="../../../../include"
+				PreprocessorDefinitions="SN_TARGET_PSP_PRX;NDEBUG"
+				ProgramDataBaseFileName=""
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="-Wl,-S -Wl,-Map,&quot;$(OutDir)/$(ProjectName).map&quot; -Wl,-sn-full-map"
+				AdditionalDependencies="crt0_prx.o tgCommonSN.a"
+				OutputFile="$(OutDir)/tempprx.obj"
+				AdditionalLibraryDirectories="../../../../lib/"
+				IgnoreAllDefaultLibraries="FALSE"
+				ProgramDatabaseFile=""
+				MapFileName=""
+				ImportLibrary=""/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Generating Release PRX &quot;../../source/tgPadTestSN.prx&quot;"
+				CommandLine="pspprxgen &quot;$(TargetPath)&quot; -o &quot;../../source/tgPadTestSN.prx&quot;"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;cc;s;asm">
+			<File
+				RelativePath="..\..\source\main.cpp">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp">
+		</Filter>
+		<Filter
+			Name="Doc"
+			Filter="">
+			<File
+				RelativePath="..\..\readme_e.txt">
+			</File>
+			<File
+				RelativePath="..\..\doc\tgPadTest.pdf">
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

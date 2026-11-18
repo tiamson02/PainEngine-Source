@@ -1,0 +1,2 @@
+o.BaseObj = "MegaPack.CItem"
+o.Pos = Vector:New(-24.9683,-23.4573,-66.7552)

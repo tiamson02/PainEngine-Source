@@ -1,0 +1,7 @@
+o.IsObstructed = true
+o.Falloff.Start = 3
+o.Volume = 40
+o.Interval = 1
+o.BaseObj = "CSound"
+o.Sound = "c2l1_bridge\\maszyny_loop_01"
+o.Pos = Vector:New(-75.0158,-20.0617,-54.3386)

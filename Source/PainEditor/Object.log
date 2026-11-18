@@ -1,0 +1,99 @@
+ObjectPackage: "../Data/Maps/box_paths.dat" FILE (7 objects)
+ObjectPackage: "../Data/Models/AC_Door1.pkmdl" FILE (1 objects)
+delete ObjectPackage "AC_Door1.pkmdl"
+	delete AnimatedMesh::D:/Painkiller/Data/Models/AC_Door1
+ObjectPackage: "../Data/Items/podest.dat" FILE (1 objects)
+ObjectPackage: "../Data/Models/pentagram.pkmdl" FILE (1 objects)
+delete ObjectPackage "pentagram.pkmdl"
+	delete AnimatedMesh::F:/AW/EXPORT/EFEKTY/czacha_pentagram/model_anim_pcf/pentagram
+ObjectPackage: "../Data/Models/quad.pkmdl" FILE (1 objects)
+delete ObjectPackage "quad.pkmdl"
+	delete AnimatedMesh::E:/AW/EXPORT/quad/quad
+ObjectPackage: "../Data/Models/skull_dziaa.pkmdl" FILE (1 objects)
+delete ObjectPackage "skull_dziaa.pkmdl"
+	delete AnimatedMesh::D:/!!!!!PAINKILLER_WORK!!!/!!dedpain!!/Czaha/czaholec
+ObjectPackage: "../Data/Models/ninja.pkmdl" FILE (1 objects)
+delete ObjectPackage "ninja.pkmdl"
+	delete AnimatedMesh::E:/AW/EXPORT/old/ninja/ninjaPCF/ninja
+ObjectPackage: "../Data/Models/ninja_gib.pkmdl" FILE (1 objects)
+delete ObjectPackage "ninja_gib.pkmdl"
+	delete AnimatedMesh::D:/!!!_Maya_Projects_!!!/!DB_GIBY/scenes/NinjaV1/ninja_gib
+ObjectPackage: "../Data/Items/shuriken.dat" FILE (1 objects)
+ObjectPackage: "../Data/Models/PKW.pkmdl" FILE (1 objects)
+delete ObjectPackage "PKW.pkmdl"
+	delete AnimatedMesh::D:/wyrzut_ogólnie_maly/!!OD_W.Jurka_do_W.Jurka/!!!KONWERTATOR!!!/PKW_Castrated_Skinned_02eeee
+ObjectPackage: "../Data/Models/PKW_blades.pkmdl" FILE (1 objects)
+delete ObjectPackage "PKW_blades.pkmdl"
+	delete AnimatedMesh::D:/!!!_Maya_Projects_!!!/DB_PKW/PKW_blades.close
+ObjectPackage: "../Data/Items/moneta_zlota.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/moneta_srebrna.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/kielich1.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/kielich2.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/krzyz1.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/krzyz2.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/pierscien_niebieski.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/pierscien_czerwony.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/kamien_niebieski.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/kamien_zielony.dat" FILE (1 objects)
+ObjectPackage: "../Data/Items/kamien_czerwony.dat" FILE (1 objects)
+ObjectPackage: "../Data/Models/Energy.pkmdl" FILE (1 objects)
+delete ObjectPackage "Energy.pkmdl"
+	delete AnimatedMesh::E:/AW/ANIMACJE/energy
+ObjectPackage: "../Data/Items/Kamyk.dat" FILE (1 objects)
+ObjectPackage: "../Data/Models/spawn.pkmdl" FILE (1 objects)
+delete ObjectPackage "spawn.pkmdl"
+	delete AnimatedMesh::E:/wybuch1
+ObjectPackage: "../Data/Models/sground.pkmdl" FILE (1 objects)
+delete ObjectPackage "sground.pkmdl"
+	delete AnimatedMesh::E:/AW/EXPORT/quad/sground
+ObjectPackage: "../Data/Models/splash.pkmdl" FILE (1 objects)
+delete ObjectPackage "splash.pkmdl"
+	delete AnimatedMesh::E:/AW/EXPORT/splash/splash.splash
+ObjectPackage: "../Data/Models/splash.pkmdl" FILE (1 objects)
+delete ObjectPackage "splash.pkmdl"
+	delete AnimatedMesh::E:/AW/EXPORT/splash/splash.splash
+ObjectPackage: "../Data/Models/player_box.pkmdl" FILE (1 objects)
+delete ObjectPackage "player_box.pkmdl"
+	delete AnimatedMesh::E:/AW/EXPORT/MULTIPLAYER_PLAYER/model_pcf/player_box
+ObjectPackage: "../Data/Models/ESL.pkmdl" FILE (1 objects)
+delete ObjectPackage "ESL.pkmdl"
+	delete AnimatedMesh::D:/wyrzut_ogólnie_maly/!!OD_W.Jurka_do_W.Jurka/!!!!!od_edka/ESL_d
+ObjectPackage: "../Data/Items/shuriken_w.dat" FILE (1 objects)
+delete ObjectPackage "box_paths.dat"
+	delete WorldMesh::polySurfaceShape7
+	delete Zone::Shape2
+	delete Zone::Shape3
+	delete Zone::1Shape
+	delete Portal::portal1_ZONE2_ZONEShape1
+	delete Portal::portal3_ZONE3_ZONEShape1
+	delete Portal::portal2_ZONE2_ZONEShape3
+delete ObjectPackage "podest.dat"
+	delete WorldMesh::pCubeShape1
+delete ObjectPackage "shuriken.dat"
+	delete WorldMesh::polySurfaceShape10
+delete ObjectPackage "moneta_zlota.dat"
+	delete WorldMesh::m_trans1|m_trans
+delete ObjectPackage "moneta_srebrna.dat"
+	delete WorldMesh::|m_trans2|m_trans2
+delete ObjectPackage "kielich1.dat"
+	delete WorldMesh::polySurfaceShape57856
+delete ObjectPackage "kielich2.dat"
+	delete WorldMesh::polySurfaceShape57850
+delete ObjectPackage "krzyz1.dat"
+	delete WorldMesh::polySurfaceShape57857
+delete ObjectPackage "krzyz2.dat"
+	delete WorldMesh::polySurfaceShape57858
+delete ObjectPackage "pierscien_niebieski.dat"
+	delete WorldMesh::polySurfaceShape26108
+delete ObjectPackage "pierscien_czerwony.dat"
+	delete WorldMesh::polySurfaceShape26110
+delete ObjectPackage "kamien_niebieski.dat"
+	delete WorldMesh::polySurfaceShape26109
+delete ObjectPackage "kamien_zielony.dat"
+	delete WorldMesh::polySurfaceShape26106
+delete ObjectPackage "kamien_czerwony.dat"
+	delete WorldMesh::polySurfaceShape26107
+delete ObjectPackage "Kamyk.dat"
+	delete WorldMesh::pSphereShape1
+delete ObjectPackage "shuriken_w.dat"
+	delete WorldMesh::polySurfaceShape4

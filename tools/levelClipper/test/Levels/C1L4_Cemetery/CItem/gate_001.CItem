@@ -1,0 +1,4 @@
+o.Pos = Vector:New(-54.6469,-20.3809,21.9457)
+o.BaseObj = "gate.CItem"
+o.Health = -70
+o.Rot = Quaternion:New(0.999999,0.00174328,0,0)

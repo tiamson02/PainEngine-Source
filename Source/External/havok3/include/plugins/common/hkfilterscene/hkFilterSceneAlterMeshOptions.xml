@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file>
+	<product>ALL</product>
+	<visibility>CLIENT</visibility>
+	<class>
+		<name>hkFilterSceneAlterMeshOptions</name>
+		<description>Options describing what to do to any meshes found.</description>			
+		<!-- Options for this filter -->
+		<member>
+			<name>removeIndices</name>
+			<description>Remove indices from the meshes (unroll into the vertex buffer)</description>
+			<type>hkBool</type>
+			<default>true</default>
+		</member>
+	</class>
+</file>

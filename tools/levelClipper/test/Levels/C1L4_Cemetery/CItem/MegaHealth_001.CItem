@@ -1,0 +1,2 @@
+o.Pos = Vector:New(-16.791,-21.8607,50.1727)
+o.BaseObj = "MegaHealth.CItem"

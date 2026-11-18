@@ -1,0 +1,8 @@
+o.Impulse.Rot = Quaternion:New(0.654597,0,0.721107,0)
+o.Impulse.Strength = 5653.13
+o.Impulse.Pos = Vector:New(0.620968,0,0)
+o.Rot = Quaternion:New(0.683237,-0.729908,0.0205037,0.00110071)
+o.Health = 40
+o.ObjOwner = "PlayerTmp206323"
+o.BaseObj = "BarrelBig.CItem"
+o.Pos = Vector:New(25.7862,-9.32167,27.1579)

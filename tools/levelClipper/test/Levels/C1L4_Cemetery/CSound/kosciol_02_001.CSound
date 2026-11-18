@@ -1,0 +1,7 @@
+o.Volume = 100
+o.IsObstructed = true
+o.Falloff.End = 40
+o.Interval = 12
+o.BaseObj = "kosciol_02.CSound"
+o.RandomShift = 2
+o.Pos = Vector:New(50.2075,-22.0303,18.8879)

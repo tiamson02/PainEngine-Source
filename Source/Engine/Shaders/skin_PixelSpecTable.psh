@@ -1,0 +1,23 @@
+ps.1.1
+
+; per pixel lighting with specular using x^n = max(Ax+B,0)^m approximation
+; 
+tex t0	; fetch color
+tex t1	; fetch normal (specular mask in alpha)
+tex t2	; cubemap renormalized L
+tex t3	; cubemap renormalized H
+
+; r0 = 2*(N.L*N.H^n*Att*Amask + Tex*(N.L*Diff+Amb))
+
+dp3_sat r0.rgba, t1_bx2, t2_bx2		;r0 = N.L
+dp3_sat r1.rgba, t1_bx2, t3_bx2		;r1 = N.H
+
+mul_d2		r1.rgb, c1, t1.a		;r0.b = Att*Amask
++mad_x4_sat	r1.a, r1, c2.b, c2.a	;r1.a = 4*(Ax+B)
+mad			r0.rgb, c1, r0, c0		;r0 = N.L*Diff+Amb
++mul_x4		r1.a, r1.a, r1.a		;r1.a = 4*(4*(Ax+B)^2) ~= N.H^n
+mul			r0.rgb, r0, t0			;r0 = (N.L*Diff+Amb)*Tex
++mul		r0.a, r0.a, r1.a		;r0.a = N.L*N.H^n
+mad_x2		r0.rgb, r1, r0.a, r0	;r0 = N.L*N.H^n*Att*Amask + Tex*(N.L*Diff+Amb)
++mov		r0.a, t0.a
+

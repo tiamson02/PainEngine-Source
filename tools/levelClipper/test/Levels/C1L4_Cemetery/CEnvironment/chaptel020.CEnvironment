@@ -1,0 +1,8 @@
+o.DirLight.FadeTime = 0.2
+o.BaseObj = "CEnvironment"
+o.Size.Height = 4.00588
+o.Size.Depth = 21.7698
+o.Size.Width = 4.19293
+o.Ambient.Color = Color:New(28,29,38,0)
+o.Ambient.Overwrite = true
+o.Pos = Vector:New(-52.3081,-22.2425,-63.0106)

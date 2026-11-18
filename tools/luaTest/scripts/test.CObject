@@ -1,0 +1,5 @@
+o.Name = "Goober"
+o.value1 = 17
+o.value2 = 3.14159
+o.pos = {4, 3, 1}
+o.cheeseCurds = true

@@ -1,0 +1,3 @@
+o.Rot = Quaternion:New(0.955366,0,0.295425,0)
+o.BaseObj = "cemetarymist.CParticleFX"
+o.Pos = Vector:New(-25.5882,-16.098,-8.99152)

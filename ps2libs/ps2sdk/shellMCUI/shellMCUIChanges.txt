@@ -1,0 +1,28 @@
+shellMCUI history of changes
+----------------------------
+
+Version 2.0.0 (2004/02/25)
+--------------------------
+
+All documentation for the PS2Shell project is now distributed in a single 
+package 'PS2ShellManualVxxx'. The shellMCUI documentation has been removed 
+from this package. 
+
+
+Version 1.2.4 (2003/09/04)
+--------------------------
+
+Added corrupt save detection; attempting to load a corrupt file now results 
+in a "Load Failed" message flag. The detection technique is described in the
+"Corrupt Save Detection" section of the Shell Memory Card UI Module Users
+Manual.
+
+Parameter freeSpaceToDisplay added to ShellMCUIOutputs structure. This 
+parameter should be used when displaying memory card free space to the user.
+
+
+Version 1.2.0 (2002/12/11)
+--------------------------
+
+First version released
+

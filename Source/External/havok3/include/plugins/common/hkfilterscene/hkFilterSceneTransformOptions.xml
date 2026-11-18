@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file>
+	<product>ALL</product>
+	<visibility>CLIENT</visibility>
+	<class>
+		<name>hkFilterSceneTransformOptions</name>
+		<description>Describes delta compression settings</description>	
+		<enum>
+			<name>Preset</name>
+			<item>IDENTITY</item>
+			<item>MIRROR_X</item>
+			<item>MIRROR_Y</item>
+			<item>MIRROR_Z</item>
+			<item>SCALE_FEET_TO_METERS</item>
+			<item>SCALE_INCHES_TO_METERS</item>
+			<item>SCALE_CMS_TO_METERS</item>
+			<item>CUSTOM</item>
+			<item>PRESET_MAX_ID</item>
+		</enum>
+				
+		<!-- Options for this filter -->
+		<member>
+			<name>preset</name>
+			<description>Chosen transformation preset</description>
+			<type>enum Preset</type>
+			<default>IDENTITY</default>
+		</member>
+		
+		<member>
+			<name>applyToNodes</name>
+			<description>Should we apply this transformation to scene graph nodes</description>
+			<type>hkBool</type>
+			<default>true</default>
+		</member>
+
+		<member>
+			<name>applyToBuffers</name>
+			<description>Should we apply this transformation to vertex buffers</description>
+			<type>hkBool</type>
+			<default>true</default>
+		</member>
+
+		<member>
+			<name>applyToLights</name>
+			<description>Should we apply this transformation to lights</description>
+			<type>hkBool</type>
+			<default>true</default>
+		</member>
+		
+		<member>
+			<name>applyToCameras</name>
+			<description>Should we apply this transformation to cameras</description>
+			<type>hkBool</type>
+			<default>true</default>
+		</member>
+						
+		<member>
+			<name>flipWinding</name>
+			<description>Should we flip index buffer winding</description>
+			<type>hkBool</type>
+			<default>false</default>
+		</member>
+
+		<member>
+			<name>matrix</name>
+			<description>The transform to apply</description>
+			<type>hkMatrix4</type>			
+		</member>		
+	</class>
+</file>

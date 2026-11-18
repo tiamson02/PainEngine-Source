@@ -1,0 +1,4 @@
+o.Rot = Quaternion:New(0.999825,0,0,0.0187125)
+o.Frozen = true
+o.BaseObj = "CheckPoint.CItem"
+o.Pos = Vector:New(-55.381,-23.6466,26.1525)

@@ -1,0 +1,2 @@
+o.BaseObj = "Cykady.CSound"
+o.Pos = Vector:New(15.4961,-22.7705,55.0278)

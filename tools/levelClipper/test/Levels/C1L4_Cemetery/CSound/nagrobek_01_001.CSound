@@ -1,0 +1,6 @@
+o.Volume = 40
+o.Falloff.Start = 5
+o.Falloff.End = 40
+o.Interval = 14
+o.BaseObj = "nagrobek_01.CSound"
+o.Pos = Vector:New(-74.55,-23.894,17.4791)

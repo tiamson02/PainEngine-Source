@@ -1,0 +1,7 @@
+o.BaseObj = "AmbushForPlayer.CBox"
+o.Size.Depth = 3.65944
+o.Size.Width = 8.8769
+o.Frozen = true
+o.TouchAction[1] = "Open:Slab_006"
+o.TouchAction[2] = "Open:Slab_007"
+o.Pos = Vector:New(-16.3804,-22.2909,39.7383)

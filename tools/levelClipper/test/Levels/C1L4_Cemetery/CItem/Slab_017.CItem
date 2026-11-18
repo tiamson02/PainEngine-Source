@@ -1,0 +1,4 @@
+o.Scale = 0.24
+o.ObjOwner = "PlayerTmp107155"
+o.BaseObj = "Slab.CItem"
+o.Pos = Vector:New(-44.9347,-21.9716,-64.3441)

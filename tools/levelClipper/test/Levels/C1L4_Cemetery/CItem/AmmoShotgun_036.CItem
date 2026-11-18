@@ -1,0 +1,4 @@
+o.takeDistance = 2.8
+o.Pos = Vector:New(19.2821,-22.8405,19.4243)
+o.BaseObj = "AmmoShotgun.CItem"
+o.Rot = Quaternion:New(0.0351247,0.00519665,-0.999369,0.000811271)

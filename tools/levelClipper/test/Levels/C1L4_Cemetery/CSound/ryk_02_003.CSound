@@ -1,0 +1,4 @@
+o.Falloff.End = 15
+o.Interval = 12
+o.BaseObj = "ryk_02.CSound"
+o.Pos = Vector:New(-48.3788,-23.6238,-44.4407)

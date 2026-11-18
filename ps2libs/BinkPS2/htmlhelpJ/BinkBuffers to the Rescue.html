@@ -1,0 +1,33 @@
+<!-- This page was created with the RAD auto-doc generator. -->
+<!doctype html public "-//w3c//dtd html 3.2 final//en">
+<html>
+<head>
+<title>BinkBuffer による解決</title>
+<meta http-equiv="content-type" content="text/html; charset=shift_jis">
+<meta name="ms.locale" content="en-us">
+<meta name="description" content="">
+<meta name="ms-hkwd" content="BinkBuffer による解決">
+<link rel="stylesheet" title="default" href="reference.css" type="text/css" media="screen">
+</head>
+<body topmargin="0">
+<table cellspacing=0 cellpadding=0 class=bar width=100% height=25>
+<tr class=bar>
+<td class=bar>
+<i>&nbsp;<a href="index.html" class=trn>Bink SDK 1.8b</a></i>
+</td>
+</tr>
+</table>
+<h1>BinkBuffer による解決</h1>
+<h4>説明</h4>
+<p>では、どの技術を使用すればよいのでしょうか。Bink に組み込まれたソフトウェア、オーバーレイ、オフスクリーン バッファのどれでしょうか。この選択で迷った場合のために、Bink には BinkBuffer API があります。BinkBuffer によって DirectDraw の複雑さが隠され、異なる色空間の間の切り替えが簡単になります。Bink プレイヤー、サンプル ExamW32.C、サンプル ExamMSS.C は、いずれも BinkBuffer API を使用することによって簡単に Bink フレームを表示しています。</p><p>しかし、BinkBuffer API はかなり高レベルなので、すでに DirectDraw をアプリケーションで実行している場合は、BinkBuffer を完全にスキップし、内部の Bink ソフトウェア ルーチンを使用してプライマリ サーフェスまたはセカンダリ サーフェスに直接変換することをお勧めします。この種類の再生のサンプルについては、ExamDDP.C file を参照してください。</p><p>また、3D システムがアクティブな場合は BinkBuffer API を使用しないように注意してください。BinkBuffer API は比較的新しい 3D カードでは作動しますが、古いカード (または古いドライバ) では 2D データを 3D ウィンドウにブリットできないので、画面が表示されません。</p>
+<p><a href="Sound%20under%20Win32.html">次の項目 (Win32 でのサウンド)</a>  </p><p><a href="Pros%20and%20Cons%20of%20YUVkjct5t.html">前の項目 (Win32 での YUV オフスクリーン バッファの利点と欠点)</a>  </p><p>
+<br>
+<b>グループ:</b> <a href="The%20Win32%20Platform.html">Win32 プラットフォーム</a></p>
+<p align=center>
+<a href="mailto:Bink3@radgametools.com">テクニカル サポート: Bink3@radgametools.com</a>
+<br>
+<a href="http://www.radgametools.com/bnkmain.htm?from=help1.6d">&#169; Copyright 1994-2004 RAD Game Tools, Inc. All Rights Reserved.</a>
+</p>
+<br>
+</body>
+</html>

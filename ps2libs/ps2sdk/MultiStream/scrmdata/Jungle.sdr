@@ -1,0 +1,46 @@
+;*****************************************************************************
+;
+;	File created by SCEA Sound Tool (Windows)
+;
+;*****************************************************************************
+
+JUNGLE (
+	_add
+		.count_delay
+		.count_cycle
+		.count_random
+		.count_wait
+		.step_stone
+		.rico_metal
+		~gate_large
+		.c4
+		.pelican
+		.robo_arm_swing
+		.engine_start
+		~wind_light
+		~wind_blizzard
+		~ship_cargo_amb
+		hidden_14
+		~city_amb
+		hidden_16
+		hidden_17
+		hidden_18
+		hidden_19
+		~jungle_amb
+		.gun
+		hidden_22
+		hidden_23
+		hidden_24
+		hidden_25
+		hidden_26
+		hidden_27
+		hidden_28
+		hidden_29
+		hidden_30
+		hidden_31
+		hidden_32
+		hidden_33
+		hidden_34
+	_endadd
+	)
+

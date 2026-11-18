@@ -1,0 +1,5 @@
+o.Falloff.Start = 3
+o.Falloff.End = 30
+o.Interval = 14
+o.BaseObj = "Szepty.CSound"
+o.Pos = Vector:New(-19.2588,-23.6408,-38.566)

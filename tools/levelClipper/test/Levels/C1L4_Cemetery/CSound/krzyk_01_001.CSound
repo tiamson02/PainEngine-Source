@@ -1,0 +1,4 @@
+o.Volume = 30
+o.Falloff.End = 40
+o.BaseObj = "krzyk_01.CSound"
+o.Pos = Vector:New(41.7909,-27.9025,19.1891)

@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[Loader.vcproj]
+SCC_Aux_Path = "\\pkserver\pkstuff\Vss"
+SCC_Project_Name = "$/Game/Source/Loader", RLODAAAA

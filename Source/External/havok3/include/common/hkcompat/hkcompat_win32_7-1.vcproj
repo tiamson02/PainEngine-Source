@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	ProjectGUID="{A72525A5-573B-48A7-8702-9698484CD4FC}"
+	Name="hkcompat"
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration	Name="Release Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="TRUE"
+			CharacterSet="2">
+			<Tool	Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"				
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool	Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool	Name="VCMIDLTool"/>
+			<Tool	Name="VCPostBuildEventTool"/>
+			<Tool	Name="VCPreBuildEventTool"/>
+			<Tool	Name="VCPreLinkEventTool"/>
+			<Tool	Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool	Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded_dll\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Hybrid Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\hybrid_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\hybrid_multithreaded_dll\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="WIN32,_LIB,STRICT,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Release|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="4"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="4"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="5"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="1"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded_dll\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"				
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Release Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded_dll\hkcompat"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkcompat/hkCompat.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkcompat.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"				
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HAVOK_PHYSICS_ENABLED"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkcompat.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HAVOK_PHYSICS_ENABLED"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkcompat.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+
+	</Configurations>
+	<Files>
+			<File RelativePath=".\hkCompat.cpp">
+	<FileConfiguration Name="debug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="hybrid multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+</File>
+	<File RelativePath=".\hkCompat.h">
+</File>
+	<File RelativePath=".\hkCompat_hk300_hk310.cpp">
+</File>
+	<File RelativePath=".\hkCompat_hk310_hk320.cpp">
+</File>
+	<File RelativePath=".\hkCompat_hk320_hk330a2.cpp">
+</File>
+	<File RelativePath=".\hkCompat_hk330a2_hk330b1.cpp">
+</File>
+	<File RelativePath=".\hkCompat_hk330b1_hk330b2.cpp">
+</File>
+	<File RelativePath=".\hkHavok300Classes.cpp">
+</File>
+	<File RelativePath=".\hkHavok310Classes.cpp">
+</File>
+	<File RelativePath=".\hkHavok320Classes.cpp">
+</File>
+	<File RelativePath=".\hkHavok330a2Classes.cpp">
+</File>
+	<File RelativePath=".\hkHavok330b1Classes.cpp">
+</File>
+
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

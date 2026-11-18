@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	ProjectGUID="{3BAA3C21-6CBD-4ED2-81B4-642A0B6A805B}"
+	Name="hkfilterscene"
+
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration Name="FullDebug|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\fulldebug"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,HK_FULLDEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\fulldebug;..\..\..\..\sdk\lib\win32-net\debug;..\..\..\..\lib\win32-net\fulldebug"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="FullDebug Multithreaded|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\fulldebug_multithreaded"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,HK_FULLDEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\fulldebug_multithreaded;..\..\..\..\sdk\lib\win32-net\debug_multithreaded;..\..\..\..\lib\win32-net\fulldebug_multithreaded"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="FullDebug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\fulldebug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded_dll\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,HK_FULLDEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\fulldebug_multithreaded_dll;..\..\..\..\sdk\lib\win32-net\debug_multithreaded_dll;..\..\..\..\lib\win32-net\fulldebug_multithreaded_dll"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Hybrid Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\hybrid_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\hybrid_multithreaded_dll\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				BrowseInformation="0"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\hybrid_multithreaded_dll;..\..\..\..\lib\win32-net\hybrid_multithreaded_dll"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"
+				StackReserveSize="2000000"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Debug|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\debug"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\debug\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\debug;..\..\..\..\lib\win32-net\debug"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Debug Multithreaded|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\debug_multithreaded"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\debug_multithreaded;..\..\..\..\lib\win32-net\debug_multithreaded"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Debug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\debug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded_dll\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE,HK_DEBUG,"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\debug_multithreaded_dll;..\..\..\..\lib\win32-net\debug_multithreaded_dll"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OUTDIR)/hkfilterscene.dll.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Release|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\release"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\release\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,"
+				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
+				RuntimeLibrary="4"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\release;..\..\..\..\lib\win32-net\release"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(INTDIR)/hkfilterscene.dll.map"
+				SubSystem="2"
+				OptimizeReferences="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Release Multithreaded|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\release_multithreaded"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,"
+				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\release_multithreaded;..\..\..\..\lib\win32-net\release_multithreaded"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(INTDIR)/hkfilterscene.dll.map"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration Name="Release Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\..\bin\win32-net\release_multithreaded_dll"
+			IntermediateDirectory="..\..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded_dll\hkfilterscene"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..,..\..\..\common,..\..\..\physics,..\..\..\animation,..\..\..\..\sdk\include\physics,..\..\..\..\sdk\include\common,..\..\..\..\sdk\include\animation,..\..\..\..\sdk\include\complete,"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,"
+				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkfilterscene/hkFilterScene.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkfilterscene.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="hkbase.lib hkmath.lib hkserialize.lib hkscenedata.lib comctl32.lib shlwapi.lib"
+				OutputFile="$(OUTDIR)\hkfilterscene.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\..\..\sdk\lib\win32-net\release_multithreaded_dll;..\..\..\..\lib\win32-net\release_multithreaded_dll"
+				ModuleDefinitionFile="hkfilterscene.def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="TRUE"
+				MapFileName="$(INTDIR)/hkfilterscene.dll.map"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName="$(OUTDIR)\hkfilterscene.dll.tlb"/>
+			<Tool Name="VCPostBuildEventTool" 			 />
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,"
+				Culture="6153"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+			<File RelativePath=".\hkFilterScene.cpp">
+	<FileConfiguration Name="debug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="hybrid multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+</File>
+	<File RelativePath=".\hkFilterScene.def">
+</File>
+	<File RelativePath=".\hkFilterScene.h">
+</File>
+	<File RelativePath=".\hkFilterScene.rc">
+</File>
+	<File RelativePath=".\hkFilterSceneAlterMesh.cpp">
+</File>
+	<File RelativePath=".\hkFilterSceneAlterMesh.h">
+</File>
+	<File RelativePath=".\hkFilterSceneAlterMeshDialog.cpp">
+</File>
+	<File RelativePath=".\hkFilterSceneAlterMeshOptions.h">
+</File>
+	<File RelativePath=".\hkFilterSceneAlterMeshOptionsClass.cpp">
+</File>
+	<File RelativePath=".\hkFilterScenePlatformWriter.cpp">
+</File>
+	<File RelativePath=".\hkFilterScenePlatformWriter.h">
+</File>
+	<File RelativePath=".\hkFilterScenePlatformWriterDialog.cpp">
+</File>
+	<File RelativePath=".\hkFilterScenePlatformWriterOptions.h">
+</File>
+	<File RelativePath=".\hkFilterScenePlatformWriterOptionsClass.cpp">
+</File>
+	<File RelativePath=".\hkFilterSceneRemoveScale.cpp">
+</File>
+	<File RelativePath=".\hkFilterSceneRemoveScale.h">
+</File>
+	<File RelativePath=".\hkFilterSceneTransform.cpp">
+</File>
+	<File RelativePath=".\hkFilterSceneTransform.h">
+</File>
+	<File RelativePath=".\hkFilterSceneTransformDialog.cpp">
+</File>
+	<File RelativePath=".\hkFilterSceneTransformOptions.h">
+</File>
+	<File RelativePath=".\hkFilterSceneTransformOptionsClass.cpp">
+</File>
+
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
+

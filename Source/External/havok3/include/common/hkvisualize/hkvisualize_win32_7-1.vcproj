@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	ProjectGUID="{4FB6A658-4C71-4AB8-B363-1C8EA9B2F6C8}"
+	Name="hkvisualize"
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration	Name="Release Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="TRUE"
+			CharacterSet="2">
+			<Tool	Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"				
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool	Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool	Name="VCMIDLTool"/>
+			<Tool	Name="VCPostBuildEventTool"/>
+			<Tool	Name="VCPreBuildEventTool"/>
+			<Tool	Name="VCPreLinkEventTool"/>
+			<Tool	Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool	Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded_dll\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug_multithreaded\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="FullDebug|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\fulldebug"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\fulldebug\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="_DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_FULLDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Hybrid Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\hybrid_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\hybrid_multithreaded_dll\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Release|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="4"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="4"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="5"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug Multithreaded|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug_multithreaded"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="1"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Debug Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\debug_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\debug_multithreaded_dll\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"				
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="DEBUG,WIN32,_LIB,STRICT,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="2"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG,HK_DEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration	Name="Release Multithreaded DLL|Win32"
+			OutputDirectory="..\..\..\lib\win32-net\release_multithreaded_dll"
+			IntermediateDirectory="..\..\..\obj\win32-net_7-1\havok_2_client\release_multithreaded_dll\hkvisualize"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..,..\..\..\sdk\include\physics,..\..\..\sdk\include\common,..\..\..\sdk\include\animation,..\..\..\sdk\include\complete,"
+				RuntimeTypeInfo="FALSE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="hkvisualize/hkVisualize.h"
+				PrecompiledHeaderFile="$(INTDIR)\hkvisualize.pch"
+				AssemblerListingLocation="$(INTDIR)/"
+				ObjectFile="$(INTDIR)/"
+				ProgramDataBaseFileName="$(INTDIR)/"				
+				InlineFunctionExpansion="2"
+				OptimizeForProcessor="2"
+				PreprocessorDefinitions="NDEBUG,WIN32,_LIB,STRICT,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				ExceptionHandling="FALSE"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				WarningLevel="4"
+				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
+				CompileAs="0"/>
+			<Tool Name="VCCustomBuildTool" 			 />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OUTDIR)\hkvisualize.lib"
+				SuppressStartupBanner="TRUE"
+				IgnoreAllDefaultLibraries="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG,HK_DISABLE_VECTOR4_CONSTRUCTORS"
+				Culture="6153"
+				ResourceOutputFileName="$(OUTDIR)\hkvisualize.res"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+
+	</Configurations>
+	<Files>
+			<File RelativePath=".\hkCommandRouter.cpp">
+</File>
+	<File RelativePath=".\hkCommandRouter.h">
+</File>
+	<File RelativePath=".\hkDebugDisplay.cpp">
+</File>
+	<File RelativePath=".\hkDebugDisplay.h">
+</File>
+	<File RelativePath=".\hkDebugDisplayHandler.h">
+</File>
+	<File RelativePath=".\hkDrawUtil.cpp">
+</File>
+	<File RelativePath=".\hkDrawUtil.h">
+</File>
+	<File RelativePath=".\hkProcess.h">
+</File>
+	<File RelativePath=".\hkProcessContext.h">
+</File>
+	<File RelativePath=".\hkProcessFactory.cpp">
+</File>
+	<File RelativePath=".\hkProcessFactory.h">
+</File>
+	<File RelativePath=".\hkProcessHandler.h">
+</File>
+	<File RelativePath=".\hkProcessRegisterUtil.cpp">
+</File>
+	<File RelativePath=".\hkProcessRegisterUtil.h">
+</File>
+	<File RelativePath=".\hkServerDebugDisplayHandler.cpp">
+</File>
+	<File RelativePath=".\hkServerDebugDisplayHandler.h">
+</File>
+	<File RelativePath=".\hkServerProcessHandler.cpp">
+</File>
+	<File RelativePath=".\hkServerProcessHandler.h">
+</File>
+	<File RelativePath=".\hkVersionReporter.cpp">
+</File>
+	<File RelativePath=".\hkVersionReporter.h">
+</File>
+	<File RelativePath=".\hkVisualDebugger.cpp">
+</File>
+	<File RelativePath=".\hkVisualDebugger.h">
+</File>
+	<File RelativePath=".\hkVisualDebuggerDebugOutput.cpp">
+</File>
+	<File RelativePath=".\hkVisualDebuggerDebugOutput.h">
+</File>
+	<File RelativePath=".\hkVisualize.cpp">
+	<FileConfiguration Name="debug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="fulldebug multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="release multithreaded|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="hybrid multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+	<FileConfiguration Name="debug multithreaded dll|Win32"> 
+		<Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1"/>
+	</FileConfiguration>
+</File>
+	<File RelativePath=".\hkVisualize.h">
+</File>
+	<Filter Name="process" Filter="">
+	<File RelativePath=".\process\hkDebugDisplayProcess.cpp">
+</File>
+	<File RelativePath=".\process\hkDebugDisplayProcess.h">
+</File>
+	<File RelativePath=".\process\hkInspectProcess.cpp">
+</File>
+	<File RelativePath=".\process\hkInspectProcess.h">
+</File>
+	<File RelativePath=".\process\hkStatisticsProcess.cpp">
+</File>
+	<File RelativePath=".\process\hkStatisticsProcess.h">
+</File>
+	</Filter>
+	<Filter Name="serialize" Filter="">
+	<File RelativePath=".\serialize\hkDisplaySerializeIStream.cpp">
+</File>
+	<File RelativePath=".\serialize\hkDisplaySerializeIStream.h">
+</File>
+	<File RelativePath=".\serialize\hkDisplaySerializeOStream.cpp">
+</File>
+	<File RelativePath=".\serialize\hkDisplaySerializeOStream.h">
+</File>
+	<File RelativePath=".\serialize\hkObjectSerialize.cpp">
+</File>
+	<File RelativePath=".\serialize\hkObjectSerialize.h">
+</File>
+	<File RelativePath=".\serialize\hkObjectSerializeRegistry.cpp">
+</File>
+	<File RelativePath=".\serialize\hkObjectSerializeRegistry.h">
+</File>
+	</Filter>
+	<Filter Name="shape" Filter="">
+	<File RelativePath=".\shape\hkDisplayAABB.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayAABB.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayBox.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayBox.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayCapsule.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayCapsule.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayCone.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayCone.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayConvex.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayConvex.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayCylinder.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayCylinder.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayGeometry.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayGeometry.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayGeometry.inl">
+</File>
+	<File RelativePath=".\shape\hkDisplayGeometryTypes.h">
+</File>
+	<File RelativePath=".\shape\hkDisplayPlane.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplayPlane.h">
+</File>
+	<File RelativePath=".\shape\hkDisplaySemiCircle.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplaySemiCircle.h">
+</File>
+	<File RelativePath=".\shape\hkDisplaySphere.cpp">
+</File>
+	<File RelativePath=".\shape\hkDisplaySphere.h">
+</File>
+	</Filter>
+	<Filter Name="type" Filter="">
+	<File RelativePath=".\type\hkColor.cpp">
+</File>
+	<File RelativePath=".\type\hkColor.h">
+</File>
+	<File RelativePath=".\type\hkKeyboard.h">
+</File>
+	</Filter>
+
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

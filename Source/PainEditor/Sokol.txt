@@ -1,0 +1,189 @@
+HASLO:  DEV/PCF     (Xtreme Toolkit)
+Marek: 632 76 75
+Klaudiusz: 446 92 42
+
+
+http://doris.sourceforge.net/lua/weblua.php
+http://www.acc.umu.se/~arvid/luabind/
+
+http://www.renderware.com/sales_sheets/abstract_ai_white_paper.pdf
+http://ogre.sourceforge.net - LOD i animacja szkieletowa z blendingiem, particle, pliki, occlude, pamiec
+
+AI z GDC:
+http://www.gamasutra.com/gdc2003/features/20030307/leonard_01.htm
+http://www.base-sixteen.com/Navigation/
+
+DEMO:
++ lepsza krew i decale pod nogami - czesciej + fizyka i plamy przy kolizji
++ efekty pod nogi
++ znikanie obiektow fizycznych
+
++ kurz do rozwalania obiektow fizycznych
++ nun z particalmi
++ wywalic oczy od evila
++ swiatlo do wybuchu granatu
++ wziac nowe wersje particli i pozycje broni
+- pulsowanie FOVa kamery przy obrywaniu
+- coronas do efektow i podpinania pod kosci - jakis przyklad
+- komentarze playera - jak w duke'u
+- krew od wybuchow
+
+- tylko jedno swiatlo dla wybuchow .. sprawdzic czy jest taki obiekt, jezeli jeszcze
+                                      jest to uzyc go ponownie
+- impulsy dla obiektow
+- plonace beczki
+
+- MANAGER DANYCH - teraz jest masakra bo kazdy kamyczek laduje sie od nowa
+  dlatego lua zwalnia, bo wszytsko sie laduje z jej poziomu
+  (modele, animacje, particle, meshe, decale, dzwieki, tworzone sa obiekty fizyczne, sciezki, trace itd)
+
+- optymalizacje na levelu ze stress testem
+- optymalizacja particli
+
+OPTYMALIZACJA LUA:
++ statyczny malloc
++ przy dodawaniu obiektow pbudowac liste do tickowania, updatu i rendera
+  tylko dla obiektow ktore te funkcje maja zaimplementowane
+  wtedy WObjects nie bedzie w ogole potrzebna
++ moze sprobowac statyczne L w wywolaniach funckji EngineToLua
+
+-------------------------------------------------------------------------------------
+PROJEKT:
+- przeniesienie Base.dll do enginu
+- uproszczenie architektury (wywalenie game...) prawdziwy klient/server
+- manager pamieci
+- manager danych
+- manager enttities
+
+EDYTOR:
+- lista entities w swiecie
+- okienko properties z xtreme toolkit + odswiezanie wartosci przy zmianie
+  (moze zrezygnowac z podgladu funkcji i play i stop - zostawie tylko reload obiektu
+   i savowanie)   
+- SAVE ALL - dla levelu (przy stopie logiki)
+- debugger do lua
+- edytor i kreator templetow
+  (jaka nazwa, z jakiej klasy, do jakiej grupy ma nalezec, i jakie wlasciwosci ma ustawiac)
+- nowe okno/dialog do tworzenia obiektow
+  laczenie z templateami + parametry poczatkowe
+  ala wizard??? ale lepiej gdyby to bylo na jednym dialogu ...
+- edytor modeli i efektow graficznych z udzwiekowianiem i slotami CAction
+
+LOGIKA:
+- zmienic system templatow  Klasa->Template->ObiektWlevelu
+- ZMIENC SPOSOB ZAPISU TABLIC BEZ ["nazwa"] z {}
+- zrobienie wspolnej obslugi fizyki dla wszytskich klas
+- rejestrowanie neteventow i automatyczne ich odpalanie
++ poprawiona kolekcja obiektow (Array, pogrupowane, z tickiem / bez itp)
+- wyprobowac coroutines
+
+NA POZNIEJ / OPTYMALIZACJE:
+- moze zamiast animowac cala hierarchie szkieletu za kazdym razem to
+  lepiej zrobic preproces z wyliczeniem szkieletow dla 15/10fpsow i
+  interpolowac miedzy nimi
+- kompresja wszystkich tekstur do dds'ow - oraz przeskalowanie (particle,bronie,modele,itemy)...
+- lod do postaci, laczenie animacji
+- efekty graficzne i fizyczne (particle,decale,szyby, woda, mgla, niebo, cienie, projektory itp itd)
+- uporzadkowanie zarzadzania obiektami + serializacja (takze do mulitplayera)
+- save game
+- system plikow
+- cache i memory manager
+
+LOCALIZATION KIT:
+- fonts (description (unicode,uv,file) + textures)
+- text identificators file
+  GAME_OVER = "Game Over"
+- textures to swap (logos..)
+
+==================================================================
+-- NOWA ARCHITEKTURA
+==================================================================
+
+Engine:
+ Base:
+   Common Classes / Utils (DynArray, Hash ...)
+   Math   
+   File System
+   Memory/Cache manager
+   Log, Profiler
+
+ Renderer:
+   Direc3D RenderLib
+   Material System
+   Lighting System (Lights,Projectors,Coronas,Shadows,Volumetrics,Fog)   
+   Particle System (only emitter)
+
+ World:
+  Map (loader, zones, portals ...)
+  Pathfinder
+  Entities Classes (dziedziczace po CacheObj i Entity, z opisem wlasciwosci do serializacji)   
+  {
+    -- entities posiadaja dwie metody, jedna  do zaladowania reprezentacji logicznej, a druga do graficznej
+    Mesh
+    Model
+    Player <-> on bedzie mogl sie synchronizowac w dwie strony (serializacja)
+    Light
+    ParticleFX
+    Decal
+  }
+  Entities Manager (lista i podlisty zyjacych obiektow, tworzenie nowych i zabijanie obiektow)
+                   (obiekty moga byc zalezne lub niezalezne od mapy)
+  Save/Load Game State - to raczej w lua, a entities beda swoj stan sejwowaly przez serializacje
+
+
+ Client:
+   Window
+   Viewport
+   Camera
+   Visibility/Scene
+   World Render (Map & Entities)
+
+ Server: (dziala tylko na serwerze, na clientach obiekty sa synchronizowane z servera)
+   Entities update (animacja ragdolli itp)
+   Physics Update
+   Logic Update
+
+ Input System:
+   Timer
+   Keyboard
+   Mouse
+   Pad/Joystick   
+
+ Audio System:
+   Streamed Music
+   2D Samples
+   3D Samples
+   Sound Manager
+   Envoirment Effects, occluder
+
+ GUI/HUD:
+   Font System
+   Menu System
+   Console
+   AVI player
+
+    
+ Physics:
+  - PhysicsObject:
+     SimplyObject
+     Mesh
+     Player
+     Monster
+     Ragdoll     
+     Vehicle
+     SoftBodies
+  - constraints
+  - FX: water, wind, earthquake  ...
+
+ Scripting:
+  Lua wrapper
+  EngineToLua Proxy
+
+ Multiplayer:
+  core net library
+  messages system (priorytety, kolejkowanie, potwierdzenia)
+  world synchronization (na podstawie opisow z serializowanych obiektow)
+
+Editor:
+
+Logic:

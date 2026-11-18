@@ -1,0 +1,6 @@
+ps.1.1
+
+tex t0
+texcoord t1
+sub r0, t1, t0_bias
+

@@ -1,0 +1,5 @@
+o.Rot = Quaternion:New(0.684108,0,0.729381,0)
+o.ObjOwner = "PlayerTmp503268"
+o.Frozen = true
+o.BaseObj = "EndOfLevel.CItem"
+o.Pos = Vector:New(63.3518,-21.4581,18.6345)

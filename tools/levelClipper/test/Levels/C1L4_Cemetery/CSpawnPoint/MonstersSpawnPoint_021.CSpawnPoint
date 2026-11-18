@@ -1,0 +1,7 @@
+o.GroupDelay = 1
+o.SpawnFX = ""
+o.SpawnTemplate = "Banshee_NoScream.CActor"
+o.BaseObj = "MonstersSpawnPoint.CSpawnPoint"
+o.GroupCount = 1
+o.EachDelay = 0.5
+o.Pos = Vector:New(-75.422,-23.3201,24.5842)

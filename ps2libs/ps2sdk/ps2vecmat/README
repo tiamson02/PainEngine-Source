@@ -1,0 +1,262 @@
+-------------------------------------------------------------------------------
+
+             Copyright (C) 2003 Sony Computer Entertainment America
+                              All Rights Reserved                              
+                               SCEA Confidential                          
+
+                     README for ps2 vector/matrix classes
+		
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+  Introduction:
+-------------------------------------------------------------------------------
+
+  This project contains C++ classes for 3d and 4d vector math using VU0, based 
+  on the vector classes included with the ps2stuff project.  They use compiler 
+  intrinsics instead of inline assembly, supported by GCC 3.2.  CodeWarrior 
+  R3.5 Compiler 3.0.1 (in beta) supports the same syntax, but has not been 
+  tested with this code.  An SN Systems version using intrinsics is also 
+  planned -- changes may be necessary for their intrinsics syntax.
+  
+  Example:
+    
+    #include "ps2_vector.h"
+    ...
+    
+    vec_xyz axyz, bxyz, cxyz;         // vec_xyz also typedef'ed to vec_3
+    float f;
+    
+    axyz.set(1.0f, 2.0f, 3.0f);       // axyz = (1, 2, 3)
+    bxyz.set(4.0f);                   // bxyz = (4, 4, 4)
+    cxyz = axyz + bxyz;               // add vectors
+    cxyz = axyz - bxyz;               // subtract vectors
+    f = axyz.dot(bxyz);               // dot product
+    cxyz = axyz.cross(bxyz);          // cross product
+    cxyz = -axyz;                     // negate
+    cxyz = axyz * 5.0f;               // scale by 5
+    cxyz = axyz * bxyz.get_y();       // scale axyz by y element of bxyz
+    cxyz = axyz.normalized();         // return normalized axyz
+    axyz.normalize();                 // normalize axyz
+
+-------------------------------------------------------------------------------
+  Vectors:
+-------------------------------------------------------------------------------
+  
+  The main classes are:
+  
+    vec_xyz (vec_3): 3d vector
+    vec_xyzw (vec_4): 4d vector
+    
+  Arithmetic operators +, -, * are defined between vectors of the same type.
+    
+  Note: '*' means 'vmul', not dot or cross product (use .dot() or .cross())
+  
+  Operators +, -, *, / are also defined as broadcast operations with a scalar 
+  right hand side:
+  
+    cxyz = axyz / bxyz.get_z();       // divide axyz by z element of bxyz
+
+  When mixing types:
+  
+  You can only cast to (construct) a vector with fewer elements.
+  
+    vec_xyzw xyzw;
+    vec_xyz  xyz;
+    
+    xyz = vec_xyz(xyzw);   // ok -- construct vec_xyz with x,y,z of vec_xyzw
+    xyzw = vec_xyzw(xyz);  // error -- too few elements to set entire vector
+
+  You can construct a vector from a scalar which broadcasts the value.
+  
+    xyz = vec_xyz( 3.0f );          // xyz = (3,3,3)
+    xyz = vec_xyz( xyzw.get_w() );  // xyz = (xyzw.w,xyzw.w,xyzw.w)
+    
+  You can only assign to a vector with more elements.
+  
+    xyzw = xyz;           // ok -- set x,y,z fields of xyzw
+    xyz = xyzw;           // error -- w field discarded
+    xyz = vec_xyz(xyzw);  // ok -- explicit about loss of w
+
+  Note: the set() methods match the constructors, not assignment.
+
+-------------------------------------------------------------------------------
+  Matrices:
+-------------------------------------------------------------------------------
+
+  The main matrix classes are:
+  
+    mat_33: 3x3 matrix
+    mat_34: 3x4 matrix
+    mat_43: 4x3 matrix
+    mat_44: 4x4 matrix
+
+  Matrix vector multiplies are matrix * vector, thinking of vectors as columns,
+  and coordinate axes as columns of a matrix.
+  
+  Example:
+  
+    #include "ps2_matrix.h"
+    
+    mat_33 M, N;
+    vec_3  a, b, c;
+    
+    M.col0 = a; M.col1 = b; M.col2 = c;    
+    N.set( a, b, c );
+    
+    c = M * a + N * b;
+    
+    M = N.transposed();   // M is assigned a transposed N
+    N.transpose();        // transpose N
+    M = N.inverse();      // M is assigned the inverse of N
+    N.invert();           // invert N
+
+  Note:  We know some people think of vectors as rows, coordinate axes as 
+  rows of a matrix, and operations as vector * matrix.  The data and method 
+  implementations are identical in both cases, it really is just the operand 
+  order that's different.
+
+-------------------------------------------------------------------------------
+  Points, Vectors, and Transforms:
+-------------------------------------------------------------------------------
+
+  point_t and vector_t types distinguish 3d points and vectors.
+
+    point_t  pt;
+    vector_t vec;
+    
+    pt = pt + vec;  // ok -- can add a point and vector
+    pt = pt + pt;   // error -- can't add two points
+    vec = pt - pt;  // ok -- difference of two points is a vector
+
+  Casts between vector_t, point_t and vec_3 shouldn't cost anything - the casts 
+  make a 128-bit copy that the compiler can optimize away.  
+
+  transform_t contains a 3x3 matrix and a translation vector.  Transforming by 
+  a point_t includes the translation, multiplying by a vector_t omits it.
+        
+    vec_xyz xyz;
+    transform_t xfrm;
+      
+    pt = xfrm * pt;     // apply 3x3 matrix and translation
+    vec = xfrm * vec;   // apply 3x3 matrix
+  
+  A multiplication operator with vec_xyz isn't defined, since it's not clear 
+  whether to use the translation.  You could use casts to be specific:
+  
+    xyz = vec_xyz( xfrm * vector_t(xyz) );  // apply 3x3 matrix
+    xyz = vec_xyz( xfrm * point_t(xyz) );   // apply 3x3 matrix and translation
+    
+  However these methods are easier, and let you avoid the vector_t and point_t 
+  types completely:
+  
+    xyz = xfrm.mul_vector(xyz);  // apply 3x3 matrix
+    xyz = xfrm.mul_point(xyz);   // apply 3x3 matrix and translation
+     
+  A transform_t can be inverted assuming an arbitrary 3x3 matrix, or with a 
+  faster routine that assumes the 3x3 matrix is orthogonal (a rotation)
+    
+    xfrm.invert();              // general 3x3
+    xfrm.orthogonal_invert();   // orthogonal 3x3 - faster
+
+  These types can be thought of in terms of homogeneous coordinates: a point_t 
+  is a 4d vector with a last element of 1, a vector_t is a 4d vector with a 
+  last element of 0.  However, the last element is never accessed and is a 
+  random value - methods are all written to assume the 0 or 1 value.  (Casts 
+  from a point_t or vector_t to a vec_4 will set the vec_4's w to a 0 or 1).  
+  Likewise, a transform_t is a 4x4 matrix with a implicit last row of 
+  (0, 0, 0, 1). (A transform_t is technically an 'affine' transform.)  
+  One benefit over general 4x4 matrices is that they can be composed faster.
+    
+-------------------------------------------------------------------------------
+  Single-element types (vec_x, vec_y, vec_z, and vec_w):
+-------------------------------------------------------------------------------
+
+  The plan is that users can mostly ignore these - they're part of the 
+  implementation, but the API doesn't require you refer to these in your code.
+  
+  Like other vectors, they are 128-bit values, but only one field is used.  
+  Math operations with them broadcast that field, using a broadcast 
+  macroinstruction.
+    
+    vec_y   y;
+    vec_xyz xyz;
+    
+    xyz = xyz * y;    // vec_xyz::operator * (vec_y) uses a 'vmuly'
+  
+  They're mostly intended for accessing a particular element of a 3d or 4d 
+  vector:
+
+    cxyz = axyz * vec_y(bxyz);    // scale axyz by y element of bxyz
+
+  The cast doesn't really do anything other than select the desired * method.
+  (The cast is defined as a copy which the compiler can avoid.)
+  
+  The get_?() methods basically do the same thing and return a single-element
+  vector, but the type doesn't have to be mentioned.
+   
+    cxyz = axyz * bxyz.get_y();   // scale axyz by y element of bxyz
+    
+  The result can be treated as a float in most cases, since implicit conversions 
+  between single-element types and floats are defined:
+  
+    float f = bxyz.get_y();       // get y element of bxyz as float
+
+  It's possible that in ambiguous cases the compiler might complain and require 
+  a cast.
+  
+  Also, a set_?() method can take a float, or any single-element type.
+    
+  Note: You can assign a single-element vector to a larger vector (as long as 
+  it has that field), which sets only that field.  On the other hand, if you 
+  construct or set() a vector with a single-element vector, that value is 
+  broadcast to the entire vector.
+
+    xyz = y;              // xyz.y = y
+    xyz = vec_xyz(y);     // xyz = (y,y,y)
+
+-------------------------------------------------------------------------------
+  Core Vectors:
+-------------------------------------------------------------------------------
+  
+  core vector classes use only the EE core.  These are fairly basic at this 
+  point, but they at least help with accessing vectors as floats, since there 
+  are conversions between them:
+
+    #include "core_vector.h"
+
+    // get vec_3 elements.
+    		
+    vec_3      v;
+    core_vec_3 cv;
+    
+    cv = core_vec_3(v);
+    
+    float x = cv.x;
+    float y = cv.y;
+    float z = cv.z;
+  
+  Indexing operators are defined, [] for a reference to a field, () for a copy.
+  You should use them with compile-time constants only, since they use an if 
+  statement to choose the right field (optimized away when the index is 
+  constant).
+  
+  Note: Matrices are indexed as column/row
+
+  #include "core_matrix.h"
+  
+  core_mat_44 M;
+  M[1][2] = 5.0f; // set column 1, row 2
+  
+-------------------------------------------------------------------------------
+  More Information:
+-------------------------------------------------------------------------------
+
+  This release is based on the 'libps2stuff' vector classes created by Tyler 
+  Daniel, and expanded by Eric Larsen and Trevor Smigiel.  
+    
+  The header files contain a few more comments.  For questions, or to report 
+  bugs, contact:
+  
+  eric_larsen@playstation.sony.com
+

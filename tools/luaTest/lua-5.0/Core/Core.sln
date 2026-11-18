@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core.vcproj", "{B0FFC2E0-C826-4D3B-BCB8-0D191D871CD5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Standard", "Standard\Standard.vcproj", "{26EBA30F-055C-46DC-A8B7-9BDB7B23A8DD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compiler", "compiler\compiler.vcproj", "{C2C287E2-4EBC-4091-A29B-9B72C815E2E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "interpreter", "interpreter\interpreter.vcproj", "{B12BA800-B40E-46A9-BEB7-9C6BFFE1A68D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luabind", "luabind\luabind.vcproj", "{E9FCE744-F383-4233-B15D-DD131C4CDF76}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B0FFC2E0-C826-4D3B-BCB8-0D191D871CD5}.Debug.ActiveCfg = Debug|Win32
+		{B0FFC2E0-C826-4D3B-BCB8-0D191D871CD5}.Debug.Build.0 = Debug|Win32
+		{B0FFC2E0-C826-4D3B-BCB8-0D191D871CD5}.Release.ActiveCfg = Release|Win32
+		{B0FFC2E0-C826-4D3B-BCB8-0D191D871CD5}.Release.Build.0 = Release|Win32
+		{26EBA30F-055C-46DC-A8B7-9BDB7B23A8DD}.Debug.ActiveCfg = Debug|Win32
+		{26EBA30F-055C-46DC-A8B7-9BDB7B23A8DD}.Debug.Build.0 = Debug|Win32
+		{26EBA30F-055C-46DC-A8B7-9BDB7B23A8DD}.Release.ActiveCfg = Release|Win32
+		{26EBA30F-055C-46DC-A8B7-9BDB7B23A8DD}.Release.Build.0 = Release|Win32
+		{C2C287E2-4EBC-4091-A29B-9B72C815E2E0}.Debug.ActiveCfg = Debug|Win32
+		{C2C287E2-4EBC-4091-A29B-9B72C815E2E0}.Debug.Build.0 = Debug|Win32
+		{C2C287E2-4EBC-4091-A29B-9B72C815E2E0}.Release.ActiveCfg = Release|Win32
+		{C2C287E2-4EBC-4091-A29B-9B72C815E2E0}.Release.Build.0 = Release|Win32
+		{B12BA800-B40E-46A9-BEB7-9C6BFFE1A68D}.Debug.ActiveCfg = Debug|Win32
+		{B12BA800-B40E-46A9-BEB7-9C6BFFE1A68D}.Debug.Build.0 = Debug|Win32
+		{B12BA800-B40E-46A9-BEB7-9C6BFFE1A68D}.Release.ActiveCfg = Release|Win32
+		{B12BA800-B40E-46A9-BEB7-9C6BFFE1A68D}.Release.Build.0 = Release|Win32
+		{E9FCE744-F383-4233-B15D-DD131C4CDF76}.Debug.ActiveCfg = Debug|Win32
+		{E9FCE744-F383-4233-B15D-DD131C4CDF76}.Debug.Build.0 = Debug|Win32
+		{E9FCE744-F383-4233-B15D-DD131C4CDF76}.Release.ActiveCfg = Release|Win32
+		{E9FCE744-F383-4233-B15D-DD131C4CDF76}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

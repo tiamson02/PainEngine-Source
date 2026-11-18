@@ -1,0 +1,61 @@
+
+July 5 2005
+Transgaming Technologies
+
+Ludovic Nicolle
+Blair Yakimovich
+
+This document is a very short recap of the state of the morphine project at the source/build system level after a couple weeks of early work.
+
+the 'trunk' tree of this subversion repository contains our current changes. No branches have been created/used so far.
+
+
+INITIAL CONFIG
+
+The current setup involves: (psp can replace ps2 where appropriate)
+- Getting the subversion tree
+- Setting up the environment paths:
+
+    source buildscripts/ps2setup
+
+- Calibrating the master makefile to desired build specifications:
+
+    make -f mk/configure.mk OS=PS2DEVKIT COMPILER=GCC3 BUILD=DEBUG
+
+- Building the source:
+
+    make
+
+
+SETUP
+
+The ps2setup script sets up the paths for using the ps2 devtools when they are installed in their 
+default location ( /usr/local/sce ). Those tools are currently in a cvs repository located at 
+cvs.ottawa.transgaming.com:/home/consoledev
+
+The pspsetup script sets up the paths for using the psp devtools when they are installed in their 
+default location ( /usr/local/psp ). The  PSP tools are NOT currently in any source control system but are 
+rather the raw tools from the sony psp-pro.com web site (version 1.7.1 currently) plus the accompanying 
+runtime libraries. They can be found in the following locations:
+
+intranet.toronto.transgaming.com/consoledev/files/Tools/PSP/PainkillerTools/compiler
+intranet.toronto.transgaming.com/consoledev/files/Tools/PSP/PainkillerTools/runtime_libs
+
+
+MAKE SYSTEM
+
+The make system is mostly located in the mk subfolder. Those files are controlled by the make -f command of the 
+initial phase.
+
+There are also empty Makefiles in each of the platforms' specific folders ( i.e. ps2libs/Makefile, psplibs/Makefile ) that are there for future additions of platform specific TransGaming libraries.
+
+An extra file at Source/morphine.source.mk lists the source files to be built for the project, with a general structure 
+for specific flags and include paths. 
+
+
+COMPILATION
+
+A set of header files exist in crosslibs/include, which are currently from the cvs.ottawa.transgaming.com:/home/cvs:winex/include CVS tree. A few changes to support PS2 and PSP have started to be added, but they are not yet complete. Those headers were committed to the svn tree as transactions 22 and 23 on the trunk.
+
+We currently have compilation warnings and issues when hitting the Engine/Engine.cpp file, which is second in compilation order. Other unfixed issues have not been handled yet.
+

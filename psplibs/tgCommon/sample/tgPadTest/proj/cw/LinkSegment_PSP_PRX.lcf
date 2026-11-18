@@ -1,0 +1,236 @@
+#===========================================================================
+#	LinkSegment_PSP_PRX.lcf	©2004 Metrowerks Inc. All rights reserved.
+#===========================================================================
+#		
+#	linker command file for PSP
+#		
+#	02/03/2004	Michi  created for PSP support
+#	06/25/2004	Michi  support PSP Runtime Library 0.3
+#	07/20/2004	Michi  support PRX format
+#	09/28/2004	Michi  support PSP Runtime Library 0.7.0
+#	11/01/2004	Michi  support PSP Runtime Library 0.9.0
+#	11/05/2004	Michi  support PSP Runtime Library 1.0.0
+#		
+#===========================================================================
+
+MEMORY
+{
+	.text			(RX)	: ORIGIN = 0x00000000,	LENGTH = 0x0
+	.sceStub.text	(RX)	: ORIGIN = AFTER(.text),	LENGTH = 0x0
+	.lib.ent.top	(R)		: ORIGIN = AFTER(.sceStub.text),	LENGTH = 0x0
+	.lib.ent		(R)		: ORIGIN = AFTER(.lib.ent.top),	LENGTH = 0x0
+	.lib.ent.btm	(R)		: ORIGIN = AFTER(.lib.ent),	LENGTH = 0x0
+	.lib.stub.top	(R)		: ORIGIN = AFTER(.lib.ent.btm),	LENGTH = 0x0
+	.lib.stub		(R)		: ORIGIN = AFTER(.lib.stub.top),	LENGTH = 0x0
+	.lib.stub.btm	(R)		: ORIGIN = AFTER(.lib.stub),	LENGTH = 0x0
+	.rodata.sceModuleInfo	(R)	: ORIGIN = AFTER(.lib.stub.btm),	LENGTH = 0x0
+	.rodata.sceResident		(R)	: ORIGIN = AFTER(.rodata.sceModuleInfo),	LENGTH = 0x0
+	.rodata.sceNid	(R)		: ORIGIN = AFTER(.rodata.sceResident),	LENGTH = 0x0
+	.rodata.sceVstub	(R)	: ORIGIN = AFTER(.rodata.sceNid),	LENGTH = 0x0
+	.data			(RW)	: ORIGIN = AFTER(.rodata.sceVstub),	LENGTH = 0x0
+	.bss			(RW)	: ORIGIN = AFTER(.data),	LENGTH = 0x0
+}
+
+#FORCE_ACTIVE
+#{
+#}
+
+KEEP_SECTION
+{
+#	.sceStub.text,
+	.lib.ent.top,
+	.lib.ent,
+	.lib.ent.btm,
+	.lib.stub.top,
+#	.lib.stub,
+	.lib.stub.btm,
+	.rodata.sceModuleInfo,
+	.rodata.sceResident,
+	.rodata.sceNid,
+	.rodata.sceVstub,
+	.rodata.sceResident
+}
+
+#REF_INCLUDE
+#{
+
+SECTIONS
+{
+	.text	:
+	{
+		.		= ALIGN(0x10);
+		_ftext	= .;
+		*		(.text)
+	}	>	.text
+
+	.sceStub.text	:
+	{
+		*	(.sceStub.text)
+		*	(.sceStub.text.InterruptManager)
+		*	(.sceStub.text.IoFileMgrForUser)
+		*	(.sceStub.text.Kernel_Library)
+		*	(.sceStub.text.LoadExecForUser)
+		*	(.sceStub.text.ModuleMgrForUser)
+		*	(.sceStub.text.StdioForUser)
+		*	(.sceStub.text.SysMemUserForUser)
+		*	(.sceStub.text.ThreadManForUser)
+		*	(.sceStub.text.UtilsForUser)
+		*	(.sceStub.text.deflt)
+		*	(.sceStub.text.sceAdler)
+		*	(.sceStub.text.sceAtrac3plus)
+		*	(.sceStub.text.sceAudio)
+		*	(.sceStub.text.sceBase64)
+		*	(.sceStub.text.sceCtrl)
+		*	(.sceStub.text.sceDisplay)
+		*	(.sceStub.text.sceDmac)
+		*	(.sceStub.text.sceFpu)
+		*	(.sceStub.text.sceGe_user)
+		*	(.sceStub.text.sceHttp)
+		*	(.sceStub.text.sceLibFont)
+		*	(.sceStub.text.sceMpeg)
+		*	(.sceStub.text.sceMt19937)
+		*	(.sceStub.text.sceNetAdhocMatching)
+		*	(.sceStub.text.sceNetAdhoc)
+		*	(.sceStub.text.sceNetAdhocctl)
+		*	(.sceStub.text.sceNetApDialogDummy)
+		*	(.sceStub.text.sceNetApctl)
+		*	(.sceStub.text.sceNetIfhandle)
+		*	(.sceStub.text.sceNetInet)
+		*	(.sceStub.text.sceNetResolver)
+		*	(.sceStub.text.sceNet)
+		*	(.sceStub.text.sceOpenPSID)
+		*	(.sceStub.text.sceParseHttp)
+		*	(.sceStub.text.sceParseUri)
+		*	(.sceStub.text.scePower)
+		*	(.sceStub.text.scePsmf)
+		*	(.sceStub.text.sceQpCode)
+		*	(.sceStub.text.sceRtc)
+		*	(.sceStub.text.sceSasCore)
+		*	(.sceStub.text.sceSuspendForUser)
+		*	(.sceStub.text.sceUmdUser)
+		*	(.sceStub.text.sceUsb)
+		*	(.sceStub.text.sceUtility)
+		*	(.sceStub.text.sceWlanDrv)
+		_etext	= .;
+		etext	= .;
+	}	>	.sceStub.text
+
+	.lib.ent.top	:
+	{
+		*		(.lib.ent.top)
+	} > .lib.ent.top
+
+	.lib.ent	:
+	{
+		*		(.lib.ent)
+	} > .lib.ent
+
+	.lib.ent.btm	:
+	{
+		*		(.lib.ent.btm)
+	} > .lib.ent.btm
+
+	.lib.stub.top	:
+	{
+		*		(.lib.stub.top)
+	} > .lib.stub.top
+
+	.lib.stub	:
+	{
+		*		(.lib.stub)
+	} > .lib.stub
+
+	.lib.stub.btm	:
+	{
+		*		(.lib.stub.btm)
+	} > .lib.stub.btm
+
+	.rodata.sceModuleInfo	:
+	{
+		*		(.rodata.sceModuleInfo)
+	} > .rodata.sceModuleInfo
+
+	.rodata.sceResident	:
+	{
+		*		(.rodata.sceResident)
+	} > .rodata.sceResident
+
+	.rodata.sceNid	:
+	{
+		*		(.rodata.sceNid)
+	} > .rodata.sceNid
+
+	.rodata.sceVstub	:
+	{
+		*		(.rodata.sceVstub)
+	} > .rodata.sceVstub
+
+	.data	:
+	{
+		.		= ALIGN(0x10);
+		_fdata	= .;
+		
+		# start data section
+		*		(.rodata)
+		*		(.rodata.cst4)
+		*		(.rodata.cst8)
+		*		(.data)
+		*		(.init)
+		__static_init	= .;
+		*		(.ctor)
+		__static_init_end	= .;
+		ALIGNALL(0x4);
+		*		(.vtables)
+		#	exception table
+		.	= ALIGN(0x10);
+		ALIGNALL(0x4);
+		*	(.exception)
+		.	= ALIGN(0x10);
+		__exception_table_start__	= .;
+		ALIGNALL(0x4);
+		EXCEPTION
+		__exception_table_end__	= .;
+		*	(.gcc_except_table)
+
+		.	= ALIGN(0x10);
+		_gp		= ALIGN(0x10) + 0x7FF0;
+		*		(.sdata)
+
+		.	= ALIGN(0x10);
+		# literal
+		LITERAL
+
+		# end data section
+		
+		# align so that size of segment is 16 byte aligned
+		.		= ALIGN(0x10);
+		_edata	= .;
+		edata	= .;
+
+	}	>	.data
+	
+	.bss	:
+	{
+		.		= ALIGN(0x10);
+		_fbss	= .;
+		
+		#	start bss section
+		*		(.sbss)
+		*		(.scommon)
+		*		(SCOMMON)
+		*		(.bss)
+		*		(.common)
+		*		(COMMON)
+		#	end bss section
+		
+		# align so that size of segment is 16 byte aligned
+		.		= ALIGN(0x10);
+		end		= .;
+		_end	= .;
+		
+	}	>	.bss
+}
+
+#===========================================================================
+#	end of lcf
+#===========================================================================

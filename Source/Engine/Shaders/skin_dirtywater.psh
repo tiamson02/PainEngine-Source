@@ -1,0 +1,9 @@
+ps.1.1
+
+tex t0  ; (dirt map)
+tex t1	; (refraction map)
+tex t2	; (reflection map)
+
+lrp r0, v0.a, t2, t1
+mul r0.rgb, r0, v0
+lrp r0, t0.a, t0, r0

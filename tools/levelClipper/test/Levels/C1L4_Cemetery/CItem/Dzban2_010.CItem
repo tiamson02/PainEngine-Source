@@ -1,0 +1,5 @@
+o.Scale = 0.1
+o.Rot = Quaternion:New(-0.710176,-7.08082e-005,0.704025,0.000202413)
+o.ObjOwner = "PlayerTmp603232"
+o.BaseObj = "Dzban2.CItem"
+o.Pos = Vector:New(-43.7245,-23.0851,11.2047)

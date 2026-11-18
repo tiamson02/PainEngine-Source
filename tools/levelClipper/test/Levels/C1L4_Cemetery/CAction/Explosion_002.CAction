@@ -1,0 +1,4 @@
+o.Explosion.Range = 5
+o.Explosion.Strength = 2000
+o.Pos = Vector:New(-53.6156,-20.2122,51.7457)
+o.BaseObj = "Explosion.CAction"
