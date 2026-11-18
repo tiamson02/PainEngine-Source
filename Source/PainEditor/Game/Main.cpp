@@ -143,7 +143,7 @@ void CheckCD()
 	char text[100] = "";
 
 	if( ::strcmp( lang, "Polish" ) == 0 )
-		::strcpy( text, "Proszê w³o¿yæ odpowiedni CD do napêdu" );
+		::strcpy( text, "Proszï¿½ wï¿½oï¿½yï¿½ odpowiedni CD do napï¿½du" );
 	else if( ::strncmp( lang, "Spanish", 7 ) == 0 )
 		::strcpy( text, "Por favor, introduzca el CD-ROM correcto" );
 	else if( ::strncmp( lang, "German", 6 ) == 0 )
@@ -151,7 +151,7 @@ void CheckCD()
 	else if( ::strncmp( lang, "Italian", 7 ) == 0 )
 		::strcpy( text, "Inserire il CD-ROM corretto" );
 	else if( ::strncmp( lang, "French", 6 ) == 0 )
-		::strcpy( text, "Veuillez insérer le CD-ROM approprié" );
+		::strcpy( text, "Veuillez insï¿½rer le CD-ROM appropriï¿½" );
 	else
 		::strcpy( text, "Please insert the correct CD-ROM" );
 
